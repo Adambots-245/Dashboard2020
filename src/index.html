@@ -20,11 +20,7 @@
     <div id="camera2"></div>
     <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
     <article>
-        <div id = "workspace">
-            <button class="command">
-                
-            </button>
-        </div>
+        
         <!-- Example robot diagram, arm moves when encoder value changes -->
         <div id="diagramcontainer">
         <svg id="robot-diagram" width="332" height="450">
@@ -43,6 +39,8 @@
         </svg>
         </div>
     </article>
+    <!--This is where all of our buttons will go-->
+    <div id = "workspace"></div>
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
     <aside>
         <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
@@ -88,7 +86,7 @@
     <script src="ui.js"></script>
     <script src="connection.js"></script>
     <script src="components/multicamera.js"></script>
-    <script src="components/dash245.js"></script>
+    <script src="components/ButtonCommands.js"></script>
 </p>
 
 </html>
