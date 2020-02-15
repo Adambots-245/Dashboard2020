@@ -298,7 +298,15 @@ body.login #login {
     padding: 2px;
 }
 
-
+#ds_outline {
+    border: 1px solid red;
+    width: 1041px;
+    height: 233px;
+    position: fixed;
+    bottom: 0;
+    left: 163px;
+    top: 588px;
+}
 
 .sidebar_values {
     width:100%; border: 5px solid black; border-collapse: collapse;
