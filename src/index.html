@@ -39,8 +39,6 @@
         </svg>
         </div>
     </article>
-    <!--This is where all of our buttons will go-->
-    <div id = "workspace"></div>
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
     <aside>
         <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
@@ -68,7 +66,13 @@
         <div>
             <button val="false" id="toggleFrame" class="toggle">Toggle Frame</button>
         </div>
+        <!--This is where all of our buttons will go-->
+        <div id="widgetsRight"></div>
     </aside>
+
+    <div id="widgetsLeft"></div>
+    <div id="widgetsBar"></div>
+
     <img src="../images/icon.png" id="logo" />
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
