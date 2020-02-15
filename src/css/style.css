@@ -273,13 +273,15 @@ body.login #login {
 }
 
 #sidebar_content {
-    /* display: none; */
+    display: none;
     top: 0;
     left: 0;
     z-index: 200;
     width: 483px;
-    background: blue; /*background: gray;*/  
+    background: rgb(29, 53, 53); /*possibly 11, 20, 20 or 20, 37, 37 and 29, 53, 53 for what background looks like*/
     height: 100%;
+    color: rgb(194, 137, 137);
+    padding: 25px; 
 }
 
 #sidebar_bar {
@@ -287,10 +289,17 @@ body.login #login {
     cursor: pointer;
     width: 12px;
     height: 100%;
-    background: yellow; /*background: red;*/ 
+    background: red; 
     position: absolute;
     top: 0px;
     right: 2px;
     color: black;
     padding: 2px;
+}
+
+.sidebar_values {
+    border: none;
+    color: rgb(114, 106, 106);
+    padding: 5px;
+    height: 100%;
 }

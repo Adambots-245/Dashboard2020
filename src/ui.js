@@ -20,7 +20,8 @@ let ui = {
     armPosition: document.getElementById('arm-position'),
     toggleFrame: document.getElementById("toggleFrame"),
     toast: {},
-    sidebar: document.getElementById("sidebar")
+    sidebar: document.getElementById("sidebar"),
+    sidebar_bar: document.getElementById("sidebar_bar")
 };
 
 
@@ -140,17 +141,19 @@ ui.toggleFrame.onclick = () => {
 
 var sidebarIsOpen = false;
 
-ui.sidebar.onclick = function () {
+ui.sidebar_bar.onclick = function () {
     if (!sidebarIsOpen) {
         //Opens the sidebar
         document.getElementById("sidebar").style.width = "500px";
         document.getElementById("sidebar_bar").innerHTML = "&#9668;";
+        document.getElementById("sidebar_content").style.display = "block";
         sidebarIsOpen = true;
     }
     else {
         //Closes the sidebar
         document.getElementById("sidebar").style.width = "12px";
         document.getElementById("sidebar_bar").innerHTML = "&#9658;";
+        document.getElementById("sidebar_content").style.display = "none";
         sidebarIsOpen = false;
     }
 }
