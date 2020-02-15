@@ -1,14 +1,12 @@
 
 
-var label = new WidgetInterface("label", (key, value) => {
+var label = new Widget("label", "widgetsRight", (key, value) => {
 
-    var elem = document.createElement(`p`);
-    elem = $(elem).addClass("nt_value").html(value);
+    var elem = `<div class="label"><p class="nt_key">${key}</p><br><p class="nt_value">${value}</p></div>`;
 
     return elem;
 
 
 });
 
-label.add("mainbody");
 label.display("Example", "Value");
