@@ -17,11 +17,15 @@ const BrowserWindow = electron.BrowserWindow;
 //Module for keyboard shortcuts
 const globalShortcut = electron.globalShortcut;
 
+//Module for Menu
+const Menu = electron.Menu;
+
 //Module for custom alert popups
 var Alert = require("electron-alert");
 
 //Custom module for saving and loading config
 const Config = require("./components/configuration");
+var config;
 
 /** Module for receiving messages from the BrowserWindow */
 const ipc = electron.ipcMain;
@@ -51,30 +55,67 @@ let clientDataListener = (key, val, valType, mesgType, id, flags) => {
 };
 
 var frame = false; 
+var toggledClose = false;
 
 function toggleFrame() {
+
+    toggledClose = true;
 
     if (!frame) {
         //Add a frame
         frame = true;
+
         const menuTemplate = [
 
             {
-                label: "Layout",
+                label: "File"
+            },
+
+            {
+                label: "Edit"
+            },
+
+            {
+                label: "View"
+            },
+
+            {
+                role: "configuration",
+                label: "Configuration",
                 submenu: [
                     {
-                        role: "Load Config",
+                        role: "loadConfig",
+                        label: "Load Config",
                         click: () => {
-                            
+                            config = Config.get();
+                            //console.log(config);
+
+                            //Add stuff to do with config here
+
                         }
                     },
                     {
-                        role: "Save Config"
+                        role: "saveConfig",
+                        label: "Save Config",
+                        click: () => {
+                            Config.setAll(config);
+                        }
+                    },
+                    {
+                        role: "clearConfig",
+                        label: "Clear Config",
+                        click: () => {
+                            config.setAll({elements:[]});
+                        }
                     }
                 ]
             }
 
         ];
+
+        var menu = Menu.buildFromTemplate(menuTemplate);
+
+
     }
     else {
         //Remove frame
@@ -97,9 +138,11 @@ function toggleFrame() {
 
     newWindow.show();
     newWindow.maximize();
-    newWindow.removeMenu();
     newWindow.flashFrame(true);
     newWindow.loadURL(`file://${__dirname}/index.html`);
+
+    if (frame) newWindow.setMenu(menu);
+    else newWindow.removeMenu();
 
     return newWindow;
 
@@ -217,6 +260,15 @@ function createWindow() {
         console.log('window failed load');
     });
 
+    mainWindow.on("close", (event) => {
+        if (!toggledClose) {
+            event.preventDefault();
+            
+        }
+        toggledClose = false;
+
+    });
+
     globalShortcut.register('f5', function() {
         console.log('f5 is pressed')
         mainWindow.reload()
@@ -281,7 +333,6 @@ ipc.on("toggleFrame", (ev, arg) => {
 */
 ipc.on("addToast", (ev, arg) => {
 
-    console.log("toasted: " + arg.text);
     Alert.fireToast({
         position: "top-end",
         title: arg.text,

@@ -1,9 +1,13 @@
 //Save and obtain table configurations for the dashboard
 const fs = require("fs");
-const configSrc = "../storage/config.json";
+const configSrc = (getDir() + "\\storage\\config.json").replace(/\\/g, "/").replace("components/", "");
+
+
+function getDir() {
+    return __dirname;
+}
 
 function getConfiguration() {
-
 
     try {
         //Gets json file with config settings, and converts into JS object
@@ -22,7 +26,6 @@ function getConfiguration() {
                 {
                     "key": "name",
                     "type": "boolean",
-                    "content": "false",
                     "widget": "none"
                 }
             ]
@@ -31,7 +34,6 @@ function getConfiguration() {
 
    //Where "key" is the key name at which the respective data is stored in the network table (including the path),
    //"type" is the datatype the data is stored as (i.e. boolean, string, number, etc.),
-   //"content" is the last known value of the data,
    //and "widget" is the name (or none) of the widget to use (i.e. gyro chart, speedometer, etc.)
 
    //Returns the array of dashboard elements
@@ -79,5 +81,8 @@ function setConfiguration(path, type, content) {
 
 module.exports = {
     get: getConfiguration,
-    set: setConfiguration
+    set: setConfiguration,
+    setAll: (config) => {
+        fs.writeFileSync(configSrc, JSON.stringify(config));
+    }
 }
