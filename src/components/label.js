@@ -1,6 +1,6 @@
 
 
-var label = new WidgetInterface("label", (key, value) => {
+var label = new Widget("label", (key, value) => {
 
     var elem = document.createElement(`p`);
     elem = $(elem).addClass("nt_value").html(value);

@@ -1,6 +1,10 @@
-//draws buttons
+
+
 init()
 
+/**
+ * This adds buttons for all of the button command stuff in the code.
+ */
 function init() {
     console.log(NetworkTables.getKeys().length);
     
@@ -8,26 +12,31 @@ function init() {
         if (item.startsWith("/SmartDashboard/ButtonCommand/") && item.endsWith("/running")) {
             //name of command to set to a button
             var name = item.substring(30);
-            name = name.substring(0, name.length - 8);            
+            name = name.substring(0, name.length - 8);
 
-            //to add the button
-            document.getElementById("workspace").innerHTML +=`<button class="command" id='${name}'>${name}</button>`;
-            
-            //to be able to click the button, the timeout is there because it 
-            //was going to fast and was making it so only like the last one was clickable
+            var buttonCommand = new Widget(name, "widgetsRight", makeButton);
+            buttonCommand.display(name);
+
             setTimeout(() => {document.getElementById(name).onclick = function() {
-               click(this.id);
+                //toggle check to set on and off
+                if (NetworkTables.getValue("/SmartDashboard/ButtonCommand/" + name + "/running")) {
+                    NetworkTables.putValue("/SmartDashboard/ButtonCommand/" + name + "/running", false);
+                } else {
+                    NetworkTables.putValue("/SmartDashboard/ButtonCommand/" + name + "/running", true);
+                }
             }},100);
+            
         }
     });    
 }
 
-function click(name) {
+/**
+ * Actually makes the button
+ * @param {String} name | The name of the command that will be displayed
+ */
+function makeButton(name) {
+    //document.getElementById("workspace").innerHTML +=`<button class="command" id='${name}'>${name}</button>`;
+        
 
-    //toggle check to turn the command off and on
-    if (NetworkTables.getValue("/SmartDashboard/ButtonCommand/" + name + "/running")) {
-        NetworkTables.putValue("/SmartDashboard/ButtonCommand/" + name + "/running", false);
-    } else {
-        NetworkTables.putValue("/SmartDashboard/ButtonCommand/" + name + "/running", true);
-    }
+    return `<button class="command" id='${name}'>${name}</button>`;
 }
