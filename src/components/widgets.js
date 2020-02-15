@@ -12,6 +12,8 @@ var id = 0;
  */
 function WidgetInterface(name, displayFunc) {
 
+    this.location = "mainbody";
+
     /**
      * Displays the widget.
      * 
@@ -24,10 +26,12 @@ function WidgetInterface(name, displayFunc) {
         var wrapper = $(document.createElement("div")).addClass("nt_container").attr("id", "wrapper" + id);
         elem.wrap(wrapper);
         $("#wrapper" + id).html(`<p class='nt_key'>${key}</p>` + $("#wrapper" + id).html());
+        $("#" + this.location).html($("#wrapper" + id));
     }
 
-    this.add = () => {
+    this.add = (loc) => {
         ui.widgets[name] = this;
+        this.location = loc;
     }
 
 }
