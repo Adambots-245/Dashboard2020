@@ -278,10 +278,11 @@ body.login #login {
     left: 0;
     z-index: 200;
     width: 483px;
-    background: rgb(29, 53, 53); /*possibly 11, 20, 20 or 20, 37, 37 and 29, 53, 53 for what background looks like*/
+    background: rgb(11, 20, 20); /*possibly 11, 20, 20 or 20, 37, 37 and 29, 53, 53 for what background looks like*/
     height: 100%;
     color: rgb(194, 137, 137);
     padding: 25px; 
+    overflow-y: auto;
 }
 
 #sidebar_bar {
@@ -308,16 +309,5 @@ body.login #login {
 }
 
 .sidebar_values {
-    border: none;
-    color: rgb(114, 106, 106);
-    padding: 5px;
-    height: 100%;
-}
-
-#widgetLeft {
-    
-}
-
-#widgetBar {
-
+    width:100%; border: 5px solid black; border-collapse: collapse;
 }
