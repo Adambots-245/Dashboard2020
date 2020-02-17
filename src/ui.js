@@ -97,7 +97,6 @@ let ui = {
     },
     autoSelect: document.getElementById('auto-select'),
     armPosition: document.getElementById('arm-position'),
-    toggleFrame: document.getElementById("toggleFrame"),
     toast: {},
     modal: {},
     sidebar: document.getElementById("sidebar"),
@@ -229,11 +228,6 @@ addEventListener('error', (ev) => {
     ipc.send('windowError', { mesg: ev.message, file: ev.filename, lineNumber: ev.lineno })
 })
 
-ipc.on("receiveFrame", (ev, arg) => {
-
-    ui.toggleFrame.setAttribute("val", arg);
-
-});
 
 var sidebarIsOpen = false;
 
