@@ -79,7 +79,7 @@ function setConfiguration(path, type, content) {
 
 }
 
-module.exports = {
+var config = {
     get: getConfiguration,
     set: setConfiguration,
     setAll: (config) => {

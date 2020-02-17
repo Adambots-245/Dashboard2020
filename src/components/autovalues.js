@@ -1,31 +1,41 @@
 //Autovalues.js retrieves and posts network table values (the ones configured in config.json) to the dashboard
 //It also uses custom widgets whenever specified in the config
 
-//var config = require("./configuration");
+var widgetsRight = new widgetPanel();
+widgetsRight.init("Widgets Right", "widgetsRight");
+
 
 function loadConfig() {
 
     var tables = config.get();
+    var id = 0;
 
 
         tables.forEach((item, index) => {
 
             
-            var targetKey, type, widget;
+            var targetKey, initial, widget, title, location;
 
             targetKey = item.key;
-            type = item.type.toLowerCase();
+            initial = item.initial;
             widget = item.widget.toLowerCase();
+            location = item.location.toLowerCase();
+            title = item.title;
 
             
-        
-                NetworkTables.addKeyListener('/SmartDashboard/' + targetKey, (key, val) => {
+            if (widget == "label" || widget == "none" || !widget) {
+                var lw = new labelWidget();
+                lw.init(title, targetKey);
 
-                    //findWidget(widget, type)(elem, key, val);
-                });
+                if (location == "right") {
+                    widgetsRight.add(lw, initial);
+                }
+            }
         
 
 
         });
 
 }
+
+loadConfig();

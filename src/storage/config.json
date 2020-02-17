@@ -1,10 +1,18 @@
 {
     "elements": [
         {
+            "title": "Example Title",
             "key": "ExampleKey",
-            "type": "string",
-            "location": "",
+            "initial": "example value",
+            "location": "right",
             "widget": "none"
+        },
+        {
+            "title": "Example Title 2",
+            "key": "ExampleTable/ExampleKey2",
+            "initial": "another example value",
+            "location": "right",
+            "widget": "label"
         }
     ]
 }
