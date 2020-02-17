@@ -255,3 +255,13 @@ setTimeout(() => {
         ui.login.button.innerHTML = "Connect (Dev Mode)";
     }
 }, 100);
+
+if (ui.team.inDevMode) {
+    setInterval(() => {
+        document.getElementsByClassName("titlebar")[0].style.transition = "7s ease all";
+        document.getElementsByClassName("titlebar")[0].style.color = "gold";
+        document.getElementsByClassName("window-icon")[0].style.backgroundColor = "gold";
+        document.getElementsByClassName("window-icon")[1].style.backgroundColor = "gold";
+        document.getElementsByClassName("window-icon")[2].style.backgroundColor = "gold";
+    }, 2000);
+}
