@@ -18,7 +18,7 @@ function getMenu() {
             label: "View"
         },
 
-        {
+        /*{
             role: "configuration",
             label: "Configuration",
             submenu: [
@@ -48,7 +48,7 @@ function getMenu() {
                     }
                 }
             ]
-        }
+        }*/
 
     ];
     return menuTemplate;
