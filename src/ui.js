@@ -166,11 +166,24 @@ NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
 ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
 ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
 
+var isRed = false;
 
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
     // We assume here that value is an integer representing the number of seconds left.
-    ui.timer.textContent = value < 0 ? '0:00' : Math.floor(value / 60) + ':' + (value % 60 < 10 ? '0' : '') + value % 60;
+
+    var minutes =  Math.floor(value / 60);
+    var seconds = (value % 60 < 10 ? '0' : '') + value % 60;
+
+    ui.timer.textContent = value < 0 ? '0:00' : minutes + ':' + seconds;
+
+    if (minutes == 0 && !isNaN(seconds) && Number(seconds) <= 30) {
+        //Red flashing text animation
+        if (isRed) $(ui.timer).css("color", "white");
+        else $(ui.timer).css("color", "red");
+
+        isRed = !isRed;
+    }
 });
 
 // Load list of prewritten autonomous modes
@@ -265,3 +278,15 @@ if (ui.team.inDevMode) {
         document.getElementsByClassName("window-icon")[2].style.backgroundColor = "gold";
     }, 2000);
 }
+
+
+
+//Test code for testing the robot match-time clock:
+/*var time = 46;
+
+setInterval(() => {
+
+time -= 1;
+NetworkTables.putValue("/robot/time", time);
+
+}, 1000);*/

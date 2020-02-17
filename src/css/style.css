@@ -71,6 +71,8 @@ aside, article, header {
     font-size: 10vh;
     line-height: .8;
     position: absolute;
+    color: white;
+    transition: 1s ease color;
 }
 header {
     width: 20vw;
