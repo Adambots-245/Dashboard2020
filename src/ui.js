@@ -1,4 +1,83 @@
-// Define UI elements
+//-----------------------Renderer processes------------------------
+
+//Module for Menu
+const Menu = require("electron").remote.Menu;
+
+function getMenu() {
+    const menuTemplate = [
+
+        {
+            label: "File"
+        },
+
+        {
+            label: "Edit"
+        },
+
+        {
+            label: "View"
+        },
+
+        {
+            role: "configuration",
+            label: "Configuration",
+            submenu: [
+                {
+                    role: "loadConfig",
+                    label: "Load Config",
+                    click: () => {
+                        config = Config.get();
+                        //console.log(config);
+
+                        //Add stuff to do with config here
+
+                    }
+                },
+                {
+                    role: "saveConfig",
+                    label: "Save Config",
+                    click: () => {
+                        Config.setAll(config);
+                    }
+                },
+                {
+                    role: "clearConfig",
+                    label: "Clear Config",
+                    click: () => {
+                        config.setAll({elements:[]});
+                    }
+                }
+            ]
+        }
+
+    ];
+    return menuTemplate;
+}
+
+//Module for custom titlebar/menu
+const customTitlebar = require('custom-electron-titlebar');
+
+/**
+ * @type {customTitlebar.Titlebar}
+ */
+var titlebar;
+
+titlebar = new customTitlebar.Titlebar({
+    backgroundColor: customTitlebar.Color.fromHex('#444444'),
+    icon: decodeURIComponent(__dirname).replace(/\\/g, "/").replace("/src", "/images/icon.png"),
+    shadow: true,
+    drag: true,
+    minimizable: true,
+    maximizable: true,
+    closeable: true,
+    titleHorizontalAlignment: "center",
+    menuPosition: "left",
+    menu: Menu.buildFromTemplate(getMenu())
+});
+
+var team = config.getAll().team;
+
+//-------------------------------------Define UI elements----------------------------------------
 let ui = {
     timer: document.getElementById('timer'),
     robotState: document.getElementById('robot-state').firstChild,
@@ -20,8 +99,20 @@ let ui = {
     armPosition: document.getElementById('arm-position'),
     toggleFrame: document.getElementById("toggleFrame"),
     toast: {},
+    modal: {},
     sidebar: document.getElementById("sidebar"),
-    sidebar_bar: document.getElementById("sidebar_bar")
+    sidebar_bar: document.getElementById("sidebar_bar"),
+    login: {
+        box: document.getElementById("connect-address"),
+        button: document.getElementById("connect")
+    },
+    team: {
+        number: team.number,
+        name: team.name,
+        link: team.link,
+        logoElement: document.getElementById("team_logo"),
+        inDevMode: team.devmode
+    }
 };
 
 
@@ -29,6 +120,11 @@ let ui = {
 ui.toast = function ({text, duration, type}) {
     ipc.send("addToast", {text: text, duration: duration, type: type});
 };
+
+//Add modal function:
+ui.modal = function({title, text, type}) {
+    ipc.send("addModal", {title: title, text: text, type: type});
+}
 
 // Key Listeners
 
@@ -70,12 +166,6 @@ NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
 ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
 ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
 
-// This button is just an example of triggering an event on the robot by clicking a button.
-NetworkTables.addKeyListener('/SmartDashboard/example_variable', (key, value) => {
-    // Set class active if value is true and unset it if it is false
-    ui.example.button.classList.toggle('active', value);
-    ui.example.readout.data = 'Value is ' + value;
-});
 
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
@@ -132,13 +222,6 @@ ipc.on("receiveFrame", (ev, arg) => {
 
 });
 
-ui.toggleFrame.onclick = () => {
-
-    ui.toast({text: "Added/Removed Frame.", duration: 3, type: "success"});
-    ipc.send("toggleFrame", "toggle");
-
-}
-
 var sidebarIsOpen = false;
 
 ui.sidebar_bar.onclick = function () {
@@ -146,14 +229,29 @@ ui.sidebar_bar.onclick = function () {
         //Opens the sidebar
         document.getElementById("sidebar").style.width = "500px";
         document.getElementById("sidebar_bar").innerHTML = "&#9668;";
+        document.getElementById("sidebar_content").style.opacity = 1;
         document.getElementById("sidebar_content").style.display = "block";
         sidebarIsOpen = true;
     }
     else {
         //Closes the sidebar
-        document.getElementById("sidebar").style.width = "12px";
+        document.getElementById("sidebar").style.width = "16px";
         document.getElementById("sidebar_bar").innerHTML = "&#9658;";
-        document.getElementById("sidebar_content").style.display = "none";
+        document.getElementById("sidebar_content").style.opacity = 0;
         sidebarIsOpen = false;
     }
 }
+
+ui.team.logoElement.onclick = () => {
+    ui.modal({title: `Team ${ui.team.number}`, text: `Team ${ui.team.number}, ${ui.team.name}.<br>Homepage: ${ui.team.link + "#" + ui.team.number}`, type: "info"});
+}
+
+setTimeout(() => {
+    ui.login.box.value = ui.login.box.value.replace("xxxx", ui.team.number);
+    ui.login.box.setSelectionRange(8, 8 + ui.team.number.toString().length);
+
+    if (ui.team.inDevMode) {
+        ui.login.box.value = "localhost";
+        ui.login.button.innerHTML = "Connect (Dev Mode)";
+    }
+}, 100);

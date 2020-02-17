@@ -10,9 +10,15 @@
         {
             "title": "Example Title 2",
             "key": "ExampleTable/ExampleKey2",
-            "initial": "another example value",
+            "initial": "another example value that is especially long",
             "location": "right",
             "widget": "label"
         }
-    ]
+    ],
+    "team": {
+        "name": "The Adambots",
+        "number": 245,
+        "link": "https://adambots.com/",
+        "devmode": true
+    }
 }

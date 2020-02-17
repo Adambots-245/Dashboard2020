@@ -36,8 +36,8 @@ function getConfiguration() {
    //"type" is the datatype the data is stored as (i.e. boolean, string, number, etc.),
    //and "widget" is the name (or none) of the widget to use (i.e. gyro chart, speedometer, etc.)
 
-   //Returns the array of dashboard elements
-   return config.elements;
+   //Returns the config
+   return config;
 
 }
 
@@ -80,9 +80,10 @@ function setConfiguration(path, type, content) {
 }
 
 var config = {
-    get: getConfiguration,
+    get: () => {return getConfiguration().elements},
     set: setConfiguration,
     setAll: (config) => {
         fs.writeFileSync(configSrc, JSON.stringify(config));
-    }
+    },
+    getAll: getConfiguration
 }

@@ -54,99 +54,7 @@ let clientDataListener = (key, val, valType, mesgType, id, flags) => {
     });
 };
 
-var frame = false; 
-var toggledClose = false;
 
-function toggleFrame() {
-
-    toggledClose = true;
-
-    if (!frame) {
-        //Add a frame
-        frame = true;
-
-        const menuTemplate = [
-
-            {
-                label: "File"
-            },
-
-            {
-                label: "Edit"
-            },
-
-            {
-                label: "View"
-            },
-
-            {
-                role: "configuration",
-                label: "Configuration",
-                submenu: [
-                    {
-                        role: "loadConfig",
-                        label: "Load Config",
-                        click: () => {
-                            config = Config.get();
-                            //console.log(config);
-
-                            //Add stuff to do with config here
-
-                        }
-                    },
-                    {
-                        role: "saveConfig",
-                        label: "Save Config",
-                        click: () => {
-                            Config.setAll(config);
-                        }
-                    },
-                    {
-                        role: "clearConfig",
-                        label: "Clear Config",
-                        click: () => {
-                            config.setAll({elements:[]});
-                        }
-                    }
-                ]
-            }
-
-        ];
-
-        var menu = Menu.buildFromTemplate(menuTemplate);
-
-
-    }
-    else {
-        //Remove frame
-        frame = false;
-    }
-
-    var newWindow = new BrowserWindow({
-        width: 1366,
-        height: 570,
-        frame: frame,
-        // 1366x570 is a good standard height, but you may want to change this to fit your DriverStation's screen better.
-        // It's best if the dashboard takes up as much space as possible without covering the DriverStation application.
-        // The window is closed until the python server is ready
-        show: false,
-        icon: __dirname + '/../images/icon.png',
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
-
-    newWindow.show();
-    newWindow.maximize();
-    newWindow.flashFrame(true);
-    newWindow.loadURL(`file://${__dirname}/index.html`);
-
-    if (frame) newWindow.setMenu(menu);
-    else newWindow.removeMenu();
-
-    return newWindow;
-
-}
 
 function createWindow() {
     // Attempt to connect to the localhost
@@ -261,11 +169,7 @@ function createWindow() {
     });
 
     mainWindow.on("close", (event) => {
-        if (!toggledClose) {
-            event.preventDefault();
-            
-        }
-        toggledClose = false;
+        //Nothing for now
 
     });
 
@@ -340,5 +244,22 @@ ipc.on("addToast", (ev, arg) => {
         showConfirmButton: false,
         timer: arg.duration * 1000
     });
+
+});
+
+/**
+ * Creates a modal popup, where arg is an object {title: a, text: b, type: d}
+ * Where title is a String a, text is a String b, and type is a String d
+*/
+ipc.on("addModal", (ev, arg) => {
+
+    var alert = new Alert();
+    alert.fireFrameless({
+        position: "center",
+        title: arg.title,
+        html: arg.text,
+        type: arg.type,
+        showConfirmButton: true
+    }, null, true, true);
 
 });
