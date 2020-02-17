@@ -1,12 +1,19 @@
-* {
+.container-after-titlebar > * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+.container-after-titlebar {
+    /* A CSS hack to fix position relative to container: */
+    transform: translateX(0) translateY(0);
+    overflow: hidden !important;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
-body {
+body, .container-after-titlebar {
     font: 16px sans-serif;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -43,7 +50,7 @@ input[type="checkbox"] {
     filter: saturate(0);
 }
 /* Major interface panes, aside, article, header, etc. */
-body > * {
+aside, article, header {
     padding: 10px;
     position: fixed;
     overflow: scroll;
@@ -54,23 +61,24 @@ body > * {
     display: block;
     height: 10vh;
     width: 20vw;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 28px;
     font-size: 10vh;
     line-height: .8;
+    position: absolute;
 }
 header {
     width: 20vw;
     height: 20vh;
-    top: 0;
-    left: 15vw;
+    top: 15px;
+    left: 17vw;
     color: white;
 }
 #camera {
     padding: 0;
     position: fixed;
     top: 10vh;
-    left: 1vw;
+    left: 2vw;
     width: 480px/*50vw*/;
     height: 360px/*80vh*/;
     overflow: hidden;
@@ -83,7 +91,7 @@ header {
     padding: 0;
     position: fixed;
     top: 10vh;
-    left: calc(480px + 2vw);
+    left: calc(480px + 2.5vw);
     width: 480px/*50vw*/;
     height: 360px/*80vh*/;
     overflow: hidden;
@@ -130,7 +138,10 @@ text {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 0px;
+    transform: scale(0.8);
+    margin: 0;
+    margin-bottom: -10px;
 }
 #gyro {
     width: 125px;
@@ -169,15 +180,18 @@ text {
     letter-spacing: -1px;
 }
 aside {
-    right: 0;
-    top: 0;
-    width: 12vw;
+    right: 2px;
+    top: 2px;
+    width: 14vw;
     height: 80vh;
     border: 1px solid red;
     z-index: 2;
+    padding: 10px;
 }
 aside > * {
     margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 aside > * > * {
     margin-bottom: 5px;
@@ -193,7 +207,7 @@ aside > * > * {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 4;
+    z-index: 6;
 }
 body.login #login {
     display: flex;
@@ -209,12 +223,31 @@ body.login #login {
 }
 
 
+#team_logo {
+    position: fixed;
+    bottom: 10px;
+    left: 28px;
+    width: 88.5px;
+    height: 88.5px;
+    border-radius: 25px;
+    border: 1px solid brown;
+}
+
 #logo {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 75px;
-    height: 50px;
+    bottom: 108.5px;
+    left: 28px;
+    width: 88.5px;
+    height: 75px;
+    background-color: #111111;
+    padding: 5px;
+    border-radius: 25px;
+    border: 1px solid brown;
+}
+
+#team_logo:hover, #logo:hover {
+    filter: brightness(108%);
+    cursor: pointer;
 }
 
 .header {
@@ -262,27 +295,30 @@ body.login #login {
 #sidebar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 12px;
+    left: 2px;
+    width: 16px;
     height: 100%;
     max-height: 100%;
-    background: red;
+    background: rgb(11, 20, 20);
     padding: 2px;
-    z-index: 200;
+    z-index: 5;
     overflow-y: auto;
+    transition: 0.5s ease width;
 }
 
 #sidebar_content {
     display: none;
+    opacity: 0;
     top: 0;
     left: 0;
     z-index: 200;
-    width: 483px;
+    width: calc(90% - 18px);
     background: rgb(11, 20, 20); /*possibly 11, 20, 20 or 20, 37, 37 and 29, 53, 53 for what background looks like*/
     height: 100%;
     color: rgb(194, 137, 137);
     padding: 25px; 
     overflow-y: auto;
+    transition: 0.5s ease opacity;
 }
 
 #sidebar_bar {
@@ -293,9 +329,10 @@ body.login #login {
     background: red; 
     position: absolute;
     top: 0px;
-    right: 2px;
+    right: 0px;
     color: black;
     padding: 2px;
+    text-align: center;
 }
 
 #ds_outline {
@@ -303,9 +340,9 @@ body.login #login {
     width: 1041px;
     height: 233px;
     position: fixed;
-    bottom: 0;
+    bottom: 3px;
     left: 163px;
-    top: 588px;
+    
 }
 
 .sidebar_values {
@@ -315,15 +352,32 @@ body.login #login {
 
 /** Make the following look better: **/
 .label{
-    border: 1px dotted green;
+    border: 2px solid goldenrod;
+    min-height: 45px;
+    margin-top: 10px;
+    position: relative;
+    padding: 5px;
+    overflow: auto;
+    background-color: #444;
+    border-radius: 10px 10px 0 0;
 }
 
-.label .nt_key{
-    background-color: white;
-    color: black;
-}
-
-.label .nt_value{
+.label > .nt_key{
+    background-color: goldenrod;
     color: white;
+    width: calc(100% - 10px);
+    margin: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
     text-align: center;
+}
+
+.label > .nt_value{
+    color: gold;
+    text-align: center;
+    margin: 0px;
+    width: calc(100% - 10px);
+    padding: 5px;
 }

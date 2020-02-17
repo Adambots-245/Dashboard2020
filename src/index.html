@@ -71,10 +71,7 @@
             <p>Adjust arm height</p>
             <input id="arm-position" type="range" min="0" max="1200" value="0">
         </div>
-        <div>
-            <button val="false" id="toggleFrame" class="toggle">Toggle Frame</button>
-        </div>
-        <!--This is where all of our buttons will go-->
+        <!--This is where some of our smaller widgets will go-->
         <div id="widgetsRight"></div>
     </aside>
 
@@ -82,6 +79,9 @@
     <div id="widgetsBar"></div>
 
     <img src="../images/icon.png" id="logo" />
+    <img src="../images/atom245.png" id="team_logo" />
+
+
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
         <button id="connect" disabled>Connecting</button>
@@ -136,12 +136,12 @@
         });*/
     </script>
     <script src="networktables/networktables.js"></script>
+    <script src="components/configuration.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
     <script src="components/multicamera.js"></script>
     <script src="components/widgetInterface.js"></script>
     <script src="components/widgets.js"></script>
-    <script src="components/configuration.js"></script>
     <!-- Displays Network Tables: -->
     <script src="components/autovalues.js"></script>
 </body>
