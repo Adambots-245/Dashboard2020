@@ -311,3 +311,19 @@ body.login #login {
 .sidebar_values {
     width:100%; border: 5px solid black; border-collapse: collapse;
 }
+
+
+/** Make the following look better: **/
+.label{
+    border: 1px dotted green;
+}
+
+.label .nt_key{
+    background-color: white;
+    color: black;
+}
+
+.label .nt_value{
+    color: white;
+    text-align: center;
+}
