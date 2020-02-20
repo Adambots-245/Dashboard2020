@@ -118,7 +118,7 @@ article {
     height: 100vh;
     width: 35vw;
 }
-svg * {
+#diagramcontainer svg {
     stroke: white;
     fill: #222;
     stroke-width: 2;

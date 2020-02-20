@@ -208,13 +208,13 @@ NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value)
 
 
 // Reset gyro value to 0 on click
-ui.gyro.container.onclick = function () {
+/*ui.gyro.container.onclick = function () {
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
     updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
     ui.toast({text: "Reset Gyro.", duration: 3, type: "success"});
-};
+};*/
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function () {
     NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
@@ -249,9 +249,9 @@ ui.sidebar_bar.onclick = function () {
     }
 }
 
-ui.team.logoElement.onclick = () => {
+/*ui.team.logoElement.onclick = () => {
     ui.modal({title: `Team ${ui.team.number}`, text: `Team ${ui.team.number}, ${ui.team.name}.<br>Homepage: ${ui.team.link + "#" + ui.team.number}`, type: "info"});
-}
+}*/
 
 setTimeout(() => {
     ui.login.box.value = ui.login.box.value.replace("xxxx", ui.team.number);
