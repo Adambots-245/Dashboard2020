@@ -109,7 +109,6 @@ let ui = {
         number: team.number,
         name: team.name,
         link: team.link,
-        logoElement: document.getElementById("team_logo"),
         inDevMode: team.devmode
     }
 };
@@ -128,7 +127,7 @@ ui.modal = function({title, text, type}) {
 // Key Listeners
 
 // Gyro rotation
-let updateGyro = (key, value) => {
+/*let updateGyro = (key, value) => {
     ui.gyro.val = value;
     ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
     ui.gyro.visualVal %= 360;
@@ -139,7 +138,7 @@ let updateGyro = (key, value) => {
     ui.gyro.arm.style.transformOrigin = `50% 50%`;
     ui.gyro.number.textContent = ui.gyro.visualVal + 'º';
 };
-NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);
+NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);*/
 
 // The following case is an example, for a robot with an arm at the front.
 NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
@@ -166,6 +165,7 @@ ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
 ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
 
 var isRed = false;
+var isComplete = false;
 
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
@@ -182,6 +182,14 @@ NetworkTables.addKeyListener('/robot/time', (key, value) => {
         else $(ui.timer).css("color", "red");
 
         isRed = !isRed;
+    }
+    if (seconds == 0 && minutes == 0 && !isComplete) {
+        ui.toast({text: "Match Complete", duration: 3, type: "warning"});
+        isComplete = true;
+    }
+    else if (Number(minutes) >= 2) {
+        isComplete = false;
+        $(ui.timer).css("color", "white");
     }
 });
 
@@ -263,7 +271,7 @@ setTimeout(() => {
     }
 }, 100);
 
-if (ui.team.inDevMode) {
+/*if (ui.team.inDevMode) {
     setTimeout(() => {
         document.getElementsByClassName("titlebar")[0].style.transition = "7s ease all";
         document.getElementsByClassName("titlebar")[0].style.color = "gold";
@@ -271,16 +279,4 @@ if (ui.team.inDevMode) {
         document.getElementsByClassName("window-icon")[1].style.backgroundColor = "gold";
         document.getElementsByClassName("window-icon")[2].style.backgroundColor = "gold";
     }, 2000);
-}
-
-
-
-//Test code for testing the robot match-time clock:
-/*var time = 46;
-
-setInterval(() => {
-
-time -= 1;
-NetworkTables.putValue("/robot/time", time);
-
-}, 1000);*/
+}*/

@@ -25,7 +25,6 @@
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
     <div id="camera"></div>
-    <div id="camera2"></div>
     <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
     <article>
         
@@ -77,13 +76,9 @@
         </div>
         <!--This is where all of our buttons will go-->
         <div id="widgetsRight">
-            <dash-widget id="test1" type="Label" title="Test" data="widgets/test"></dash-widget>
-            <dash-widget id="test2" type="Gyro" title="Gyro" data="widgets/test2"></dash-widget>
+            
         </div>
     </aside>
-
-    <div id="widgetsLeft"></div>
-    <div id="widgetsBar"></div>
 
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
@@ -122,7 +117,7 @@
             <p> &#9658; </p> 
         </div>
     </div>
-    <div id="ds_outline"></div>
+    <!--<div id="ds_outline"></div>-->
 
     <script>
         var $ = require("jquery");
@@ -141,18 +136,14 @@
     <script src="networktables/networktables.js"></script>
     <script src="components/configuration.js"></script>
     <script src="ui.js"></script>
-    <script src="widgets/widget.js"></script>
+    <!--<script src="widgets/widget.js"></script>-->
     <script src="connection.js"></script>
-    <script src="components/multicamera.js"></script>
-    <!--<script src="components/widgets.js"></script>
-    <script src="components/widgetinterface.js"></script>-->
 
     <!-- Widgets: -->
-    <!--<script src="components/label.js"></script>
+    <!--
     <script src="components/ButtonCommands.js"></script>-->
-
-
-    <!-- Displays Network Tables: -->
-    <!--<script src="components/autovalues.js"></script>-->
+    <script src="components/widgets.js"></script>
+    <script src="components/multicamera.js"></script>
+    <!--<script src="components/widgetinterface.js"></script>-->
 </body>
 </html>
