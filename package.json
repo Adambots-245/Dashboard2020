@@ -24,6 +24,7 @@
     "electron-alert": "^0.1.5",
     "es6-interface": "^3.0.9",
     "fs": "0.0.1-security",
+    "handlebars": "^4.7.3",
     "jquery": "^3.4.1",
     "wpilib-nt-client": "^1.7.1"
   },
