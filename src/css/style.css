@@ -320,7 +320,7 @@ body.login #login {
     left: 0;
     z-index: 200;
     width: calc(90% - 18px);
-    background: rgb(11, 20, 20); /*possibly 11, 20, 20 or 20, 37, 37 and 29, 53, 53 for what background looks like*/
+    background: rgb(11, 20, 20); 
     height: 100%;
     color: rgb(194, 137, 137);
     padding: 25px; 
