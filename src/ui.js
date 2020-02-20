@@ -128,18 +128,18 @@ ui.modal = function({title, text, type}) {
 // Key Listeners
 
 // Gyro rotation
-let updateGyro = (key, value) => {
-    ui.gyro.val = value;
-    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
-    ui.gyro.visualVal %= 360;
-    if (ui.gyro.visualVal < 0) {
-        ui.gyro.visualVal += 360;
-    }
-    ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
-    ui.gyro.arm.style.transformOrigin = `50% 50%`;
-    ui.gyro.number.textContent = ui.gyro.visualVal + 'º';
-};
-NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);
+// let updateGyro = (key, value) => {
+//     ui.gyro.val = value;
+//     ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
+//     ui.gyro.visualVal %= 360;
+//     if (ui.gyro.visualVal < 0) {
+//         ui.gyro.visualVal += 360;
+//     }
+//     ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
+//     ui.gyro.arm.style.transformOrigin = `50% 50%`;
+//     ui.gyro.number.textContent = ui.gyro.visualVal + 'º';
+// };
+// NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);
 
 // The following case is an example, for a robot with an arm at the front.
 NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {

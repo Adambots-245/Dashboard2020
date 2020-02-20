@@ -30,6 +30,7 @@
     <article>
         
         <!-- Example robot diagram, arm moves when encoder value changes -->
+        <!--
         <div id="diagramcontainer">
         <svg id="robot-diagram" width="332" height="450">
             <text x="40" y="340">Example SVG Robot Diagram</text>
@@ -45,10 +46,10 @@
             <circle cx="90" cy="90" r="90" style="fill: transparent; stroke:transparent;"></circle>
             <rect id="robot-arm" x="90" y="90" z="-1" width="80" height="13" style="stroke:red; stroke-width:2;"></rect>
         </svg>
-        </div>
+        </div>-->
     </article>
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-    <aside>
+    <div id="widget_box">
         <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
             The <p> below then says the value. -->
         <!-- Gyroscope 
@@ -62,25 +63,38 @@
         </div>
         -->
         <!-- Autonomous selector -->
-        <div class="select-container">
+        <!--<div class="select-container">
             <select id="auto-select">
                 <option>No auto modes found</option>
-                <!-- This gets populated by JS -->
+                This gets populated by JS
             </select>
-        </div>
+        </div> 
         <div>
             <p>Adjust arm height</p>
             <input id="arm-position" type="range" min="0" max="1200" value="0">
         </div>
         <div>
             <button val="false" id="toggleFrame" class="toggle">Toggle Frame</button>
-        </div>
+        </div> -->
         <!--This is where all of our buttons will go-->
         <div id="widgetsRight">
             <dash-widget id="test1" type="Label" title="Test" data="widgets/test"></dash-widget>
             <dash-widget id="test2" type="Gyro" title="Gyro" data="widgets/test2"></dash-widget>
         </div>
-    </aside>
+        <div id="auton_modes">
+            <div id="auton_mode_one" class="auton_modes"> <p>Drive Straight</p></div>
+            <div id="auton_mode_two" class="auton_modes"> <p>Position 1</p></div>
+            <div id="auton_mode_three" class="auton_modes"> <p>Position 2</p></div>
+            <div id="auton_mode_four" class="auton_modes"> <p>Position 3</p></div>
+        </div>
+        <div id="motors_widget">
+            <div id="front_left_motor" class="motors_widget"> <p>Front left motor</p><progress value="0.75"></progress></div>
+            <div id="front_right_motor" class="motors_widget"> <p>Front right motor</p><progress value="0.75"></progress></div>
+            <div id="back_left_motor" class="motors_widget"> <p>Back left motor</p><progress value="0.75"></progress></div>
+            <div id="back_right_motor" class="motors_widget"> <p>Back right motor</p><progress value="0.75"></progress></div>
+            <div id="elevator_motor" class="motors_widget"> <p>Elevator Motor</p><progress value="0.75"></progress></div>
+        </div>
+    </div>
 
     <div id="widgetsLeft"></div>
     <div id="widgetsBar"></div>
@@ -122,7 +136,7 @@
             <p> &#9658; </p> 
         </div>
     </div>
-    <div id="ds_outline"></div>
+  <!--  <div id="ds_outline"></div>-->
 
     <script>
         var $ = require("jquery");

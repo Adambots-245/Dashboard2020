@@ -54,8 +54,8 @@ input[type="checkbox"] {
     -webkit-filter: saturate(0);
     filter: saturate(0);
 }
-/* Major interface panes, aside, article, header, etc. */
-aside, article, header {
+/* Major interface panes, widget_box, article, header, etc. */
+#widget_box, article, header {
     padding: 10px;
     position: fixed;
     overflow: scroll;
@@ -118,20 +118,20 @@ article {
     height: 100vh;
     width: 35vw;
 }
-#diagramcontainer svg {
+/*#diagramcontainer svg {
     stroke: white;
     fill: #222;
     stroke-width: 2;
     -webkit-transform-origin: center;
     -ms-transform-origin: center;
     transform-origin: center;
-}
+}*/
 
-#arm-container {
+/*#arm-container {
     stroke: gray;
     fill: transparent;
     stroke-width: 2;
-}
+}*/
 
 text {
     font-size: 16px;
@@ -186,22 +186,45 @@ text {
     font-size: 28px;
     letter-spacing: -1px;
 }
-aside {
-    right: 2px;
-    top: 2px;
-    width: 14vw;
+#widget_box {
+    position: fixed;
+    left: 38vw;
+    top: 15vh;
+    width: 61vw;
     height: 80vh;
     border: 1px solid red;
     z-index: 2;
     padding: 10px;
 }
-aside > * {
+#widget_box > * {
     margin-bottom: 10px;
     margin-left: 10px;
     margin-right: 10px;
 }
-aside > * > * {
+#widget_box > * > * {
     margin-bottom: 5px;
+}
+#auton_modes {
+    position: fixed;
+    display: inline-block;
+    top: 40vh;
+    left: 60vw;
+}
+.auton_modes {
+    width: 100px;
+    height: 200px;
+    display: inline-block;
+    margin-right: 25px;
+}
+#motors_widget {
+    position: fixed;
+    top: 50vh;
+    left: 60vw;
+}
+.motors_widget {
+    width: 110px;
+    height: 50px;
+    font-size: 14px;
 }
 #login {
     position: fixed;
@@ -388,3 +411,9 @@ body.login #login {
     width: calc(100% - 10px);
     padding: 5px;
 }
+
+dash-widget[type="Gyro"] div {
+    width: 175px;
+    height: 175px;
+}
+
