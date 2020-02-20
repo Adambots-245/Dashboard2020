@@ -108,7 +108,7 @@ header {
     background-repeat: no-repeat;
 }
 
-#camera, #camera2 {
+#camera/*, #camera2*/ {
     background-size: contain;
     z-index: 3;
 }
