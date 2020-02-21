@@ -76,28 +76,63 @@
             <button val="false" id="toggleFrame" class="toggle">Toggle Frame</button>
         </div> -->
         <!--This is where all of our buttons will go-->
-        <div id="widgetsRight">
-            
+        <div id="gyro">
+            <div class="label_container"></div>
         </div>
         <div id="auton_modes">
-            <div id="auton_mode_one" class="auton_modes"> <p>Drive Straight</p></div>
-            <div id="auton_mode_two" class="auton_modes"> <p>Position 1</p></div>
-            <div id="auton_mode_three" class="auton_modes"> <p>Position 2</p></div>
-            <div id="auton_mode_four" class="auton_modes"> <p>Position 3</p></div>
+            <div id="auton_straight" class="auton_mode">
+                <p>Drive Straight</p>
+            </div>
+            <div id="auton_1" class="auton_mode">
+                <p>Position 1</p>
+            </div>
+            <div id="auton_2" class="auton_mode">
+                <p>Position 2</p>
+            </div>
+            <div id="auton_3" class="auton_mode">
+                <p>Position 3</p>
+            </div>
+            <div class="label_container"></div>
         </div>
         <div id="motors_widget">
-            <div id="front_left_motor" class="motors_widget"> <p>Front left motor</p><progress value="0.75"></progress></div>
-            <div id="front_right_motor" class="motors_widget"> <p>Front right motor</p><progress value="0.75"></progress></div>
-            <div id="back_left_motor" class="motors_widget"> <p>Back left motor</p><progress value="0.75"></progress></div>
-            <div id="back_right_motor" class="motors_widget"> <p>Back right motor</p><progress value="0.75"></progress></div>
-            <div id="elevator_motor" class="motors_widget"> <p>Elevator Motor</p><progress value="0.75"></progress></div>
+            <div class="img_container">
+
+            </div>
+            <div class="motors_container">
+                <div id="front_left_motor" class="motor">
+                    <p>Front left motor</p>
+                    <progress value="0.75"></progress>
+                </div>
+                <div id="front_right_motor" class="motor">
+                    <p>Front right motor</p>
+                    <progress value="0.75"></progress>
+                </div>
+                <div id="back_left_motor" class="motor">
+                    <p>Back left motor</p>
+                    <progress value="0.75"></progress>
+                </div>
+                <div id="back_right_motor" class="motor">
+                    <p>Back right motor</p>
+                    <progress value="0.75"></progress>
+                </div>
+                <div id="elevator_motor" class="motor">
+                    <p>Elevator Motor</p>
+                    <progress value="0.75"></progress>
+                </div>
+            </div>
+            <div class="label_container"></div>
         </div>
     </div>
+
+
 
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
         <button id="connect" disabled>Connecting</button>
     </div>
+
+
+
     <div id="sidebar">
         <div id="sidebar_content">
             <table class="sidebar_values">

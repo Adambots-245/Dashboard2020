@@ -141,7 +141,7 @@ ui.modal = function({title, text, type}) {
 NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);*/
 
 // The following case is an example, for a robot with an arm at the front.
-NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
+/*NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
     // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
     if (value > 1200) {
         value = 1200;
@@ -158,11 +158,11 @@ NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
     // Rotate the arm in diagram to match real arm
     ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
     ui.robotDiagram.rotationalsvg.style.transform = `rotate(${armAngle}deg)`;
-});
+});*/
 
 //Set robot arm to initial position
-ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
-ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
+//ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
+//ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
 
 var isRed = false;
 var isComplete = false;
@@ -224,13 +224,13 @@ NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value)
     ui.toast({text: "Reset Gyro.", duration: 3, type: "success"});
 };*/
 // Update NetworkTables when autonomous selector is changed
-ui.autoSelect.onchange = function () {
-    NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
-};
+//ui.autoSelect.onchange = function () {
+//    NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
+//};
 // Get value of arm height slider when it's adjusted
-ui.armPosition.oninput = function () {
-    NetworkTables.putValue('/SmartDashboard/arm/encoder', parseInt(this.value));
-};
+//ui.armPosition.oninput = function () {
+//    NetworkTables.putValue('/SmartDashboard/arm/encoder', parseInt(this.value));
+//};
 
 addEventListener('error', (ev) => {
     ipc.send('windowError', { mesg: ev.message, file: ev.filename, lineNumber: ev.lineno })

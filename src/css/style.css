@@ -1,6 +1,7 @@
 :root {
     --primary-color: goldenrod;
     --secondary-color: #444;
+    --label-color: #333;
 }
 
 .container-after-titlebar > * {
@@ -177,46 +178,7 @@ text {
     font-size: 28px;
     letter-spacing: -1px;
 }
-#widget_box {
-    position: fixed;
-    left: 38vw;
-    top: 15vh;
-    width: 61vw;
-    height: 80vh;
-    border: 1px solid red;
-    z-index: 2;
-    padding: 10px;
-}
-#widget_box > * {
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-#widget_box > * > * {
-    margin-bottom: 5px;
-}
-#auton_modes {
-    position: fixed;
-    display: inline-block;
-    top: 40vh;
-    left: 60vw;
-}
-.auton_modes {
-    width: 100px;
-    height: 200px;
-    display: inline-block;
-    margin-right: 25px;
-}
-#motors_widget {
-    position: fixed;
-    top: 50vh;
-    left: 60vw;
-}
-.motors_widget {
-    width: 110px;
-    height: 50px;
-    font-size: 14px;
-}
+
 #login {
     position: fixed;
     display: none;
@@ -412,40 +374,181 @@ body.login #login {
 }
 
 
-/** Make the following look better: **/
-.label{
-    border: 2px solid goldenrod;
-    min-height: 45px;
-    margin-top: 10px;
+/** Miscellaneous widgets: **/
+
+
+#widget-gyro-frame, #gyro {
+    width: 175px;
+    height: 175px;
     position: relative;
-    padding: 5px;
-    overflow: auto;
-    background-color: #444;
-    border-radius: 10px 10px 0 0;
 }
 
-.label > .nt_key{
-    background-color: goldenrod;
-    color: white;
-    width: calc(100% - 10px);
-    margin: 0px;
+
+#widget_box {
+    position: fixed;
+    left: 510px;
+    top: 15vh;
+    width: 66vw;
+    height: 80vh;
+    border: 1px solid red;
+    z-index: 2;
+    padding: 10px;
+    margin-top: 0px;
+}
+
+#widget_box > * {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    margin-bottom: 50px;
+    margin-left: 10px;
+    position: relative;
+    top: 40px;
+}
+
+#widget_box > * > * {
+    display: inline-block;
+}
+
+#auton_modes {
+    position: relative;
+    height: 175px;
+    width: 45vw;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.auton_mode {
+    width: calc(25% - 4px);
+    height: 100%;
+    position: relative;
+    border: 0.1px solid red;
+}
+
+.auton_mode > p {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#motors_widget {
+    position: relative;
+    height: auto;
+    width: 40vw;
+    box-sizing: border-box;
+    height: 300px;
+}
+
+#motors_widget .img_container {
+    border: 1px solid blue;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(50% - 10px);
+    height: calc(100% - 15px);
+}
+
+#motors_widget .motors_container {
+    border: 1px solid red;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: calc(50% - 15px);
+    height: calc(100% - 15px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.motor {
+    width: 98%;
+    height: auto;
+    font-size: 14px;
+    display: block;
+    border: 1px solid green;
+    margin-bottom: 10px;
+}
+
+.motor > p {
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.motor progress {
+    width: 100%;
+    height: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Progress bar container (gray background part) */
+.motor progress::-webkit-progress-bar {
+    background-color: #666;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
+
+/* Progress bar value (colorful stripes part) */
+.motor progress::-webkit-progress-value {
+    background-image: linear-gradient(to right, orangered, gold);
+  
+      border-radius: 2px;
+  }
+
+.motor progress::before {
+    content: attr(value);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.label-title {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 5px;
+    width: 100%;
+    height: 40px;
+    background: var(--label-color);
+    color: var(--primary-color);
     text-align: center;
+    display: inline-block;
 }
 
-.label > .nt_value{
-    color: gold;
+.label-info {
+    position: absolute;
+    bottom: -50px;
+    right: 3px;
+    width: auto;
+    height: auto;
+    background: none;
+    color: var(--primary-color);
+    display: inline;
+}
+
+.label-title > p {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    color: inherit;
+    font-weight: bold;
+}
+
+.label-info > p {
     text-align: center;
-    margin: 0px;
-    width: calc(100% - 10px);
-    padding: 5px;
+    color: inherit;
+    font-size: 9pt;
 }
 
-dash-widget[type="Gyro"] div {
-    width: 175px;
-    height: 175px;
+.label_container {
+    display: inline-block;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-

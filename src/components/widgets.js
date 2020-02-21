@@ -94,13 +94,40 @@
 
 //--------------------------------Widgets------------------------------\\
 
+// TITLE/INFO LABELS :
+
+function Label(text, type) {
+
+    var elem = `<div class="label-${type}"><p>${text}</p></div>`;
+    this.lastParent = null;
+
+    this.insertTo = (parent) => {
+        this.lastParent = parent;
+        $(parent).find(".label_container")[0].innerHTML = elem;
+        return this;
+    }
+
+    this.addLabel = (label) => {
+        $(this.lastParent).find(".label_container")[0].innerHTML += label.toString();
+        return this;
+    }
+
+    this.toString = () => {
+        return elem;
+    }
+
+}
+
+
+//GYRO :
+
 $.ajax({
     url: `widgets/gyro/gyro.html`,
     cache: true,
     async: false,
     success: function(data) {
       let source    = data;
-        $('#widgetsRight')[0].innerHTML += source;
+        $('#gyro')[0].innerHTML += source;
       
     }               
   });   
@@ -108,13 +135,40 @@ $.ajax({
   NetworkTables.addKeyListener("SmartDashboard/Gyro", (key, value) => {
 
     // let needleElement = 
+    ui.gyro.val = value;
+    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
+    ui.gyro.visualVal %= 360;
+    if (ui.gyro.visualVal < 0) {
+        ui.gyro.visualVal += 360;
+    }
 
-    $(`#gyro-img #path9631`).css({'transform-box': 'fill-box', 'transform-origin': 'center', 'transform': `rotate(${value})`});
+    $(`#gyro-img #path9631`).css({'transform-box': 'fill-box', 'transform-origin': 'center', 'transform': `rotate(${ui.gyro.visualVal}deg)`});
+
+    var degrees = new Label(`${ui.gyro.visualVal}º`, "info");
+    var title = new Label("Gyro", "title").insertTo("#gyro").addLabel(degrees);
+
 
     //$(`#${this.widgetId}`).html(templateFn(jsonData));
 });
 
 
+// AUTONOMOUS MODES :
+
+//Create the title label for auton modes
+new Label("Autonomous Modes", "title").insertTo("#auton_modes");
+
+NetworkTables.addKeyListener("/SmartDashboard/autonomous/modes", (key, value) => {
+
+
+
+});
+
+
+
+// MOTORS STATUS :
+
+//Create the title label for the motors
+new Label("Motors", "title").insertTo("#motors_widget")
 
 
 
@@ -123,9 +177,8 @@ $.ajax({
 
 
 
-
-
-
+//------------------------------------Labels---------------------------------\\
+//-----------Automagically add title labels through data attributes-----------\\
 
 
 
@@ -146,17 +199,17 @@ var initialValue = 1001;
 var gyroValue = randomIntFromInterval(0, 360);
   setInterval(() => {
     initialValue++;
-    NetworkTables.putValue("SmartDashboard/Gyro", gyroValue + "deg");  
+    NetworkTables.putValue("SmartDashboard/Gyro", gyroValue);  
     gyroValue += 10;
     if (gyroValue > 360)
         gyroValue = 0;
     // ui.toast({text: initialValue, duration: 3, type: "success"});
     // lw.update(initialValue++);
-  }, 200);
+  }, 20);
 
 
 
-  
+
   //Test code for testing the robot match-time clock:
 /*var time = 46;
 
