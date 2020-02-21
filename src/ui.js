@@ -18,6 +18,21 @@ function getMenu() {
             label: "View"
         },
 
+        {
+            label: "Test Widgets",
+            submenu: [
+                {
+                    label: "Test Gyro",
+                    click: testGyro
+                },
+
+                {
+                    label: "Test Timer",
+                    click: testTimer
+                }
+            ]
+        }
+
         /*{
             role: "configuration",
             label: "Configuration",
@@ -115,9 +130,7 @@ let ui = {
 
 
 //Add toast function:
-ui.toast = function ({text, duration, type}) {
-    ipc.send("addToast", {text: text, duration: duration, type: type});
-};
+ui.toast = toast;
 
 //Add modal function:
 ui.modal = function({title, text, type}) {

@@ -132,6 +132,9 @@ $.ajax({
     }               
   });   
 
+  //Initialize label title of Gyro
+  new Label("Gyro", "title").insertTo("#gyro").addLabel(new Label(`0º`, "info"));
+
   NetworkTables.addKeyListener("SmartDashboard/Gyro", (key, value) => {
 
     // let needleElement = 
@@ -185,39 +188,3 @@ new Label("Motors", "title").insertTo("#motors_widget")
 
 
 
-
-//---------------------------------Widget testers------------------------------------\\
-//---------------(put values onto network tables to test widgets:)--------------------\\
-
-
- function randomIntFromInterval(min, max) { // min and max included 
-     return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-//Test code for gyro:
-var initialValue = 1001;
-var gyroValue = randomIntFromInterval(0, 360);
-  setInterval(() => {
-    initialValue++;
-    NetworkTables.putValue("SmartDashboard/Gyro", gyroValue);  
-    gyroValue += 10;
-    if (gyroValue > 360)
-        gyroValue = 0;
-    // ui.toast({text: initialValue, duration: 3, type: "success"});
-    // lw.update(initialValue++);
-  }, 20);
-
-
-
-
-  //Test code for testing the robot match-time clock:
-/*var time = 46;
-
-setInterval(() => {
-
-time -= 1;
-NetworkTables.putValue("/robot/time", time);
-
-if (time < -5) time = 126;
-
-}, 1000);*/
