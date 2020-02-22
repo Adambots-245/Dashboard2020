@@ -217,24 +217,12 @@ body.login #login {
 }
 
 
-#team_logo {
+#logo {
     position: fixed;
     bottom: 10px;
     left: 28px;
-    width: 88.5px;
-    height: 88.5px;
-    border-radius: 25px;
-    border: 1px solid brown;
-}
-
-#logo {
-    position: fixed;
-    bottom: 108.5px;
-    left: 28px;
-    width: 88.5px;
-    height: 75px;
-    background-color: #111111;
-    padding: 5px;
+    width: 375px;
+    height: 110px;
     border-radius: 25px;
     border: 1px solid brown;
 }
@@ -293,10 +281,12 @@ body.login #login {
     width: 16px;
     height: 100%;
     max-height: 100%;
+    max-width: 500px;
     background: rgb(11, 20, 20);
     padding: 2px;
     z-index: 5;
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
     transition: 0.5s ease width;
 }
 
@@ -307,12 +297,21 @@ body.login #login {
     left: 0;
     z-index: 200;
     width: calc(90% - 18px);
+    max-width: 500px;
     background: rgb(11, 20, 20); 
     height: 100%;
     color: rgb(194, 137, 137);
     padding: 25px; 
     overflow-y: auto;
+    overflow-x: hidden;
     transition: 0.5s ease opacity;
+    border: 1px solid blue;
+}
+
+.sb_key, .sb_val {
+    color: yellow;
+    background: red;
+    border: 1px solid white;
 }
 
 #sidebar_bar {
