@@ -24,7 +24,7 @@ const Menu = electron.Menu;
 var Alert = require("electron-alert");
 
 //Custom module for saving and loading config
-const Config = require("./components/configuration");
+const Config = require("./configuration");
 var config = Config.get();
 
 require("./hbs")(config);

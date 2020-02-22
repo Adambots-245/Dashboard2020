@@ -79,7 +79,7 @@
         <!--This is where all of our buttons will go-->
         <div id="gyro">
             {{Include "gyro"}}
-            {{NTBind gyro-key "ui.updateGyro" "gyro"}}
+            {{NTBind gyro-key "ui.widgets.updateGyro" "gyro"}}
             {{Include "label"}}
         </div>
         <div id="auton_modes">
@@ -173,29 +173,13 @@
 
     <script>
         var $ = require("jquery");
-        /*console.log("got here");
-        $(document).ready(() => {
-            console.log("got ready");
-        $(document).on("mousemove", event => {
-            var x = event.clientX;
-            var y = event.clientY;
-
-            document.getElementById("robot-state").innerHTML = `(${x}, ${y})`;
-            console.log("Test");
-        });
-        });*/
     </script>
-    <script src="components/configuration.js"></script>
     <script src="components/testers.js"></script>
     <script src="ui.js"></script>
-    <!--<script src="widgets/widget.js"></script>-->
     <script src="connection.js"></script>
 
     <!-- Widgets: -->
-    <!--
-    <script src="components/ButtonCommands.js"></script>-->
-    <script src="components/widgets.js"></script>
+    <!--<script src="components/ButtonCommands.js"></script>-->
     <script src="components/multicamera.js"></script>
-    <!--<script src="components/widgetinterface.js"></script>-->
 </body>
 </html>

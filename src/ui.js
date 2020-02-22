@@ -132,7 +132,8 @@ let ui = {
     login: {
         box: document.getElementById("connect-address"),
         button: document.getElementById("connect")
-    }
+    },
+    widgets: {}
 };
 
 
@@ -330,11 +331,10 @@ function Label(text, type) {
 new Label("Gyro", "title").insertTo("#gyro").addLabel(new Label(`0º`, "info"));
 
 //Gyro method:
-ui.updateGyro = (parentID, value) => {
+ui.widgets.updateGyro = (parentID, value) => {
 
     console.log("Update Gyro", value);
     console.log(parentID);
-    // let needleElement = 
     ui.gyro.val = value;
     ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
     ui.gyro.visualVal %= 360;
@@ -349,3 +349,24 @@ ui.updateGyro = (parentID, value) => {
 
 }
 
+//---
+
+//Create the title label for auton modes
+new Label("Autonomous Modes", "title").insertTo("#auton_modes");
+
+//Autonomous Modes method:
+ui.widgets.autonModes = () => {
+
+    NetworkTables.addKeyListener("/SmartDashboard/autonomous/modes", (key, value) => {
+
+    });
+
+}
+
+//Create the title label for the motors
+new Label("Motors", "title").insertTo("#motors_widget")
+
+//Motors' Status method:
+ui.widgets.updateMotors = () => {
+
+}
