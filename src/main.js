@@ -24,10 +24,8 @@ const Menu = electron.Menu;
 var Alert = require("electron-alert");
 
 //Custom module for saving and loading config
-const Config = require("./configuration");
-var config = Config.get();
-
-require("./hbs")(config);
+const Config = require("./components/configuration");
+var config;
 
 /** Module for receiving messages from the BrowserWindow */
 const ipc = electron.ipcMain;
@@ -144,7 +142,7 @@ function createWindow() {
     
 
     // Load window.
-    mainWindow.loadURL(`file://${__dirname}/index.hbs`);
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
     // Once the python server is ready, load window contents.
     mainWindow.once('ready-to-show', () => {
         console.log('main window is ready to be shown');
@@ -263,5 +261,11 @@ ipc.on("addModal", (ev, arg) => {
         type: arg.type,
         showConfirmButton: true
     }, null, true, true);
-
+    $("#sidebar tr").draggable({
+        helper: "clone",
+        start: function(event, ui) {
+            c.tr = this;
+            c.helper = ui.helper;
+        }
+});
 });

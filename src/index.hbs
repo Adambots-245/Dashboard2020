@@ -173,6 +173,7 @@
             </table>-->
             <p>Name</p>
             <p>Value</p>
+
         </div>
         <div id="sidebar_bar">
             <p> &#9658; </p> 
@@ -182,11 +183,19 @@
 
     <script>
         var $ = require("jquery");
+        var jQuery = $;
     </script>
+    <script src="components/jquery-ui.min.js"></script>
     <script src="components/testers.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
 
+    <!--draggable stuff-->
+    <script>
+        $(function(){
+            $('#sidebar_content *').draggable();
+        });
+    </script>
     <!-- Widgets: -->
     <!--<script src="components/ButtonCommands.js"></script>-->
     <script src="components/multicamera.js"></script>
