@@ -431,13 +431,18 @@ body.login #login {
 #auton_modes {
     position: relative;
     height: 175px;
-    width: 45vw;
+    /*width: 45vw;*/
+    width: 692.275px;
+    box-sizing: border-box;
+}
+
+#auton_modes > .content {
     padding: 5px;
     box-sizing: border-box;
 }
 
 .auton_mode {
-    width: calc(25% - 4px);
+    width: calc(25% - 3px);
     height: 100%;
     position: relative;
     border: 0.1px solid red;
@@ -528,16 +533,14 @@ body.login #login {
 #values_box {
     position: relative;
     height: 300px;
-    width: 17.8vw;
+    width: 252.5px;
     box-sizing: border-box;
 }
 
-.value_container {
+#values_box > .content {
     padding: 10px;
+    box-sizing: border-box;
     overflow-y: auto;
-    height: calc(100% - 22px);
-    width: calc(100% - 22px);
-    border: 1px solid blue;
 }
 
 .label-title {

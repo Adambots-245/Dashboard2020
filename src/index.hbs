@@ -84,50 +84,15 @@
         </div>
         <div id="auton_modes">
             <div class="content">
-                <div id="auton_straight" class="auton_mode">
-                    <p>Drive Straight</p>
-                </div>
-                <div id="auton_1" class="auton_mode">
-                    <p>Position 1</p>
-                </div>
-                <div id="auton_2" class="auton_mode">
-                    <p>Position 2</p>
-                </div>
-                <div id="auton_3" class="auton_mode">
-                    <p>Position 3</p>
-                </div>
+                {{Include "auton_modes"}}
             </div>
-            <div class="label_container"></div>
+            {{Include "label"}}
         </div>
         <div id="motors_widget">
             <div class="content">
-                <div class="img_container">
-
-                </div>
-                <div class="motors_container">
-                    <div id="front_left_motor" class="motor">
-                        <p>Front left motor</p>
-                        <progress value="0.75"></progress>
-                    </div>
-                    <div id="front_right_motor" class="motor">
-                        <p>Front right motor</p>
-                        <progress value="0.75"></progress>
-                    </div>
-                    <div id="back_left_motor" class="motor">
-                        <p>Back left motor</p>
-                        <progress value="0.75"></progress>
-                    </div>
-                    <div id="back_right_motor" class="motor">
-                        <p>Back right motor</p>
-                        <progress value="0.75"></progress>
-                    </div>
-                    <div id="elevator_motor" class="motor">
-                        <p>Elevator Motor</p>
-                        <progress value="0.75"></progress>
-                    </div>
-                </div>
+                {{Include "motors"}}
             </div>
-            <div class="label_container"></div>
+            {{Include "label"}}
         </div>
         <div id="values_box"> 
             <div class="content">
