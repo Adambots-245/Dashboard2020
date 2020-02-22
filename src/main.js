@@ -25,7 +25,9 @@ var Alert = require("electron-alert");
 
 //Custom module for saving and loading config
 const Config = require("./components/configuration");
-var config;
+var config = Config.get();
+
+require("./hbs")(config);
 
 /** Module for receiving messages from the BrowserWindow */
 const ipc = electron.ipcMain;
@@ -142,7 +144,7 @@ function createWindow() {
     
 
     // Load window.
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/index.hbs`);
     // Once the python server is ready, load window contents.
     mainWindow.once('ready-to-show', () => {
         console.log('main window is ready to be shown');
