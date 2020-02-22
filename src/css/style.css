@@ -384,11 +384,19 @@ body.login #login {
     filter: brightness(110%);
 }
 
+.camera-preload {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
 
 /** Miscellaneous widgets: **/
 
 
-#widget-gyro-frame, #gyro {
+.widget-gyro-frame, #gyro {
     width: 175px;
     height: 175px;
     position: relative;

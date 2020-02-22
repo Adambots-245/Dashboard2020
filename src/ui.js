@@ -29,6 +29,20 @@ function getMenu() {
                 {
                     label: "Test Timer",
                     click: testTimer
+                },
+
+                {
+                    label: "Check Camera Stream",
+                    click: () => {
+                        checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
+                            if (streaming) {
+                                ui.toast({text: `Camera ${ui.camera.id1 + 1} is streaming`, duration: 5, type: "success"});
+                            }
+                            else {
+                                ui.toast({text: `Camera ${ui.camera.id1 + 1} is not streaming`, duration: 5, type: "error"});
+                            }
+                        });
+                    }
                 }
             ]
         }
@@ -287,9 +301,39 @@ ui.sidebar_bar.onclick = function () {
     }, 2000);
 }*/
 
-ui.updateGyro = (value) => {
+//--------------------------------------HBS Widgets-------------------------------------------\\
+
+// TITLE/INFO LABELS :
+function Label(text, type) {
+
+    var elem = `<div class="label-${type}"><p>${text}</p></div>`;
+    this.lastParent = null;
+
+    this.insertTo = (parent) => {
+        this.lastParent = parent;
+        $(parent).find(".label_container")[0].innerHTML = elem;
+        return this;
+    }
+
+    this.addLabel = (label) => {
+        $(this.lastParent).find(".label_container")[0].innerHTML += label.toString();
+        return this;
+    }
+
+    this.toString = () => {
+        return elem;
+    }
+
+}
+
+//Initialize label title of Gyro
+new Label("Gyro", "title").insertTo("#gyro").addLabel(new Label(`0º`, "info"));
+
+//Gyro method:
+ui.updateGyro = (parentID, value) => {
 
     console.log("Update Gyro", value);
+    console.log(parentID);
     // let needleElement = 
     ui.gyro.val = value;
     ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
@@ -298,9 +342,10 @@ ui.updateGyro = (value) => {
         ui.gyro.visualVal += 360;
     }
 
-    $(`#gyro-img #path9631`).css({'transform-box': 'fill-box', 'transform-origin': 'center', 'transform': `rotate(${ui.gyro.visualVal}deg)`});
+    $(`#${parentID} .gyro-img #path9631`).css({'transform-box': 'fill-box', 'transform-origin': 'center', 'transform': `rotate(${ui.gyro.visualVal}deg)`});
 
     var degrees = new Label(`${ui.gyro.visualVal}º`, "info");
-    var title = new Label("Gyro", "title").insertTo("#gyro").addLabel(degrees);
+    var title = new Label("Gyro", "title").insertTo("#" + parentID).addLabel(degrees);
 
 }
+
