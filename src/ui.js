@@ -313,6 +313,7 @@ function Label(text, type) {
     this.insertTo = (parent) => {
         this.lastParent = parent;
         $(parent).find(".label_container")[0].innerHTML = elem;
+        $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 40 + Number($(parent).css("padding").replace("px", ""))) + "px");
         return this;
     }
 

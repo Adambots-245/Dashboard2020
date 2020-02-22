@@ -399,7 +399,7 @@ body.login #login {
 .widget-gyro-frame, #gyro {
     width: 175px;
     height: 175px;
-    position: relative;
+    /*position: relative;*/
 }
 
 
@@ -416,12 +416,12 @@ body.login #login {
 }
 
 #widget_box > * {
-    display: inline-block;
+    display: inline-flex;
     background-color: var(--secondary-color);
-    margin-bottom: 50px;
     margin-left: 10px;
+    margin-top: 5px;
     position: relative;
-    top: 40px;
+    /*top: 40px;*/
 }
 
 #widget_box > * > * {
@@ -441,6 +441,7 @@ body.login #login {
     height: 100%;
     position: relative;
     border: 0.1px solid red;
+    display: inline-block;
 }
 
 .auton_mode > p {
@@ -459,7 +460,7 @@ body.login #login {
     height: 300px;
 }
 
-#motors_widget .img_container {
+.img_container {
     border: 1px solid blue;
     position: absolute;
     top: 5px;
@@ -468,7 +469,7 @@ body.login #login {
     height: calc(100% - 15px);
 }
 
-#motors_widget .motors_container {
+.motors_container {
     border: 1px solid red;
     position: absolute;
     top: 5px;
@@ -530,7 +531,8 @@ body.login #login {
     top: 0;
     left: 0;
     width: 100%;
-    height: 40px;
+    /*height: 40px;*/
+    height: 100%;
     background: var(--label-color);
     color: var(--primary-color);
     text-align: center;
@@ -539,7 +541,8 @@ body.login #login {
 
 .label-info {
     position: absolute;
-    bottom: -50px;
+    /*bottom: -50px;*/
+    bottom: 3px;
     right: 3px;
     background: none;
     color: var(--primary-color);
@@ -564,8 +567,19 @@ body.login #login {
 .label_container {
     display: inline-block;
     position: absolute;
-    top: -40px;
+    /*top: -40px;*/
+    top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    height: 40px;
+}
+
+.content {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    height: calc(100% - 40px);
+    width: 100%;
+    border: 0.1px solid red;
 }
