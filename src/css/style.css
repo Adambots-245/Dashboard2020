@@ -101,7 +101,7 @@ header {
 #camera {
     padding: 0;
     position: fixed;
-    top: 15vh;
+    top: calc(15vh - 5px);
     left: 2vw;
     width: 480px/*50vw*/;
     height: 360px/*80vh*/;
@@ -406,7 +406,7 @@ body.login #login {
 #widget_box {
     position: fixed;
     left: 510px;
-    top: 15vh;
+    top: calc(15vh - 5px);
     width: 66vw;
     height: 80vh;
     border: 1px solid red;
@@ -454,7 +454,6 @@ body.login #login {
 
 #motors_widget {
     position: relative;
-    height: auto;
     width: 40vw;
     box-sizing: border-box;
     height: 300px;
@@ -528,7 +527,17 @@ body.login #login {
 
 #values_box {
     position: relative;
-    
+    height: 300px;
+    width: 17.8vw;
+    box-sizing: border-box;
+}
+
+.value_container {
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100% - 22px);
+    width: calc(100% - 22px);
+    border: 1px solid blue;
 }
 
 .label-title {
