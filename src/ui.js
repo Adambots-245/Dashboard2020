@@ -371,9 +371,6 @@ new Label("Autonomous Modes", "title").insertTo("#auton_modes");
 //Autonomous Modes method:
 ui.widgets.autonModes = () => {
 
-    NetworkTables.addKeyListener("/SmartDashboard/autonomous/modes", (key, value) => {
-
-    });
 
 }
 
@@ -383,4 +380,50 @@ new Label("Motors", "title").insertTo("#motors_widget")
 //Motors' Status method:
 ui.widgets.updateMotors = () => {
 
+}
+
+//Create title label for values:
+new Label("Values", "title").insertTo("#values_box");
+
+ui.widgets.updateValues = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
