@@ -525,6 +525,11 @@ body.login #login {
     font-weight: bold;
 }
 
+#values_box {
+    position: relative;
+    
+}
+
 .label-title {
     position: absolute;
     top: 0;
