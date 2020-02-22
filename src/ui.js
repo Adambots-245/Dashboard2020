@@ -90,7 +90,6 @@ titlebar = new customTitlebar.Titlebar({
     menu: Menu.buildFromTemplate(getMenu())
 });
 
-var team = config.getAll().team;
 
 //-------------------------------------Define UI elements----------------------------------------
 let ui = {
@@ -119,12 +118,6 @@ let ui = {
     login: {
         box: document.getElementById("connect-address"),
         button: document.getElementById("connect")
-    },
-    team: {
-        number: team.number,
-        name: team.name,
-        link: team.link,
-        inDevMode: team.devmode
     }
 };
 
@@ -274,7 +267,7 @@ ui.sidebar_bar.onclick = function () {
     ui.modal({title: `Team ${ui.team.number}`, text: `Team ${ui.team.number}, ${ui.team.name}.<br>Homepage: ${ui.team.link + "#" + ui.team.number}`, type: "info"});
 }*/
 
-setTimeout(() => {
+/*setTimeout(() => {
     ui.login.box.value = ui.login.box.value.replace("xxxx", ui.team.number);
     ui.login.box.setSelectionRange(8, 8 + ui.team.number.toString().length);
 
@@ -282,7 +275,7 @@ setTimeout(() => {
         ui.login.box.value = "localhost";
         ui.login.button.innerHTML = "Connect (Dev Mode)";
     }
-}, 100);
+}, 100);*/
 
 /*if (ui.team.inDevMode) {
     setTimeout(() => {
@@ -293,3 +286,21 @@ setTimeout(() => {
         document.getElementsByClassName("window-icon")[2].style.backgroundColor = "gold";
     }, 2000);
 }*/
+
+ui.updateGyro = (value) => {
+
+    console.log("Update Gyro", value);
+    // let needleElement = 
+    ui.gyro.val = value;
+    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
+    ui.gyro.visualVal %= 360;
+    if (ui.gyro.visualVal < 0) {
+        ui.gyro.visualVal += 360;
+    }
+
+    $(`#gyro-img #path9631`).css({'transform-box': 'fill-box', 'transform-origin': 'center', 'transform': `rotate(${ui.gyro.visualVal}deg)`});
+
+    var degrees = new Label(`${ui.gyro.visualVal}º`, "info");
+    var title = new Label("Gyro", "title").insertTo("#gyro").addLabel(degrees);
+
+}

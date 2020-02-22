@@ -119,22 +119,12 @@ function Label(text, type) {
 }
 
 
-//GYRO :
-
-$.ajax({
-    url: `widgets/gyro/gyro.html`,
-    cache: true,
-    async: false,
-    success: function(data) {
-      let source    = data;
-        $('#gyro')[0].innerHTML += source;
-      
-    }               
-  });   
+//GYRO :   
 
   //Initialize label title of Gyro
   new Label("Gyro", "title").insertTo("#gyro").addLabel(new Label(`0º`, "info"));
 
+  /**
   NetworkTables.addKeyListener("SmartDashboard/Gyro", (key, value) => {
 
     // let needleElement = 
@@ -153,7 +143,7 @@ $.ajax({
 
     //$(`#${this.widgetId}`).html(templateFn(jsonData));
 });
-
+**/
 
 // AUTONOMOUS MODES :
 

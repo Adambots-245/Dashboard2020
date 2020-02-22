@@ -79,11 +79,11 @@ function setConfiguration(path, type, content) {
 
 }
 
-var config = {
-    get: () => {return getConfiguration().elements},
+module.exports = {
+    get: () => {return getConfiguration()},
     set: setConfiguration,
     setAll: (config) => {
         fs.writeFileSync(configSrc, JSON.stringify(config));
-    },
-    getAll: getConfiguration
+    }
 }
+

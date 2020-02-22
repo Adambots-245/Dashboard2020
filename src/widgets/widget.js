@@ -1,3 +1,7 @@
+/**
+ * @deprecated Widget.js is currently deprecated
+ */
+
 // window.$ = require('jquery');
 
 // var handlebars = require('handlebars');
