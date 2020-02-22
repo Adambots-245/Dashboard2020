@@ -24,6 +24,12 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+@font-face {
+    font-family: "Roboto";
+    src: url(Roboto-Medium.ttf);
+}
+
 body, .container-after-titlebar {
     font: 16px sans-serif;
     -webkit-user-select: none;
@@ -34,6 +40,11 @@ body, .container-after-titlebar {
     overflow: hidden;
     background: #222;
 }
+
+.container-after-titlebar {
+    font-family: "Roboto";
+}
+
 button, input[type="text"], input[type="number"], .select-container, select {
     color: white;
     background: #444;
