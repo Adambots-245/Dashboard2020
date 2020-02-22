@@ -94,35 +94,11 @@
 
 //--------------------------------Widgets------------------------------\\
 
-// TITLE/INFO LABELS :
 
-function Label(text, type) {
-
-    var elem = `<div class="label-${type}"><p>${text}</p></div>`;
-    this.lastParent = null;
-
-    this.insertTo = (parent) => {
-        this.lastParent = parent;
-        $(parent).find(".label_container")[0].innerHTML = elem;
-        return this;
-    }
-
-    this.addLabel = (label) => {
-        $(this.lastParent).find(".label_container")[0].innerHTML += label.toString();
-        return this;
-    }
-
-    this.toString = () => {
-        return elem;
-    }
-
-}
 
 
 //GYRO :   
 
-  //Initialize label title of Gyro
-  new Label("Gyro", "title").insertTo("#gyro").addLabel(new Label(`0º`, "info"));
 
   /**
   NetworkTables.addKeyListener("SmartDashboard/Gyro", (key, value) => {

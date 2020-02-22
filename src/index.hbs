@@ -78,10 +78,9 @@
         </div> -->
         <!--This is where all of our buttons will go-->
         <div id="gyro">
-            {{!--NTBind key-gyro--}}
             {{Include "gyro"}}
-
-            <div class="label_container"></div>
+            {{NTBind gyro-key "ui.updateGyro" "gyro"}}
+            {{Include "label"}}
         </div>
         <div id="auton_modes">
             <div id="auton_straight" class="auton_mode">

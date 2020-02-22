@@ -5,7 +5,7 @@ module.exports = (config) => {
     require("electron-handlebars")(config);
     const Handlebars = require("handlebars");
 
-    Handlebars.registerHelper("NTBind", (networkTableKey, funcName) => {
+    Handlebars.registerHelper("NTBind", (networkTableKey, funcName, parentID) => {
 
         let uid = "123";
         let ntKey = Handlebars.escapeExpression(networkTableKey);
@@ -26,6 +26,9 @@ module.exports = (config) => {
         }
         else{
             let fName = Handlebars.escapeExpression(funcName);
+            let idParam = ``;
+
+            if (typeof parentID === "string") idParam = `"${Handlebars.escapeExpression(parentID)}", `;
 
             retStr = `
             <span>    
@@ -33,8 +36,7 @@ module.exports = (config) => {
                 var $ = require("jquery");
 
                 NetworkTables.addKeyListener("${ntKey}", (key, value) => {
-                    console.log("value:", value);
-                    ${fName}(value);
+                    ${fName}(${idParam}value);
                 });
                 </script>
                 </span>
@@ -67,5 +69,5 @@ module.exports = (config) => {
 
         // console.log("Ret:", retStr);
         return retStr;
-    })
+    });
 };
