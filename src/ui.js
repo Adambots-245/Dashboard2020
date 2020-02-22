@@ -312,8 +312,21 @@ function Label(text, type) {
 
     this.insertTo = (parent) => {
         this.lastParent = parent;
-        $(parent).find(".label_container")[0].innerHTML = elem;
+        var container = $(parent).find(".label_container")[0];
+        container.innerHTML = elem;
         $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 40 + Number($(parent).css("padding").replace("px", ""))) + "px");
+        return this;
+    }
+
+    this.updateIn = (parent, heightChange) => {
+        this.lastParent = parent;
+            if ($(parent + " .label-" + type).length > 0) {
+                $(parent + " .label-" + type).html("<p>" + text + "</p>");
+            }
+            else {
+                $(parent)[0].innerHTML += elem;
+            }
+        if (heightChange) $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 40 + Number($(parent).css("padding").replace("px", ""))) + "px");
         return this;
     }
 
@@ -329,7 +342,8 @@ function Label(text, type) {
 }
 
 //Initialize label title of Gyro
-new Label("Gyro", "title").insertTo("#gyro").addLabel(new Label(`0º`, "info"));
+new Label("Gyro", "title").insertTo("#gyro");
+new Label(`0º`, "info").updateIn("#gyro", false);
 
 //Gyro method:
 ui.widgets.updateGyro = (parentID, value) => {
@@ -345,8 +359,7 @@ ui.widgets.updateGyro = (parentID, value) => {
 
     $(`#${parentID} .gyro-img #path9631`).css({'transform-box': 'fill-box', 'transform-origin': 'center', 'transform': `rotate(${ui.gyro.visualVal}deg)`});
 
-    var degrees = new Label(`${ui.gyro.visualVal}º`, "info");
-    var title = new Label("Gyro", "title").insertTo("#" + parentID).addLabel(degrees);
+    var degrees = new Label(`${ui.gyro.visualVal}º`, "info").updateIn(`#${parentID}`, false);
 
 }
 

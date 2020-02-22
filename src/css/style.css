@@ -547,12 +547,13 @@ body.login #login {
 .label-info {
     position: absolute;
     /*bottom: -50px;*/
-    bottom: 3px;
-    right: 3px;
+    bottom: -3px;
+    right: 6px;
     background: none;
     color: var(--primary-color);
     display: inline;
 }
+
 
 .label-title > p {
     position: absolute;
