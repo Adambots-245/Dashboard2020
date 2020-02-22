@@ -144,8 +144,6 @@
         <button id="connect" disabled>Connecting</button>
     </div>
 
-
-
     <div id="sidebar">
         <div id="sidebar_content">
            <!--<table class="sidebar_values">
@@ -174,8 +172,8 @@
                 <td>TD example2</td>
             </tr>
             </table>-->
-            <p>Name</p>
-            <p>Value</p>
+            <span class="sb_key">Name</span>
+            <span class="sb_val">Value</span>
 
         </div>
         <div id="sidebar_bar">
@@ -196,9 +194,19 @@
     <!--draggable stuff-->
     <script>
         $(function(){
-            $('#sidebar_content *').draggable();
+            $( ".value_container" ).droppable({
+                accept: ".sb_key",
+                drop: (event, ui) => {
+                    var elem = ui.draggable;
+                    var key = elem.html();
+
+                    $(".value_container")[0].innerHTML += key + "<br>";
+                }
+            });
+            $('#sidebar_content .sb_key').draggable({scroll: false, containment: "document", appendTo: "body", helper: "clone", snap: true, revert: "invalid"});
         });
     </script>
+    
     <!-- Widgets: -->
     <!--<script src="components/ButtonCommands.js"></script>-->
     <script src="components/multicamera.js"></script>

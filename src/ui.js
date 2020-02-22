@@ -278,6 +278,8 @@ ui.sidebar_bar.onclick = function () {
     }
 }
 
+
+
 /*ui.team.logoElement.onclick = () => {
     ui.modal({title: `Team ${ui.team.number}`, text: `Team ${ui.team.number}, ${ui.team.name}.<br>Homepage: ${ui.team.link + "#" + ui.team.number}`, type: "info"});
 }*/
