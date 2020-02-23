@@ -109,6 +109,9 @@
         <button id="connect" disabled>Connecting</button>
     </div>
 
+    <div id="logo"><img src="../images/AdambotsLogo245.png" /></div>
+    {{Include "infinite_recharge"}}
+
     <div id="sidebar">
         <div id="sidebar_content">
            <!--<table class="sidebar_values">
@@ -137,8 +140,6 @@
                 <td>TD example2</td>
             </tr>
             </table>-->
-            <span class="sb_key">Name</span>
-            <span class="sb_val">Value</span>
 
         </div>
         <div id="sidebar_bar">
@@ -155,22 +156,6 @@
     <script src="components/testers.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
-
-    <!--draggable stuff-->
-    <script>
-        $(function(){
-            $( ".value_container" ).droppable({
-                accept: ".sb_key",
-                drop: (event, ui) => {
-                    var elem = ui.draggable;
-                    var key = elem.html();
-
-                    $(".value_container")[0].innerHTML += key + "<br>";
-                }
-            });
-            $('#sidebar_content .sb_key').draggable({scroll: false, containment: "document", appendTo: "body", helper: "clone", snap: true, revert: "invalid"});
-        });
-    </script>
     
     <!-- Widgets: -->
     <!--<script src="components/ButtonCommands.js"></script>-->
