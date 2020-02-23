@@ -28,8 +28,9 @@ const Config = require("./configuration");
 var config = Config.get();
 
 require("./hbs")(config);
+// require("./cannicide-handlebars")(config);
 
-/** Module for receiving messages from the BrowserWindow */
+    /** Module for receiving messages from the BrowserWindow */
 const ipc = electron.ipcMain;
 
 // Keep a global reference of the window object, if you don't, the window will

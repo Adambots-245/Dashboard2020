@@ -2,7 +2,7 @@ const fs = require("fs");
 
 
 module.exports = (config) => {
-    require("electron-handlebars")(config);
+    require("./universal-handlebars")(config);
     const Handlebars = require("handlebars");
 
     Handlebars.registerHelper("NTBind", (networkTableKey, funcName, parentID) => {
