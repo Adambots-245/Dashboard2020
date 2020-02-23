@@ -304,6 +304,42 @@ ui.sidebar_bar.onclick = function () {
     }, 2000);
 }*/
 
+//Drag-and-drop values:
+
+function checkExists(parent, key) {
+    var src = $(parent).html();
+    if (src.match(`value\=\"${key}\"`)) {
+        //Exists
+        return true;
+    }
+    else {
+        //Doesn't exist
+        return false;
+    }
+}
+
+    $( "#values_box .content" ).droppable({
+        accept: ".sb_key",
+        drop: (event, ui) => {
+            var elem = ui.draggable;
+            var key = elem.html();
+
+            if (!checkExists("#values_box .content", key)) {
+                var neatKey = key.replace("/SmartDashboard", "").replace("SmartDashboard/", "");
+                $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}">${neatKey} <span class="val_box">0</span></div>`;
+                NetworkTables.addKeyListener(key, (k, val) => {
+                    $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`${neatKey} <span class="val_box">${val}</span>`);
+                });
+            }
+        }
+    });
+    
+    function makeDraggable() {
+        $('#sidebar_content .sb_key').draggable({scroll: false, containment: "document", appendTo: "body", helper: "clone", snap: ".value_container", revert: "invalid"});
+    }
+
+    makeDraggable();
+
 //--------------------------------------HBS Widgets-------------------------------------------\\
 
 // TITLE/INFO LABELS :
@@ -343,6 +379,31 @@ function Label(text, type) {
 
 }
 
+function KeyHandler(callback) {
+
+    var keys = {};
+    var listeners = {};
+
+    this.handle = (keylist) => {
+
+        keylist.forEach((item) => {
+            if (item.match("SmartDashboard")) {
+                if (!listeners[item]) listeners[item] = 0;
+                if (listeners[item] != 2) {
+                    listeners[item]++;
+                    callback(item);
+                }
+            }
+        });
+
+    }
+
+    this.getUsedKeys = () => {return keys};
+    this.useKey = (key) => {keys[key] = true};
+
+}
+
+
 //Initialize label title of Gyro
 new Label("Gyro", "title").insertTo("#gyro");
 new Label(`0º`, "info").updateIn("#gyro", false);
@@ -350,8 +411,6 @@ new Label(`0º`, "info").updateIn("#gyro", false);
 //Gyro method:
 ui.widgets.updateGyro = (parentID, value) => {
 
-    console.log("Update Gyro", value);
-    console.log(parentID);
     ui.gyro.val = value;
     ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
     ui.gyro.visualVal %= 360;
@@ -389,43 +448,27 @@ new Label("Values", "title").insertTo("#values_box");
 
 ui.widgets.updateValues = () => {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 }
+
+//Insert and update all values in sidebar:
+
+var sdHandler = new KeyHandler((key) => {
+    console.log("Got here: ", key);
+    NetworkTables.addKeyListener(key, (k, v) => {
+        var elem = $("#sidebar_content");
+        var uid = key.replace(/\//g, "");
+        var item = `#key_${uid}`;
+        if (sdHandler.getUsedKeys()[key]) {
+            $(`#sidebar_content ${item} > .sb_val`).html(`${v}`);
+        }
+        else {
+            elem[0].innerHTML += `<div id="key_${uid}"><span class="sb_key">${k}</span><span class="sb_val">${v}</span></div>`;
+            sdHandler.useKey(key);
+            makeDraggable();
+        }
+    });
+});
+
+setInterval(() => {
+    sdHandler.handle(NetworkTables.getKeys());
+}, 100);
