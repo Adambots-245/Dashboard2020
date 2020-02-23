@@ -20,7 +20,7 @@ function testGyro() {
     var gyroValue = randomIntFromInterval(0, 360);
     setInterval(() => {
     initialValue++;
-    NetworkTables.putValue("SmartDashboard/Gyro", gyroValue);  
+    NetworkTables.putValue("/SmartDashboard/Gyro", gyroValue);  
     gyroValue += 10;
     if (gyroValue > 360)
         gyroValue = 0;

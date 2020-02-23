@@ -318,6 +318,7 @@ function checkExists(parent, key) {
     }
 }
 
+
     $( "#values_box .content" ).droppable({
         accept: ".sb_key",
         drop: (event, ui) => {
@@ -325,10 +326,13 @@ function checkExists(parent, key) {
             var key = elem.html();
 
             if (!checkExists("#values_box .content", key)) {
-                var neatKey = key.replace("/SmartDashboard", "").replace("SmartDashboard/", "");
-                $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}">${neatKey} <span class="val_box">0</span></div>`;
-                NetworkTables.addKeyListener(key, (k, val) => {
-                    $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`${neatKey} <span class="val_box">${val}</span>`);
+                var neatKey = key.split("/")[0];
+                var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
+                $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
+                //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
+                    $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
+                    //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
                 });
             }
         }
@@ -453,22 +457,35 @@ ui.widgets.updateValues = () => {
 //Insert and update all values in sidebar:
 
 var sdHandler = new KeyHandler((key) => {
+    if (key.toString().match(/\./)) return;
     console.log("Got here: ", key);
-    NetworkTables.addKeyListener(key, (k, v) => {
-        var elem = $("#sidebar_content");
-        var uid = key.replace(/\//g, "");
-        var item = `#key_${uid}`;
-        if (sdHandler.getUsedKeys()[key]) {
+    var elem = $("#sidebar_content");
+    var uid = key.replace(/\//g, "");
+
+    if (!sdHandler.getUsedKeys()[key]) {
+        var v = NetworkTables.getValue(key, "-");
+        elem[0].innerHTML += `<div id="key_${uid}"><span class="sb_key">${key.replace("/SmartDashboard/", "")}</span><span class="sb_val">${v}</span></div>`;
+        sdHandler.useKey(key);
+        makeDraggable();
+    }
+    else {
+        NetworkTables.addKeyListener(key, (k, v) => {
+            var item = `#key_${uid}`;
             $(`#sidebar_content ${item} > .sb_val`).html(`${v}`);
-        }
-        else {
-            elem[0].innerHTML += `<div id="key_${uid}"><span class="sb_key">${k}</span><span class="sb_val">${v}</span></div>`;
-            sdHandler.useKey(key);
-            makeDraggable();
-        }
-    });
+        });
+    }
 });
+
+
+
+
+
+
+
+//Set these at the bottom of UI:
 
 setInterval(() => {
     sdHandler.handle(NetworkTables.getKeys());
 }, 100);
+
+window.uiExists = true;

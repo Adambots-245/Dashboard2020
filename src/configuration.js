@@ -41,7 +41,7 @@ function getConfiguration() {
 
 }
 
-function setConfiguration(path, type, content) {
+function setConfiguration(key, value) {
 
     //Gets the current array of dashboard elements in the config.json file
     var currentConfig = getConfiguration();
@@ -51,28 +51,7 @@ function setConfiguration(path, type, content) {
         return false;
     }
 
-    var isItem = false;
-    currentConfig.forEach((item, index) => {
-
-        //Updates item if it already exists
-        if (item.key == path) {
-            isItem = true;
-            currentConfig[index].type = type;
-            currentConfig[index].content = content;
-        }
-
-    });
-
-    //Adds item if it does not exist
-    if (!isItem) {
-
-        currentConfig.push({
-            key: path,
-            type: type,
-            content: content
-        });
-
-    }
+    currentConfig[key] = value;
 
     //Updates json file with new config additions/updates
     fs.writeFileSync(configSrc, JSON.stringify(currentConfig));

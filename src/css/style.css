@@ -361,6 +361,7 @@ body.login #login {
 }
 
 .sb_key.ui-draggable-dragging {
+    font-weight: bold;
     width: auto !important;
     cursor: grabbing !important;
     border-right: none !important;
@@ -600,19 +601,24 @@ body.login #login {
 #values_box > .content {
     padding: 10px;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
 }
 
 .value_container {
     width: 95%;
     height: 95%;
-    border: 1px solid #666;
+    border: 1px solid var(--secondary-color);
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
 }
 
 .label-title {
@@ -675,22 +681,48 @@ body.login #login {
 }
 
 .key {
-    font-size: 11pt;
+    font-size: 8pt;
     color: white;
     border-bottom: 1px solid #777;
     width: 100%;
     position: relative;
-    padding: 7px;
+    padding: 3px;
     padding-bottom: 17px;
     margin-bottom: 5px;
     box-sizing: border-box;
+    height: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .val_box {
-    border-bottom: 2px solid white;
     color: gold;
-    position: absolute;
-    right: 7px;
-    width: 68px;
+    width: auto;
     text-align: center;
+    max-width: 50%;
+    height: auto;
+    word-wrap: break-word;
+    filter: brightness(105%);
+    background-color: #666;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-left: auto;
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    /*font-size: 10.6px;*/
+}
+
+
+.key_box {
+    max-width: 50%;
+    height: auto;
+    width: auto;
+}
+
+.val_box, .key_box {
+    display: inline-block;
 }

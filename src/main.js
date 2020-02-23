@@ -266,3 +266,10 @@ ipc.on("addModal", (ev, arg) => {
     }, null, true, true);
 
 });
+
+/**
+ * Will save the current values in the Values Box widget to the JSON config to be reused later...
+ */
+ipc.on("saveValuesConfiguration", (ev, arg) => {
+
+});

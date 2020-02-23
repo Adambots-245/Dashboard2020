@@ -1,4 +1,5 @@
 const fs = require("fs");
+var uidIteration = 0;
 
 
 module.exports = (config) => {
@@ -7,7 +8,7 @@ module.exports = (config) => {
 
     Handlebars.registerHelper("NTBind", (networkTableKey, funcName, parentID) => {
 
-        let uid = "123";
+        let uid = "widget_" + uidIteration; uidIteration++;
         let ntKey = Handlebars.escapeExpression(networkTableKey);
 
         let retStr = "";
@@ -33,10 +34,9 @@ module.exports = (config) => {
             retStr = `
             <span>    
             <script>
-                var $ = require("jquery");
-
+            
                 NetworkTables.addKeyListener("${ntKey}", (key, value) => {
-                    ${fName}(${idParam}value);
+                    if ("uiExists" in window) ${fName}(${idParam}value);
                 });
                 </script>
                 </span>

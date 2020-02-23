@@ -1,4 +1,6 @@
 {
     "title": "TEst Widget",
-    "gyro-key": "SmartDashboard/Gyro"
+    "gyro-key": "/SmartDashboard/Gyro",
+
+    "config": []
 }
