@@ -272,4 +272,17 @@ ipc.on("addModal", (ev, arg) => {
  */
 ipc.on("saveValuesConfiguration", (ev, arg) => {
 
+    /**
+     * Sample arg[] structure:
+     * 
+     * [
+     *  "/SmartDashboard/key1",
+     *  "/SmartDashboard/table1/key2",
+     *  ...
+     * ]
+     */
+    
+     arg = arg || [];
+
+     Config.set("config_values", arg);
 });

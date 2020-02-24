@@ -318,6 +318,8 @@ function checkExists(parent, key) {
     }
 }
 
+var keyset = [];
+
 
     $( "#values_box .content" ).droppable({
         accept: ".sb_key",
@@ -330,6 +332,7 @@ function checkExists(parent, key) {
                 var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
                 $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
                 //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                keyset.push(key);
                 NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
                     $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
                     //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
@@ -489,3 +492,7 @@ setInterval(() => {
 }, 100);
 
 window.uiExists = true;
+
+window.onunload = () => {
+    ipc.send("saveValuesConfiguration", keyset);
+}

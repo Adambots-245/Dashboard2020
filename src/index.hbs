@@ -160,5 +160,25 @@
     <!-- Widgets: -->
     <!--<script src="components/ButtonCommands.js"></script>-->
     <script src="components/multicamera.js"></script>
+    <script id="components/values_config">
+        var values = "{{{config_values}}}".split(",");
+
+        function resolveConfigValues() {
+            if (values[0].length < 1) return;
+
+            values.forEach((key) => {
+                var neatKey = key.split("/")[0];
+                var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
+                $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
+                //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
+                    $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
+                    //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                });
+            });
+        }
+
+        resolveConfigValues();
+    </script>
 </body>
 </html>
