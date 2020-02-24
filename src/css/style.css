@@ -75,7 +75,7 @@ input[type="checkbox"] {
 #widget_box, article, header {
     padding: 10px;
     position: fixed;
-    overflow: scroll;
+    overflow: hidden;
     background: #222;
 }
 #timer {
@@ -492,8 +492,8 @@ body.login #login {
 #auton_modes {
     position: relative;
     height: 175px;
-    /*width: 45vw;*/
-    width: 692.275px;
+    width: 45vw;
+    /*width: 692.275px;*/
     box-sizing: border-box;
 }
 
