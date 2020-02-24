@@ -47,6 +47,10 @@ module.exports = (config) => {
 
     });
 
+    Handlebars.registerHelper("EachBind", (ntArrayKey, funcName) => {
+
+    });
+
     Handlebars.registerHelper("Include", (widgetName) => {
         let name = Handlebars.escapeExpression(widgetName);
         let path = `${__dirname}/widgets/${name}/${name}.hbs`;
