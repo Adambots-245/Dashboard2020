@@ -54,7 +54,7 @@ function setConfiguration(key, value) {
     currentConfig[key] = value;
 
     //Updates json file with new config additions/updates
-    fs.writeFileSync(configSrc, JSON.stringify(currentConfig));
+    fs.writeFileSync(configSrc, JSON.stringify(currentConfig, null, "\t"));
 
 }
 

@@ -318,8 +318,6 @@ function checkExists(parent, key) {
     }
 }
 
-var keyset = [];
-
 
     $( "#values_box .content" ).droppable({
         accept: ".sb_key",
