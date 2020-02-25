@@ -1,5 +1,8 @@
 {
 	"title": "TEst Widget",
 	"gyro-key": "/SmartDashboard/Gyro",
-	"config_values": []
+	"config_values": [
+		"Gyro",
+		"Raise Wrist/running"
+	]
 }
