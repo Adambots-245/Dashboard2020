@@ -71,32 +71,41 @@ input[type="checkbox"] {
     -webkit-filter: saturate(0);
     filter: saturate(0);
 }
-/* Major interface panes, widget_box, article, header, etc. */
-#widget_box, article, header {
+/* Major interface panes, widget_box, article, etc. */
+#widget_box, article {
     padding: 10px;
     position: fixed;
     overflow: hidden;
     background: #222;
 }
+
+headergrantelement {
+    padding: 10px;
+    overflow: hidden;
+    background-color: var(--secondary-color);
+}
+
 #timer {
     font-family: monospace;
-    display: block;
-    height: 10vh;
-    width: 20vw;
+    display: inline-flex;
+    height: 100%;
+    /*width: 20vw;
     top: 10px;
-    left: 28px;
+    left: 28px;*/
     font-size: 10vh;
     line-height: .8;
-    position: absolute;
+    /*position: absolute;*/
     color: white;
     transition: 1s ease color;
+    align-items: center;
 }
 header {
-    width: 20vw;
-    height: 20vh;
+    width: auto;
+    /*height: 20vh;
     top: 15px;
-    left: 17vw;
+    left: 17vw;*/
     color: white;
+    display: inline-block;
 }
 #camera {
     padding: 0;
@@ -422,6 +431,45 @@ body.login #login {
 
 .sidebar_values {
     width:100%; border: 5px solid black; border-collapse: collapse;
+}
+
+article {
+    display: none;
+}
+
+#top_bar {
+    position: fixed;
+    top: 0px;
+    left: 16px;
+    height: calc(15vh - 5px);
+    width: calc(100% - 12px);
+    border: 5px solid blue;
+    display: flex;
+    align-items: center;
+}
+
+#top_bar * {
+    display: inline-flex;
+    align-items: center;
+    /*border: 5px solid white;*/
+    margin-right: 10px;
+    background-color: var(--secondary-color);
+}
+
+#top_bar * * {
+    display: inline-flex;
+    align-items: center;
+    border: 5px solid yellow;
+}
+
+#other {
+    position: absolute;
+    right: 3.21%;
+    background-color: transparent;
+}
+
+#options {
+    margin-right: 70px;
 }
 
 #camera-bar {

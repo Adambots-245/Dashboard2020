@@ -33,12 +33,37 @@
 </head>
 
 <body>
-    <div id="timer">2:15</div>
-    <header>
-        <!-- Tells whether robot is connected to dashboard. -->
-        <div id="robot-state">Unknown state</div>
-        <button id="connect-button">Connect</button>
-    </header>
+    <div id="top_bar">
+        <div id="timer">2:15</div>
+        <header>
+            <!-- Tells whether robot is connected to dashboard. -->
+            <div id="robot-state">Unknown state</div   >
+            <button id="connect-button">Connect</button>
+        </header>
+        <div id="battery">
+            <div id="battery_pack">batt</div>
+            <div id="voltage_icon">volt</div>
+            <div id="amps_icon">amp</div>
+            <div id="amps_counter">amps</div>
+        </div>
+        <div id="roboRIO">
+            <div id="roboRIO_icon">robo</div>
+            <div id="CPU">
+                <div id="CPU_icon">cpu</div>
+                <div id="CPU_counter">12</div>
+            </div>
+            <div id="RAM">
+                <div id="RAM_icon">ram</div>
+                <div id="RAM_counter">76</div>
+            </div>
+        </div>
+        <div id="other">
+            <div id="options">opt</div>
+            <div id="menu">menu</div>
+        </div>
+    </div>
+    
+    
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
     <div id="camera"></div>
