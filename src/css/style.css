@@ -448,18 +448,61 @@ article {
     align-items: center;
 }
 
+#battery {
+    height: 100%;
+}
+
+#battery_pack {
+    background: url(../../images/volt_icon.png);
+    height: calc(100% - 30px);
+    width: 7vw;
+    display: inline-block;
+}
+
+#amps_icon {
+    background: url(../../images/amp_icon.png);
+    height: calc(100% - 30px);
+    width: 7vw;
+    display: inline-block;
+}
+
+#roboRIO {
+    height: 100%;
+}
+
+#roboRIO_icon {
+    background: url(../../images/roborio_icon.png);
+    background-size: 90% 90% !important;
+    height: calc(100% - 10px);
+    width: 96px;
+    display: inline-block;
+}
+
 #top_bar * {
     display: inline-flex;
     align-items: center;
     /*border: 5px solid white;*/
     margin-right: 10px;
     background-color: var(--secondary-color);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
 }
 
 #top_bar * * {
     display: inline-flex;
     align-items: center;
-    border: 5px solid yellow;
+    /*border: 5px solid yellow;*/
+}
+
+#CPU, #RAM {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#top_bar * * * {
+    border: none;
 }
 
 #other {
