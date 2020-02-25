@@ -2,6 +2,7 @@
 	"title": "TEst Widget",
 	"gyro-key": "/SmartDashboard/Gyro",
 	"config_values": [
-		"Gyro"
+		"Gyro",
+		"Raise Wrist/running"
 	]
 }
