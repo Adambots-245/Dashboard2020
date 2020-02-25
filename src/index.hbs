@@ -14,6 +14,22 @@
         }
     </style>
     <script src="networktables/networktables.js"></script>
+    <script id="components/values_config">
+        var $ = require("jquery");
+        var keyset = [];
+
+        function resolveConfigValues(key) {
+            keyset.push(key);
+            var neatKey = key.split("/")[0];
+            var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
+            $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
+            //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+            NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
+                $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
+                //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -122,6 +138,7 @@
         <div id="values_box"> 
             <div class="content">
                 {{Include "values"}}
+                {{EachBind config_values "resolveConfigValues"}}
             </div>
             {{Include "label"}}
         </div>
@@ -134,8 +151,10 @@
         <button id="connect" disabled>Connecting</button>
     </div>
 
-    <div id="logo"><img src="../images/AdambotsLogo245.png" /></div>
-    {{Include "infinite_recharge"}}
+    <div id="logo_container">
+        {{Include "infinite_recharge"}}
+        <div id="logo"><img src="../images/AdambotsLogo245.png" /></div>
+    </div>
 
     <div id="sidebar">
         <div id="sidebar_content">
@@ -185,25 +204,5 @@
     <!-- Widgets: -->
     <!--<script src="components/ButtonCommands.js"></script>-->
     <script src="components/multicamera.js"></script>
-    <script id="components/values_config">
-        var values = "{{{config_values}}}".split(",");
-
-        function resolveConfigValues() {
-            if (values[0].length < 1) return;
-
-            values.forEach((key) => {
-                var neatKey = key.split("/")[0];
-                var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
-                $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
-                //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
-                NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
-                    $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
-                    //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
-                });
-            });
-        }
-
-        resolveConfigValues();
-    </script>
 </body>
 </html>

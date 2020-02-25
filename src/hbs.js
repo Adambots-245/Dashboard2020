@@ -48,7 +48,21 @@ module.exports = (config) => {
     });
 
     Handlebars.registerHelper("EachBind", (ntArrayKey, funcName) => {
+        let retStr = "";
 
+        if (typeof funcName == "string") {
+            ntArrayKey.forEach((item) => {
+                retStr += `
+                <span>
+                <script>
+                    ${funcName}("${item}");
+                </script>
+                </span>
+                `;
+            });
+        }
+
+        return new Handlebars.SafeString(retStr);
     });
 
     Handlebars.registerHelper("Include", (widgetName) => {

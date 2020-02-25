@@ -226,13 +226,23 @@ body.login #login {
 }
 
 
-#logo {
+#logo_container {
     position: fixed;
     bottom: 10px;
     left: 28px;
     width: 470px;
-    height: 130px;
+    top: calc(15vh + 405px);
+}
+
+#logo {
+    /*position: fixed;
+    bottom: 10px;
+    left: 28px;
+    width: 470px;
+    height: 130px;*/
     border-radius: 25px;
+    width: 100%;
+    height: 50%;
 }
 
 #logo > img {
@@ -242,12 +252,19 @@ body.login #login {
 
 
 .infinite-recharge-frame, #team_logo {
-    position: fixed;
+    /*position: fixed;
     bottom: 150px;
     left: 28px;
     width: 270px;
     height: 110px;
     border-radius: 25px;
+    border: 1px solid darkgoldenrod;
+    background-image: url("../widgets/infinite_recharge/infinite_recharge.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;*/
+    border-radius: 25px;
+    width: 270px;
+    height: calc(50% - 10px);
     border: 1px solid darkgoldenrod;
     background-image: url("../widgets/infinite_recharge/infinite_recharge.jpg");
     background-size: cover;
@@ -259,7 +276,7 @@ body.login #login {
         opacity: 0;
     }
     50% {
-        opacity: 0.8;
+        opacity: 0.6;
     }
     100% {
         opacity: 0;
@@ -268,10 +285,12 @@ body.login #login {
 
 
 .infinite_recharge {
-    width: 270px;
+    width: 100%;
     height: 100%;
     border-radius: 25px;
     opacity: 0;
+    z-index: 1;
+    background: rgb(255, 187, 0);
 }
 
 .infinite_recharge:hover {
