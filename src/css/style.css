@@ -461,6 +461,11 @@ article {
     border: 5px solid yellow;
 }
 
+#top_bar * * * {
+    border: none;
+    display: block;
+}
+
 #other {
     position: absolute;
     right: 3.21%;
