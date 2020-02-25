@@ -188,7 +188,11 @@ NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);*/
 var isRed = false;
 var isComplete = false;
 
-NetworkTables.addKeyListener('/robot/time', (key, value) => {
+
+/**
+ * The key for time can be either '/robot/time' or '/SmartDashboard/robot/time' depending on your setup
+ */
+NetworkTables.addKeyListener('/SmartDashboard/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
     // We assume here that value is an integer representing the number of seconds left.
 
