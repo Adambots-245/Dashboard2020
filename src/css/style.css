@@ -334,16 +334,48 @@ body.login #login {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
+}
+
+#CPU_icon {
+    background: url(../../images/cpu_icon.png);
+    background-size: 90% 90%;
+    /*height: calc(100% - 30px);
+    width: 7vw;*/
+    height: 50%;
+    width: 4vw;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+
+#RAM_icon {
+    background: url(../../images/ram_icon.png);
+    background-size: 90% 90%;
+    /*height: calc(100% - 30px);
+    width: 7vw;*/
+    height: 50%;
+    width: 4vw;
+    display: inline-block;
+    background-repeat: no-repeat;
 }
 
 #other-options {
     position: absolute;
     right: 3.21%;
     background-color: transparent;
+    height: 100%;
 }
 
 #gears {
     margin-right: 70px;
+    background: url(../../images/settings_icon.png);
+    background-size: 90% 90%;
+    /*height: calc(100% - 30px);
+    width: 7vw;*/
+    height: 100%;
+    width: 7vw;
+    display: inline-block;
+    background-repeat: no-repeat;
 }
 
 
