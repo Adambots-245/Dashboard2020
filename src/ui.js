@@ -174,7 +174,6 @@ NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);*/
 //ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
 //ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
 
-var isRed = false;
 var isComplete = false;
 
 
@@ -188,14 +187,11 @@ NetworkTables.addKeyListener('/SmartDashboard/robot/time', (key, value) => {
     var minutes =  Math.floor(value / 60);
     var seconds = (value % 60 < 10 ? '0' : '') + value % 60;
 
-    ui.timer.textContent = value < 0 ? '0:00' : minutes + ':' + seconds;
+    $(ui.timer).find("p")[0].textContent = value < 0 ? '0:00' : minutes + ':' + seconds;
 
     if (minutes == 0 && !isNaN(seconds) && Number(seconds) <= 30) {
-        //Red flashing text animation
-        if (isRed) $(ui.timer).css("color", "white");
-        else $(ui.timer).css("color", "red");
-
-        isRed = !isRed;
+        //Red text when time is running out
+    $(ui.timer).find("p").css("animation", "1.5s timerFlash infinite linear");
     }
     if (seconds == 0 && minutes == 0 && !isComplete) {
         ui.toast({text: "Match Complete", duration: 3, type: "warning"});
@@ -203,7 +199,7 @@ NetworkTables.addKeyListener('/SmartDashboard/robot/time', (key, value) => {
     }
     else if (Number(minutes) >= 2) {
         isComplete = false;
-        $(ui.timer).css("color", "white");
+        $(ui.timer).find("p").removeAttr("style");
     }
 });
 
@@ -311,6 +307,21 @@ function checkExists(parent, key) {
     }
 }
 
+function registerRemovers() {
+    $("div.key").click((event) => {
+        var elem = event.currentTarget;
+        var key = $(elem).attr("value");
+        $(elem).remove();
+
+        console.log(`IndexOf ${key}: `, keyset.indexOf(key));
+        console.log("Set: ", keyset);
+
+        keyset.splice(keyset.indexOf(key), 1);
+        ipc.send("saveValuesConfiguration", keyset);
+        ui.toast({text: "Saved Values Config.", duration: 3, type: "success"});
+    });
+}
+
 
     $( "#values-box .content" ).droppable({
         accept: ".sb-key",
@@ -319,10 +330,15 @@ function checkExists(parent, key) {
             var key = elem.html();
 
             if (!checkExists("#values-box .content", key)) {
-                var neatKey = key.split("/")[0];
+                var neatKey = [];
+                key.split("/").forEach(item => {neatKey.push(item[0].toUpperCase() + item.substring(1, item.length))});
+                neatKey = neatKey.join("/");
+
                 var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
                 $("#values-box .content > .value-container")[0].innerHTML += `<div class="key" value="${key}"><span class="key-box">${neatKey}</span> <span class="val-box">${val}</span></div>`;
                 keyset.push(key);
+                registerRemovers();
+
                 NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
                     $(`#values-box .content > .value-container > div.key[value="${key}"]`).html(`<span class="key-box">${neatKey}</span> <span class="val-box">${val}</span>`);
                 });
@@ -335,6 +351,7 @@ function checkExists(parent, key) {
     }
 
     makeDraggable();
+    registerRemovers();
 
 //--------------------------------------HBS Widgets-------------------------------------------\\
 
@@ -482,6 +499,14 @@ setInterval(() => {
 
 window.uiExists = true;
 
-window.onunload = () => {
+window.onbeforeunload = () => {
     ipc.send("saveValuesConfiguration", keyset);
+    ui.toast({text: "Saved Values Config.", duration: 3, type: "success"});
 }
+
+ipc.on("sendConfig", (ev, arg) => {
+    var set = arg["config_values"];
+    console.log(set);
+    set.forEach((item) => {resolveConfigValues(item)});
+})
+ipc.send("fetchConfig", true);

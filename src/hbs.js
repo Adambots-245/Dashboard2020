@@ -47,36 +47,9 @@ module.exports = (config) => {
 
     });
 
-    Handlebars.registerHelper("EachBind", (ntArrayKey, funcName) => {
-        let retStr = "";
-
-        if (typeof funcName == "string") {
-            ntArrayKey.forEach((item) => {
-                retStr += `
-                <span>
-                <script>
-                    ${funcName}("${item}");
-                </script>
-                </span>
-                `;
-            });
-        }
-
-        return new Handlebars.SafeString(retStr);
-    });
-
     Handlebars.registerHelper("Include", (widgetName) => {
         let name = Handlebars.escapeExpression(widgetName);
         let path = `${__dirname}/widgets/${name}/${name}.hbs`;
-        // $.ajax({
-        //     url: `widgets/${name}/${name}.html`,
-        //     cache: true,
-        //     async: false,
-        //     success: function(data) {
-        //       let source    = data;
-        //         return new Handlebars.SafeString(source);
-        //     }               
-        //   });
 
         let hbs = fs.readFileSync(path).toString();
 

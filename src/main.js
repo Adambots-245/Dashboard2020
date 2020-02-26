@@ -137,10 +137,15 @@ function createWindow() {
     mainWindow.removeMenu();
 
     //Flashes the window (orange) for a set amount of time, in ms
-    mainWindow.flashFrame(true);
-    setTimeout(() => {
-        mainWindow.flashFrame(false);
-    }, 6000);
+    try {
+        mainWindow.flashFrame(true);
+        setTimeout(() => {
+            mainWindow.flashFrame(false);
+        }, 6000);
+    }
+    catch (err) {
+        console.log("Main window is refreshing...");
+    }
 
     
 
@@ -164,6 +169,7 @@ function createWindow() {
         connectedFunc = null;
         client.removeListener(clientDataListener);
     });
+
     mainWindow.on('unresponsive', () => {
         console.log('Main Window is unresponsive');
     });
@@ -171,18 +177,13 @@ function createWindow() {
         console.log('window failed load');
     });
 
-    mainWindow.on("close", (event) => {
-        //Nothing for now
-
-    });
-
     globalShortcut.register('f5', function() {
         console.log('f5 is pressed')
-        mainWindow.reload()
+        mainWindow.reload();
     })
     globalShortcut.register('CommandOrControl+R', function() {
         console.log('CommandOrControl+R is pressed')
-        mainWindow.reload()
+        mainWindow.reload();
     });
 
     //Temporary devtools:
@@ -219,19 +220,6 @@ app.on('activate', function () {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow == null) createWindow();
-});
-
-
-//Toggles frame or frameless, based on Toggle Button in index.html
-ipc.on("toggleFrame", (ev, arg) => {
-    var lastWindow = mainWindow;
-    var newWindow = toggleFrame();
-
-    setTimeout(() => {
-        lastWindow.close();
-        mainWindow = newWindow;
-        mainWindow.webContents.send("receiveFrame", frame);
-    }, 500);
 });
 
 /**
@@ -285,4 +273,10 @@ ipc.on("saveValuesConfiguration", (ev, arg) => {
      arg = arg || [];
 
      Config.set("config_values", arg);
+});
+
+ipc.on("fetchConfig", (ev, arg) => {
+    if (arg) {
+        ev.reply("sendConfig", Config.get());
+    }
 });

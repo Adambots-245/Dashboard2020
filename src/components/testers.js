@@ -37,7 +37,7 @@ function testGyro() {
     setInterval(() => {
 
     time -= 1;
-    NetworkTables.putValue("/robot/time", time);
+    NetworkTables.putValue("/SmartDashboard/robot/time", time);
 
     if (time < -5) time = 126;
 

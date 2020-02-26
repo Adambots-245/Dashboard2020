@@ -27,13 +27,13 @@
 
 <body>
     <div id="top-bar">
-        <div id="connection">
+        <div id="connection" class="subsection">
             <!-- Tells whether robot is connected to dashboard. -->
-            <div id="robot-state">Unknown state</div>
+            <div id="robot-state">Unknown State</div>
             <button id="connect-button">Connect</button>
         </div>
-        <div id="timer">2:15</div>
-        <div id="battery">
+        <div id="timer" class="subsection"><p>2:15</p></div>
+        <div id="battery" class="subsection">
             <div id="battery-icon"></div>
             <div id="voltage">
                 <canvas id="volts"></canvas>
@@ -43,20 +43,20 @@
                 <canvas id="amps"></canvas>
             </div>
         </div>
-        <div id="roboRIO">
+        <div id="roboRIO" class="subsection">
             <div id="roboRIO-icon"></div>
             <div id="CPU">
-                <div id="CPU-icon">cpu</div>
+                <div id="CPU-icon"></div>
                 <div id="CPU-counter">12</div>
             </div>
-            <div id="RAM">
-                <div id="RAM-icon">ram</div>
+            <div id="RAM" class="subsection">
+                <div id="RAM-icon"></div>
                 <div id="RAM-counter">76</div>
             </div>
         </div>
         <div id="other-options">
-            <div id="gears">opt</div>
-            <div id="menu">menu</div>
+            <div id="gears"><i></i><i></i></div>
+            <div id="menu"></div>
         </div>
     </div>
     
@@ -88,7 +88,7 @@
             <div id="values-box"> 
                 <div class="content">
                     {{Include "values"}}
-                    {{EachBind config_values "resolveConfigValues"}}
+                    {{!-- EachBind config_values "resolveConfigValues" --}}
                 </div>
                 {{Include "label"}}
             </div>
@@ -123,8 +123,42 @@
     <script src="components/testers.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
+    <script src="components/jquery.gauge.js"></script>
     
     <!-- Widgets: -->
     <script src="components/multicamera.js"></script>
+    <script>
+        $("#volts").gauge(50, {
+            // Minimum value to display
+            min: 0,
+            // Maximum value to display
+            max: 100,
+            // Unit to be displayed after the value
+            unit: "V",
+            // color for the value and bar
+            color: "yellowgreen",
+            colorAlpha: 1,
+            // background color of the bar
+            bgcolor: "#222",
+            // default or halfcircle
+            type: "default"
+        });
+
+        $("#amps").gauge(75, {
+            // Minimum value to display
+            min: 0,
+            // Maximum value to display
+            max: 100,
+            // Unit to be displayed after the value
+            unit: "A",
+            // color for the value and bar
+            color: "orangered",
+            colorAlpha: 1,
+            // background color of the bar
+            bgcolor: "#222",
+            // default or halfcircle
+            type: "default"
+        });
+    </script>
 </body>
 </html>
