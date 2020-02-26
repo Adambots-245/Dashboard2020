@@ -110,25 +110,14 @@ let ui = {
     timer: document.getElementById('timer'),
     robotState: document.getElementById('robot-state').firstChild,
     gyro: {
-        container: document.getElementById('gyro'),
         val: 0,
         offset: 0,
-        visualVal: 0,
-        arm: document.getElementById('gyro-arm'),
-        number: document.getElementById('gyro-number')
+        visualVal: 0
     },
-    robotDiagram: {
-        arm: document.getElementById('robot-arm'),
-        svg: document.getElementById('robot-diagram'),
-        arm_placeholder: document.getElementById("robot-arm-placeholder"),
-        rotationalsvg: document.getElementById("arm-rotational")
-    },
-    autoSelect: document.getElementById('auto-select'),
-    armPosition: document.getElementById('arm-position'),
     toast: {},
     modal: {},
     sidebar: document.getElementById("sidebar"),
-    sidebar_bar: document.getElementById("sidebar_bar"),
+    sidebar_bar: document.getElementById("sidebar-bar"),
     login: {
         box: document.getElementById("connect-address"),
         button: document.getElementById("connect")
@@ -157,7 +146,7 @@ ui.modal = function({title, text, type}) {
     }
     ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
     ui.gyro.arm.style.transformOrigin = `50% 50%`;
-    ui.gyro.number.textContent = ui.gyro.visualVal + 'º';
+    ui.gyro.number.text = ui.gyro.visualVal + 'º';
 };
 NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);*/
 
@@ -268,16 +257,16 @@ ui.sidebar_bar.onclick = function () {
     if (!sidebarIsOpen) {
         //Opens the sidebar
         document.getElementById("sidebar").style.width = "500px";
-        document.getElementById("sidebar_bar").innerHTML = "&#9668;";
-        document.getElementById("sidebar_content").style.opacity = 1;
-        document.getElementById("sidebar_content").style.display = "block";
+        document.getElementById("sidebar-bar").innerHTML = "&#9668;";
+        document.getElementById("sidebar-content").style.opacity = 1;
+        document.getElementById("sidebar-content").style.display = "block";
         sidebarIsOpen = true;
     }
     else {
         //Closes the sidebar
         document.getElementById("sidebar").style.width = "16px";
-        document.getElementById("sidebar_bar").innerHTML = "&#9658;";
-        document.getElementById("sidebar_content").style.opacity = 0;
+        document.getElementById("sidebar-bar").innerHTML = "&#9658;";
+        document.getElementById("sidebar-content").style.opacity = 0;
         sidebarIsOpen = false;
     }
 }
@@ -323,28 +312,26 @@ function checkExists(parent, key) {
 }
 
 
-    $( "#values_box .content" ).droppable({
-        accept: ".sb_key",
+    $( "#values-box .content" ).droppable({
+        accept: ".sb-key",
         drop: (event, ui) => {
             var elem = ui.draggable;
             var key = elem.html();
 
-            if (!checkExists("#values_box .content", key)) {
+            if (!checkExists("#values-box .content", key)) {
                 var neatKey = key.split("/")[0];
                 var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
-                $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
-                //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                $("#values-box .content > .value-container")[0].innerHTML += `<div class="key" value="${key}"><span class="key-box">${neatKey}</span> <span class="val-box">${val}</span></div>`;
                 keyset.push(key);
                 NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
-                    $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
-                    //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                    $(`#values-box .content > .value-container > div.key[value="${key}"]`).html(`<span class="key-box">${neatKey}</span> <span class="val-box">${val}</span>`);
                 });
             }
         }
     });
     
     function makeDraggable() {
-        $('#sidebar_content .sb_key').draggable({scroll: false, containment: "document", appendTo: "body", helper: "clone", snap: ".value_container", revert: "invalid"});
+        $('#sidebar-content .sb-key').draggable({scroll: false, containment: "document", appendTo: "body", helper: "clone", snap: ".value-container", revert: "invalid"});
     }
 
     makeDraggable();
@@ -359,7 +346,7 @@ function Label(text, type) {
 
     this.insertTo = (parent) => {
         this.lastParent = parent;
-        var container = $(parent).find(".label_container")[0];
+        var container = $(parent).find(".label-container")[0];
         container.innerHTML = elem;
         $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 40 + Number($(parent).css("padding").replace("px", ""))) + "px");
         return this;
@@ -378,7 +365,7 @@ function Label(text, type) {
     }
 
     this.addLabel = (label) => {
-        $(this.lastParent).find(".label_container")[0].innerHTML += label.toString();
+        $(this.lastParent).find(".label-container")[0].innerHTML += label.toString();
         return this;
     }
 
@@ -436,7 +423,7 @@ ui.widgets.updateGyro = (parentID, value) => {
 //---
 
 //Create the title label for auton modes
-new Label("Autonomous Modes", "title").insertTo("#auton_modes");
+new Label("Autonomous Modes", "title").insertTo("#auton-modes");
 
 //Autonomous Modes method:
 ui.widgets.autonModes = () => {
@@ -445,7 +432,7 @@ ui.widgets.autonModes = () => {
 }
 
 //Create the title label for the motors
-new Label("Motors", "title").insertTo("#motors_widget")
+new Label("Motors", "title").insertTo("#motors-widget")
 
 //Motors' Status method:
 ui.widgets.updateMotors = () => {
@@ -453,7 +440,7 @@ ui.widgets.updateMotors = () => {
 }
 
 //Create title label for values:
-new Label("Values", "title").insertTo("#values_box");
+new Label("Values", "title").insertTo("#values-box");
 
 ui.widgets.updateValues = () => {
 
@@ -464,19 +451,19 @@ ui.widgets.updateValues = () => {
 var sdHandler = new KeyHandler((key) => {
     if (key.toString().match(/\./)) return;
     console.log("Got here: ", key);
-    var elem = $("#sidebar_content");
+    var elem = $("#sidebar-content");
     var uid = key.replace(/\//g, "");
 
     if (!sdHandler.getUsedKeys()[key]) {
         var v = NetworkTables.getValue(key, "-");
-        elem[0].innerHTML += `<div id="key_${uid}"><span class="sb_key">${key.replace("/SmartDashboard/", "")}</span><span class="sb_val">${v}</span></div>`;
+        elem[0].innerHTML += `<div id="key-${uid}"><span class="sb-key">${key.replace("/SmartDashboard/", "")}</span><span class="sb-val">${v}</span></div>`;
         sdHandler.useKey(key);
         makeDraggable();
     }
     else {
         NetworkTables.addKeyListener(key, (k, v) => {
-            var item = `#key_${uid}`;
-            $(`#sidebar_content ${item} > .sb_val`).html(`${v}`);
+            var item = `#key-${uid}`;
+            $(`#sidebar-content ${item} > .sb-val`).html(`${v}`);
         });
     }
 });

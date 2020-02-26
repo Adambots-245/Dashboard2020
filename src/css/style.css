@@ -1,8 +1,12 @@
+/* Global ColorTheme Variables - */
+
 :root {
     --primary-color: goldenrod;
     --secondary-color: #444;
     --label-color: #333;
 }
+
+/* Body and Titlebar Styling - */
 
 .container-after-titlebar > * {
     box-sizing: border-box;
@@ -45,158 +49,10 @@ body, .container-after-titlebar {
     font-family: "Roboto";
 }
 
-button, input[type="text"], input[type="number"], .select-container, select {
-    color: white;
-    background: #444;
-    border: none;
-    font-size: 14px;
-    padding: 6px 8px;
-    cursor: pointer;
-    outline: 0;
-}
-.select-container {
-    padding: 0;
-    display: inline-block;
-}
-select {
-    border: none;
-    background: none;
-    color: white;
-    height: 25px;
-}
-input[type="text"], input[type="number"] {
-    cursor: text;
-}
-input[type="checkbox"] {
-    -webkit-filter: saturate(0);
-    filter: saturate(0);
-}
-/* Major interface panes, widget_box, article, etc. */
-#widget_box, article {
-    padding: 10px;
-    position: fixed;
-    overflow: hidden;
-    background: #222;
-}
+/* Robot Connection Screen - */
 
-headergrantelement {
-    padding: 10px;
-    overflow: hidden;
-    background-color: var(--secondary-color);
-}
-
-#timer {
-    font-family: monospace;
-    display: inline-flex;
-    height: 100%;
-    /*width: 20vw;
-    top: 10px;
-    left: 28px;*/
-    font-size: 10vh;
-    line-height: .8;
-    /*position: absolute;*/
-    color: white;
-    transition: 1s ease color;
-    align-items: center;
-}
-header {
-    width: auto;
-    /*height: 20vh;
-    top: 15px;
-    left: 17vw;*/
-    color: white;
-    display: inline-block;
-}
-#camera {
-    padding: 0;
-    position: fixed;
-    top: calc(15vh - 5px);
-    left: 2vw;
-    width: 480px/*50vw*/;
-    height: 360px/*80vh*/;
-    background-color: #333;
-    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
-    background-image: url('http://localhost:1181/?action=stream');
-    background-repeat: no-repeat;
-}
-
-#camera {
-    background-size: contain;
-    z-index: 3;
-}
-article {
-    top: 0;
-    right: 12vw;
-    height: 100vh;
-    width: 35vw;
-}
-/*#diagramcontainer svg {
-    stroke: white;
-    fill: #222;
-    stroke-width: 2;
-    -webkit-transform-origin: center;
-    -ms-transform-origin: center;
-    transform-origin: center;
-}*/
-
-/*#arm-container {
-    stroke: gray;
-    fill: transparent;
-    stroke-width: 2;
-}*/
-
-text {
-    font-size: 16px;
-    letter-spacing: 2px;
-    stroke: none;
-    fill: white;
-}
-.gyro {
-    width: 100%;
-    height: calc(12vw - 20px);
+body.login #login {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0px;
-    transform: scale(0.8);
-    margin: 0;
-    margin-bottom: -10px;
-}
-#gyro {
-    width: 125px;
-    height: 125px;
-}
-#gyro-arm {
-    -webkit-transform-origin: bottom;
-    -ms-transform-origin: bottom;
-    transform-origin: bottom;
-}
-#gyro-number {
-    font-size: 22px;
-    text-anchor: middle;
-}
-#robot-diagram {
-    position: absolute;
-    bottom: 1px;
-    right: 0px;
-    z-index: 20;
-}
-#arm-rotational {
-    position: absolute;
-    bottom: -25px;
-    right: 158px;
-}
-#robot-arm-placeholder {
-    -webkit-transform-origin: right;
-    -ms-transform-origin: right;
-    transform-origin: right;
-    stroke: rgba(256, 256, 256, 0.3);
-}
-
-
-#team {
-    font-size: 28px;
-    letter-spacing: -1px;
 }
 
 #login {
@@ -212,9 +68,7 @@ text {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 6;
 }
-body.login #login {
-    display: flex;
-}
+
 #login :disabled {
     opacity: 0.6;
 }
@@ -225,8 +79,36 @@ body.login #login {
     margin-left: 5px;
 }
 
+#connect-address {
+    color: white;
+    background: #444;
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: text;
+    outline: 0;
+}
 
-#logo_container {
+#connect {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.2s all ease;
+}
+
+#connect:hover {
+    filter: brightness(110%);
+}
+
+/* Team and FRC-Game Logos - */
+
+#logo-container {
     position: fixed;
     bottom: 10px;
     left: 28px;
@@ -235,11 +117,6 @@ body.login #login {
 }
 
 #logo {
-    /*position: fixed;
-    bottom: 10px;
-    left: 28px;
-    width: 470px;
-    height: 130px;*/
     border-radius: 25px;
     width: 100%;
     height: 50%;
@@ -251,22 +128,12 @@ body.login #login {
 }
 
 
-.infinite-recharge-frame, #team_logo {
-    /*position: fixed;
-    bottom: 150px;
-    left: 28px;
-    width: 270px;
-    height: 110px;
-    border-radius: 25px;
-    border: 1px solid darkgoldenrod;
-    background-image: url("../widgets/infinite_recharge/infinite_recharge.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;*/
+.frc-logo-frame {
     border-radius: 25px;
     width: 270px;
     height: calc(50% - 10px);
     border: 1px solid darkgoldenrod;
-    background-image: url("../widgets/infinite_recharge/infinite_recharge.jpg");
+    background-image: url("../../images/frc_icon.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -285,7 +152,7 @@ body.login #login {
 }
 
 
-.infinite_recharge {
+.frc-logo {
     width: 100%;
     height: 100%;
     border-radius: 25px;
@@ -294,53 +161,12 @@ body.login #login {
     background: rgb(255, 187, 0);
 }
 
-.infinite_recharge:hover {
+.frc-logo:hover {
     animation: recharging 5s infinite reverse;
 }
 
+/* Sidebar - */
 
-.header {
-    color: white;
-    font-size: 11pt;
-}
-
-.content {
-    color: white;
-    font-size: 9pt;
-}
-
-*[val="false"] {
-    background: red;
-    color: white;
-}
-
-*[val="true"] {
-    background: green;
-    color: white;
-}
-
-.toggle {
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-    outline: none;
-}
-
-.toggle:hover {
-    filter: brightness(90%);
-}
-
-.toggle:focus {
-    filter: brightness(80%);
-}
-
-#diagramcontainer {
-    display: block;
-    z-index: 20;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}
 #sidebar {
     position: fixed;
     top: 0;
@@ -357,7 +183,7 @@ body.login #login {
     transition: 0.5s ease width;
 }
 
-#sidebar_content {
+#sidebar-content {
     display: none;
     opacity: 0;
     top: 0;
@@ -374,7 +200,7 @@ body.login #login {
     transition: 0.5s ease opacity;
 }
 
-.sb_key, .sb_val {
+.sb-key, .sb-val {
     color: var(--secondary-color);
     background: var(--primary-color);
     border: 1px solid darkgoldenrod;
@@ -383,29 +209,29 @@ body.login #login {
     display: inline-block;
 }
 
-.sb_key {
+.sb-key {
     width: 45%;
     border-radius: 2px 0 0 2px;
     border-right: 2px solid darkgoldenrod;
 }
 
-.sb_key.ui-draggable-dragging {
+.sb-key.ui-draggable-dragging {
     font-weight: bold;
     width: auto !important;
     cursor: grabbing !important;
     border-right: none !important;
 }
 
-.sb_key.ui-draggable {
+.sb-key.ui-draggable {
     cursor: grab;
 }
 
-.sb_val {
+.sb-val {
     width: 55%;
     border-radius: 0 2px 2px 0;
 }
 
-#sidebar_bar {
+#sidebar-bar {
     font-size: 7.2pt;
     cursor: pointer;
     width: 12px;
@@ -419,25 +245,9 @@ body.login #login {
     text-align: center;
 }
 
-#ds_outline {
-    border: 1px solid red;
-    width: 1041px;
-    height: 233px;
-    position: fixed;
-    bottom: 3px;
-    left: 163px;
-    
-}
+/* Topbar - */
 
-.sidebar_values {
-    width:100%; border: 5px solid black; border-collapse: collapse;
-}
-
-article {
-    display: none;
-}
-
-#top_bar {
+#top-bar {
     position: fixed;
     top: 0px;
     left: 28px;
@@ -448,18 +258,39 @@ article {
     align-items: center;
 }
 
+#connection {
+    padding: 10px;
+    overflow: hidden;
+    background-color: var(--secondary-color);
+    width: auto;
+    color: white;
+    display: inline-block;
+}
+
+/* Match Timer */
+#timer {
+    font-family: monospace;
+    display: inline-flex;
+    height: 100%;
+    font-size: 10vh;
+    line-height: .8;
+    color: white;
+    transition: 1s ease color;
+    align-items: center;
+}
+
 #battery {
     height: 100%;
 }
 
-#battery_pack {
+#battery-icon {
     background: url(../../images/volt_icon.png);
     height: calc(100% - 30px);
     width: 7vw;
     display: inline-block;
 }
 
-#amps_icon {
+#amps-icon {
     background: url(../../images/amp_icon.png);
     height: calc(100% - 30px);
     width: 7vw;
@@ -470,7 +301,7 @@ article {
     height: 100%;
 }
 
-#roboRIO_icon {
+#roboRIO-icon {
     background: url(../../images/roborio_icon.png);
     background-size: 90% 90% !important;
     height: calc(100% - 10px);
@@ -478,7 +309,7 @@ article {
     display: inline-block;
 }
 
-#top_bar * {
+#top-bar * {
     display: inline-flex;
     align-items: center;
     /*border: 5px solid white;*/
@@ -493,7 +324,7 @@ article {
     border-radius: 5px;
 }
 
-#top_bar * * {
+#top-bar * * {
     display: inline-flex;
     align-items: center;
     /*border: 5px solid yellow;*/
@@ -505,18 +336,76 @@ article {
     justify-content: center;
 }
 
-#top_bar * * * {
-    border: none;
-}
-
-#other {
+#other-options {
     position: absolute;
     right: 3.21%;
     background-color: transparent;
 }
 
-#options {
+#gears {
     margin-right: 70px;
+}
+
+
+/****** Widgets: ******/
+
+/* All Widget Content - */
+
+.content {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    height: calc(100% - 40px);
+    width: 100%;
+    border: 0.1px solid red;
+    color: white;
+    font-size: 9pt;
+}
+
+/* Widget Container - */
+
+#widget-box {
+    position: fixed;
+    left: 510px;
+    top: calc(15vh - 5px);
+    width: 66vw;
+    height: 80vh;
+    border: 1px solid red;
+    z-index: 2;
+    padding: 10px;
+    margin-top: 0px;
+    overflow: hidden;
+    background: transparent;
+}
+
+#widget-box > * {
+    display: inline-flex;
+    background-color: var(--secondary-color);
+    margin-left: 10px;
+    margin-top: 5px;
+    position: relative;
+    /*top: 40px;*/
+}
+
+#widget-box > * > * {
+    display: inline-block;
+}
+
+/* Camera Widget - */
+
+#camera {
+    background-size: contain;
+    z-index: 3;
+    padding: 0;
+    position: fixed;
+    top: calc(15vh - 5px);
+    left: 2vw;
+    width: 480px;
+    height: 360px;
+    background-color: #333;
+    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
+    background-image: url('http://localhost:1181/?action=stream');
+    background-repeat: no-repeat;
 }
 
 #camera-bar {
@@ -568,43 +457,9 @@ article {
     color: red;
 }
 
+/* Auton Modes Widget - */
 
-/** Miscellaneous widgets: **/
-
-
-.widget-gyro-frame, #gyro {
-    width: 175px;
-    height: 175px;
-    /*position: relative;*/
-}
-
-
-#widget_box {
-    position: fixed;
-    left: 510px;
-    top: calc(15vh - 5px);
-    width: 66vw;
-    height: 80vh;
-    border: 1px solid red;
-    z-index: 2;
-    padding: 10px;
-    margin-top: 0px;
-}
-
-#widget_box > * {
-    display: inline-flex;
-    background-color: var(--secondary-color);
-    margin-left: 10px;
-    margin-top: 5px;
-    position: relative;
-    /*top: 40px;*/
-}
-
-#widget_box > * > * {
-    display: inline-block;
-}
-
-#auton_modes {
+#auton-modes {
     position: relative;
     height: 175px;
     width: 45vw;
@@ -612,12 +467,12 @@ article {
     box-sizing: border-box;
 }
 
-#auton_modes > .content {
+#auton-modes > .content {
     padding: 5px;
     box-sizing: border-box;
 }
 
-.auton_mode {
+.auton-mode {
     width: calc(25% - 3px);
     height: 100%;
     position: relative;
@@ -625,7 +480,7 @@ article {
     display: inline-block;
 }
 
-.auton_mode > p {
+.auton-mode > p {
     position: absolute;
     bottom: 5px;
     left: 0;
@@ -633,14 +488,16 @@ article {
     text-align: center;
 }
 
-#motors_widget {
+/* Motor Widget - */
+
+#motors-widget {
     position: relative;
     width: 40vw;
     box-sizing: border-box;
     height: 300px;
 }
 
-.img_container {
+.img-container {
     border: 1px solid blue;
     position: absolute;
     top: 5px;
@@ -649,7 +506,7 @@ article {
     height: calc(100% - 15px);
 }
 
-.motors_container {
+.motors-container {
     border: 1px solid red;
     position: absolute;
     top: 5px;
@@ -706,35 +563,7 @@ article {
     font-weight: bold;
 }
 
-#values_box {
-    position: relative;
-    height: 300px;
-    width: 252.5px;
-    box-sizing: border-box;
-}
-
-#values_box > .content {
-    padding: 10px;
-    box-sizing: border-box;
-    overflow-y: hidden;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-}
-
-.value_container {
-    width: 95%;
-    height: 95%;
-    border: 1px solid var(--secondary-color);
-    border-radius: 5px;
-    padding: 10px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
-    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
-}
+/* Label Widget - */
 
 .label-title {
     position: absolute;
@@ -775,7 +604,7 @@ article {
     font-size: 9pt;
 }
 
-.label_container {
+.label-container {
     display: inline-block;
     position: absolute;
     /*top: -40px;*/
@@ -786,14 +615,15 @@ article {
     height: 40px;
 }
 
-.content {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    height: calc(100% - 40px);
-    width: 100%;
-    border: 0.1px solid red;
+/* Gyro - */
+
+.widget-gyro-frame, #gyro {
+    width: 175px;
+    height: 175px;
+    /*position: relative;*/
 }
+
+/* Values Box - */
 
 .key {
     font-size: 8pt;
@@ -813,7 +643,37 @@ article {
     align-items: center;
 }
 
-.val_box {
+#values-box {
+    position: relative;
+    height: 300px;
+    width: 252.5px;
+    box-sizing: border-box;
+}
+
+#values-box > .content {
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.value-container {
+    width: 95%;
+    height: 95%;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+}
+
+.val-box {
     color: gold;
     width: auto;
     text-align: center;
@@ -832,12 +692,12 @@ article {
 }
 
 
-.key_box {
+.key-box {
     max-width: 50%;
     height: auto;
     width: auto;
 }
 
-.val_box, .key_box {
+.val-box, .key-box {
     display: inline-block;
 }

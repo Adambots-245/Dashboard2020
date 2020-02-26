@@ -1,208 +1,130 @@
-<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <title>Dashboard245</title>
     <link href="css/style.css" rel="stylesheet">
-    <style>
-    	td {
-        	border: 1px solid red;
-        }
-        th {
-        	border: 3px solid blue;
-        }
-    </style>
+
     <script src="networktables/networktables.js"></script>
+    <script id="jquery">
+        var $, jQuery = $ = require("jquery");
+    </script>
     <script id="components/values_config">
-        var $ = require("jquery");
         var keyset = [];
 
         function resolveConfigValues(key) {
             keyset.push(key);
             var neatKey = key.split("/")[0];
             var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
-            $("#values_box .content > .value_container")[0].innerHTML += `<div class="key" value="${key}"><span class="key_box">${neatKey}</span> <span class="val_box">${val}</span></div>`;
-            //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+            $("#values-box .content > .value-container")[0].innerHTML += `<div class="key" value="${key}"><span class="key-box">${neatKey}</span> <span class="val-box">${val}</span></div>`;
+        
             NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
-                $(`#values_box .content > .value_container > div.key[value="${key}"]`).html(`<span class="key_box">${neatKey}</span> <span class="val_box">${val}</span>`);
-                //$(`#values_box .content > .value_container > div.key[value="${key}"]`).css({width: `calc(50% - ${neatKey.length * 5}px)`});
+                $(`#values-box .content > .value-container > div.key[value="${key}"]`).html(`<span class="key-box">${neatKey}</span> <span class="val-box">${val}</span>`);
             });
         }
     </script>
 </head>
 
 <body>
-    <div id="top_bar">
-        <div id="timer">2:15</div>
-        <header>
+    <div id="top-bar">
+        <div id="connection">
             <!-- Tells whether robot is connected to dashboard. -->
-            <div id="robot-state">Unknown state</div   >
+            <div id="robot-state">Unknown state</div>
             <button id="connect-button">Connect</button>
-        </header>
+        </div>
+        <div id="timer">2:15</div>
         <div id="battery">
-            <div id="battery_pack"></div>
-            <div id="voltage_icon">volt</div>
-            <div id="amps_icon"></div>
-            <div id="amps_counter">amps</div>
+            <div id="battery-icon"></div>
+            <div id="voltage">
+                <canvas id="volts"></canvas>
+            </div>
+            <div id="amps-icon"></div>
+            <div id="powerdraw">
+                <canvas id="amps"></canvas>
+            </div>
         </div>
         <div id="roboRIO">
-            <div id="roboRIO_icon"></div>
+            <div id="roboRIO-icon"></div>
             <div id="CPU">
-                <div id="CPU_icon">cpu</div>
-                <div id="CPU_counter">12</div>
+                <div id="CPU-icon">cpu</div>
+                <div id="CPU-counter">12</div>
             </div>
             <div id="RAM">
-                <div id="RAM_icon">ram</div>
-                <div id="RAM_counter">76</div>
+                <div id="RAM-icon">ram</div>
+                <div id="RAM-counter">76</div>
             </div>
         </div>
-        <div id="other">
-            <div id="options">opt</div>
+        <div id="other-options">
+            <div id="gears">opt</div>
             <div id="menu">menu</div>
         </div>
     </div>
     
-    
-    <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
-        More explanation in that CSS rule. -->
-    <div id="camera"></div>
-    <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
-    <article>
-        
-        <!-- Example robot diagram, arm moves when encoder value changes -->
-        <!--
-        <div id="diagramcontainer">
-        <svg id="robot-diagram" width="332" height="450">
-            <text x="40" y="340">Example SVG Robot Diagram</text>
-            <rect x="75" y="360" width="230" height="40"></rect>
-            <rect x="85" y="370" width="210" height="40"></rect>
-            <rect id="robot-arm-placeholder" x="5" y="375" z="34" width="80" height="10"></rect>
-            <circle cx="100" cy="410" r="25"></circle>
-            <circle cx="260" cy="410" r="25"></circle>
-            <rect x="60" y="380" width="250" height="30"></rect>
-            <text id="team" x="185" y="405" text-anchor="middle">245</text>
-        </svg>
-        <svg id="arm-rotational" width="180" height="180">
-            <circle cx="90" cy="90" r="90" style="fill: transparent; stroke:transparent;"></circle>
-            <rect id="robot-arm" x="90" y="90" z="-1" width="80" height="13" style="stroke:red; stroke-width:2;"></rect>
-        </svg>
-        </div>-->
-    </article>
-    <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-    <div id="widget_box">
-        <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-            The <p> below then says the value. -->
-        <!-- Gyroscope 
-        <div class="gyro">
-            <svg id="gyro">
-                <circle cx="61" cy="60" r="59"></circle>
-                <circle cx="61" cy="60" r="34"></circle>
-                <rect id="gyro-arm" x="58" y="5" width="8" height="50"></rect>
-                <text id="gyro-number" x="67" y="81">0º</text>
-            </svg>
-        </div>
-        -->
-        <!-- Autonomous selector -->
-        <!--<div class="select-container">
-            <select id="auto-select">
-                <option>No auto modes found</option>
-                This gets populated by JS
-            </select>
-        </div> 
-        <div>
-            <p>Adjust arm height</p>
-            <input id="arm-position" type="range" min="0" max="1200" value="0">
-        </div>
-        <div>
-            <button val="false" id="toggleFrame" class="toggle">Toggle Frame</button>
-        </div> -->
-        <!--This is where all of our buttons will go-->
-        <div id="gyro">
-            <div class="content">{{Include "gyro"}}</div>
-            {{NTBind gyro-key "ui.widgets.updateGyro" "gyro"}}
-            {{Include "label"}}
-        </div>
-        <div id="auton_modes">
-            <div class="content">
-                {{Include "auton_modes"}}
+    <div id="middle-bar">
+
+        <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
+            More explanation in that CSS rule. -->
+        <div id="camera"></div>
+
+        <!-- The main content of the dashboard. Designed to contain a gyro, auton_modes, motors, and values by default. -->
+        <div id="widget-box">
+            <div id="gyro">
+                <div class="content">{{Include "gyro"}}</div>
+                {{NTBind gyro-key "ui.widgets.updateGyro" "gyro"}}
+                {{Include "label"}}
             </div>
-            {{Include "label"}}
-        </div>
-        <div id="motors_widget">
-            <div class="content">
-                {{Include "motors"}}
+            <div id="auton-modes">
+                <div class="content">
+                    {{Include "auton_modes"}}
+                </div>
+                {{Include "label"}}
             </div>
-            {{Include "label"}}
-        </div>
-        <div id="values_box"> 
-            <div class="content">
-                {{Include "values"}}
-                {{EachBind config_values "resolveConfigValues"}}
+            <div id="motors-widget">
+                <div class="content">
+                    {{Include "motors"}}
+                </div>
+                {{Include "label"}}
             </div>
-            {{Include "label"}}
+            <div id="values-box"> 
+                <div class="content">
+                    {{Include "values"}}
+                    {{EachBind config_values "resolveConfigValues"}}
+                </div>
+                {{Include "label"}}
+            </div>
         </div>
+
     </div>
-
-
 
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
         <button id="connect" disabled>Connecting</button>
     </div>
 
-    <div id="logo_container">
-        {{Include "infinite_recharge"}}
-        <div id="logo"><img src="../images/AdambotsLogo245.png" /></div>
+    <div id="bottom-bar">
+        <div id="logo-container">
+            <div class="frc-logo-frame">
+                <div class="frc-logo"></div>
+            </div>
+            <div id="logo"><img src="../images/AdambotsLogo245.png" /></div>
+        </div>
     </div>
 
     <div id="sidebar">
-        <div id="sidebar_content">
-           <!--<table class="sidebar_values">
-            <tr>
-                <th>Name</th>
-                <th>Value</th>
-            </tr>
-            <tr>
-                <td>TD example</td>
-                <td>TD example2</td>
-            </tr>
-            <tr>
-                <td>TD example</td>
-                <td>TD example2</td>
-            </tr>
-            <tr>
-                <td>TD example</td>
-                <td>TD example2</td>
-            </tr>
-            <tr>
-                <td>TD example</td>
-                <td>TD example2</td>
-            </tr>
-            <tr>
-                <td>TD example</td>
-                <td>TD example2</td>
-            </tr>
-            </table>-->
+        <div id="sidebar-content">
 
         </div>
-        <div id="sidebar_bar">
-            <p> &#9658; </p> 
+        <div id="sidebar-bar">
+            <p>&#9658;</p> 
         </div>
     </div>
-    <!--<div id="ds_outline"></div>-->
 
-    <script>
-        var $ = require("jquery");
-        var jQuery = $;
-    </script>
     <script src="components/jquery-ui.min.js"></script>
     <script src="components/testers.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
     
     <!-- Widgets: -->
-    <!--<script src="components/ButtonCommands.js"></script>-->
     <script src="components/multicamera.js"></script>
 </body>
 </html>
