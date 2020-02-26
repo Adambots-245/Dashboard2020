@@ -508,5 +508,6 @@ ipc.on("sendConfig", (ev, arg) => {
     var set = arg["config_values"];
     console.log(set);
     set.forEach((item) => {resolveConfigValues(item)});
+    registerRemovers();
 })
 ipc.send("fetchConfig", true);
