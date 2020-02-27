@@ -4,8 +4,6 @@
 	"amps-key": "/SmartDashboard/robot/powerdraw",
 	"cpu-key": "/SmartDashboard/robot/CPU",
 	"ram-key": "/SmartDashboard/robot/RAM",
-	"config_values": [
-		"robot/voltage",
-		"robot/powerdraw"
-	]
+	"config_values": [],
+	"auton-key": "/SmartDashboard/autonomous/modes"
 }

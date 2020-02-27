@@ -145,7 +145,7 @@
     width: calc(25% - 3px);
     height: 100%;
     position: relative;
-    border: 0.1px solid red;
+    
     display: inline-block;
 }
 
@@ -155,6 +155,37 @@
     left: 0;
     width: 100%;
     text-align: center;
+}
+
+.auton-mode > svg {
+    position: absolute;
+    width: auto;
+    top: 5px;
+    left: 5px;
+    width: calc(100% - 10px);
+    bottom: 20px;
+}
+
+/* Auton Arrows and Paths */
+rect {
+    fill: var(--primary-color);
+}
+  
+arrow {
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid var(--primary-color);
+    position: absolute;
+    transform: translateX(40%);
+    opacity: 1;
+    transition: 1s ease opacity;
+}
+
+body.login arrow {
+    opacity: 0;
 }
 
 /* Motor Widget - */
