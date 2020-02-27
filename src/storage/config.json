@@ -1,5 +1,9 @@
 {
-	"title": "TEst Widget",
 	"gyro-key": "/SmartDashboard/Gyro",
-	"config_values": []
+	"voltage-key": "/SmartDashboard/robot/voltage",
+	"amps-key": "/SmartDashboard/robot/powerdraw",
+	"config_values": [
+		"robot/voltage",
+		"robot/powerdraw"
+	]
 }

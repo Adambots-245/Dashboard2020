@@ -14,7 +14,9 @@
 
         function resolveConfigValues(key) {
             keyset.push(key);
-            var neatKey = key.split("/")[0];
+            var neatKey = [];
+            key.split("/").forEach(item => {neatKey.push(item[0].toUpperCase() + item.substring(1, item.length))});
+            neatKey = neatKey.join("/");
             var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
             $("#values-box .content > .value-container")[0].innerHTML += `<div class="key" value="${key}"><span class="key-box">${neatKey}</span> <span class="val-box">${val}</span></div>`;
         
@@ -37,10 +39,12 @@
             <div id="battery-icon"></div>
             <div id="voltage">
                 <canvas id="volts"></canvas>
+                {{NTBind voltage-key "ui.widgets.updateGauge" "volts"}}
             </div>
             <div id="amps-icon"></div>
             <div id="powerdraw">
                 <canvas id="amps"></canvas>
+                {{NTBind amps-key "ui.widgets.updateGauge" "amps"}}
             </div>
         </div>
         <div id="roboRIO" class="subsection">
@@ -121,44 +125,11 @@
 
     <script src="components/jquery-ui.min.js"></script>
     <script src="components/testers.js"></script>
+    <script src="components/jquery.gauge.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
-    <script src="components/jquery.gauge.js"></script>
     
     <!-- Widgets: -->
     <script src="components/multicamera.js"></script>
-    <script>
-        $("#volts").gauge(50, {
-            // Minimum value to display
-            min: 0,
-            // Maximum value to display
-            max: 100,
-            // Unit to be displayed after the value
-            unit: "V",
-            // color for the value and bar
-            color: "yellowgreen",
-            colorAlpha: 1,
-            // background color of the bar
-            bgcolor: "#222",
-            // default or halfcircle
-            type: "default"
-        });
-
-        $("#amps").gauge(75, {
-            // Minimum value to display
-            min: 0,
-            // Maximum value to display
-            max: 100,
-            // Unit to be displayed after the value
-            unit: "A",
-            // color for the value and bar
-            color: "orangered",
-            colorAlpha: 1,
-            // background color of the bar
-            bgcolor: "#222",
-            // default or halfcircle
-            type: "default"
-        });
-    </script>
 </body>
 </html>

@@ -43,6 +43,16 @@ function getMenu() {
                             }
                         });
                     }
+                },
+
+                {
+                    label: "Test Voltage Gauge",
+                    click: () => {testGauge("volt")}
+                },
+
+                {
+                    label: "Test Amp-Powerdraw Gauge",
+                    click: () => {testGauge("amps/powerdraw")}
                 }
             ]
         }
@@ -134,46 +144,6 @@ ui.modal = function({title, text, type}) {
     ipc.send("addModal", {title: title, text: text, type: type});
 }
 
-// Key Listeners
-
-// Gyro rotation
-/*let updateGyro = (key, value) => {
-    ui.gyro.val = value;
-    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
-    ui.gyro.visualVal %= 360;
-    if (ui.gyro.visualVal < 0) {
-        ui.gyro.visualVal += 360;
-    }
-    ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
-    ui.gyro.arm.style.transformOrigin = `50% 50%`;
-    ui.gyro.number.text = ui.gyro.visualVal + 'º';
-};
-NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);*/
-
-// The following case is an example, for a robot with an arm at the front.
-/*NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
-    // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
-    if (value > 1200) {
-        value = 1200;
-    }
-    else if (value < 0) {
-        value = 0;
-    }
-    // Calculate visual rotation of arm
-    //var armAngle = value * 3 / 20 - 45;
-    
-    //var armAngle = (value * 3 / 8) + 180; - My formula
-    var armAngle = (value / 1200 * 45) + 180;
-
-    // Rotate the arm in diagram to match real arm
-    ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
-    ui.robotDiagram.rotationalsvg.style.transform = `rotate(${armAngle}deg)`;
-});*/
-
-//Set robot arm to initial position
-//ui.robotDiagram.rotationalsvg.style.transformOrigin = `50% 50%`;
-//ui.robotDiagram.rotationalsvg.style.transform = `rotate(180deg)`;
-
 var isComplete = false;
 
 
@@ -204,7 +174,7 @@ NetworkTables.addKeyListener('/SmartDashboard/robot/time', (key, value) => {
 });
 
 // Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/autonomous/modes', (key, value) => {
+/*NetworkTables.addKeyListener('/SmartDashboard/autonomous/modes', (key, value) => {
     // Clear previous list
     while (ui.autoSelect.firstChild) {
         ui.autoSelect.removeChild(ui.autoSelect.firstChild);
@@ -217,30 +187,12 @@ NetworkTables.addKeyListener('/SmartDashboard/autonomous/modes', (key, value) =>
     }
     // Set value to the already-selected mode. If there is none, nothing will happen.
     ui.autoSelect.value = NetworkTables.getValue('/SmartDashboard/currentlySelectedMode');
-});
+});*/
 
 // Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value) => {
+/*NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value) => {
     ui.autoSelect.value = value;
-});
-
-
-// Reset gyro value to 0 on click
-/*ui.gyro.container.onclick = function () {
-    // Store previous gyro val, will now be subtracted from val for callibration
-    ui.gyro.offset = ui.gyro.val;
-    // Trigger the gyro to recalculate value.
-    updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
-    ui.toast({text: "Reset Gyro.", duration: 3, type: "success"});
-};*/
-// Update NetworkTables when autonomous selector is changed
-//ui.autoSelect.onchange = function () {
-//    NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
-//};
-// Get value of arm height slider when it's adjusted
-//ui.armPosition.oninput = function () {
-//    NetworkTables.putValue('/SmartDashboard/arm/encoder', parseInt(this.value));
-//};
+});*/
 
 addEventListener('error', (ev) => {
     ipc.send('windowError', { mesg: ev.message, file: ev.filename, lineNumber: ev.lineno })
@@ -269,29 +221,7 @@ ui.sidebar_bar.onclick = function () {
 
 
 
-/*ui.team.logoElement.onclick = () => {
-    ui.modal({title: `Team ${ui.team.number}`, text: `Team ${ui.team.number}, ${ui.team.name}.<br>Homepage: ${ui.team.link + "#" + ui.team.number}`, type: "info"});
-}*/
 
-/*setTimeout(() => {
-    ui.login.box.value = ui.login.box.value.replace("xxxx", ui.team.number);
-    ui.login.box.setSelectionRange(8, 8 + ui.team.number.toString().length);
-
-    if (ui.team.inDevMode) {
-        ui.login.box.value = "localhost";
-        ui.login.button.innerHTML = "Connect (Dev Mode)";
-    }
-}, 100);*/
-
-/*if (ui.team.inDevMode) {
-    setTimeout(() => {
-        document.getElementsByClassName("titlebar")[0].style.transition = "7s ease all";
-        document.getElementsByClassName("titlebar")[0].style.color = "gold";
-        document.getElementsByClassName("window-icon")[0].style.backgroundColor = "gold";
-        document.getElementsByClassName("window-icon")[1].style.backgroundColor = "gold";
-        document.getElementsByClassName("window-icon")[2].style.backgroundColor = "gold";
-    }, 2000);
-}*/
 
 //Drag-and-drop values:
 
@@ -308,7 +238,7 @@ function checkExists(parent, key) {
 }
 
 function registerRemovers() {
-    $("div.key").click((event) => {
+    $("div.key").contextmenu((event) => {
         var elem = event.currentTarget;
         var key = $(elem).attr("value");
         $(elem).remove();
@@ -365,7 +295,7 @@ function Label(text, type) {
         this.lastParent = parent;
         var container = $(parent).find(".label-container")[0];
         container.innerHTML = elem;
-        $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 40 + Number($(parent).css("padding").replace("px", ""))) + "px");
+        $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 30 + Number($(parent).css("padding").replace("px", ""))) + "px");
         return this;
     }
 
@@ -377,7 +307,7 @@ function Label(text, type) {
             else {
                 $(parent)[0].innerHTML += elem;
             }
-        if (heightChange) $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 40 + Number($(parent).css("padding").replace("px", ""))) + "px");
+        if (heightChange) $(parent).css("height", (Number($(parent).css("height").replace("px", "")) + 30 + Number($(parent).css("padding").replace("px", ""))) + "px");
         return this;
     }
 
@@ -459,15 +389,45 @@ ui.widgets.updateMotors = () => {
 //Create title label for values:
 new Label("Values", "title").insertTo("#values-box");
 
-ui.widgets.updateValues = () => {
+var gaugeOptions = {
+    colors: ["yellowgreen", "orangered"],
+    IDs: [],
+    getColor: function(id) {
+        if (this.IDs.indexOf(id) > -1) var colorIndex = this.IDs.indexOf(id);
+        else {
+            this.IDs.push(id);
+            var colorIndex = this.IDs.length - 1;
+        }
+        var color = this.colors[colorIndex];
+        return color;
+    }
+}
 
+//Gauge Updating Method for any gauge on the page
+ui.widgets.updateGauge = (canvasID, value) => {
+    $(`#${canvasID}`).gauge(Math.round(value), {
+        // Minimum value to display
+        min: 0,
+        // Maximum value to display
+        max: 100,
+        // Unit to be displayed after the value
+        unit: canvasID == "volts" ? "V" : "A",
+        // color for the value and bar
+        color: gaugeOptions.getColor(canvasID),
+        colorAlpha: 1,
+        // background color of the bar
+        bgcolor: "#222",
+        // default or halfcircle
+        type: "default",
+        id: canvasID
+    });
 }
 
 //Insert and update all values in sidebar:
 
 var sdHandler = new KeyHandler((key) => {
     if (key.toString().match(/\./)) return;
-    console.log("Got here: ", key);
+    console.log("Key: ", key);
     var elem = $("#sidebar-content");
     var uid = key.replace(/\//g, "");
 
@@ -497,7 +457,10 @@ setInterval(() => {
     sdHandler.handle(NetworkTables.getKeys());
 }, 100);
 
-window.uiExists = true;
+//window.uiExists = true;
+
+//Triggers a custom UI Initialized events so HBS widgets can use their methods at the correct time...
+$(document).trigger("uiInit");
 
 window.onbeforeunload = () => {
     ipc.send("saveValuesConfiguration", keyset);

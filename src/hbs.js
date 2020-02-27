@@ -34,9 +34,12 @@ module.exports = (config) => {
             retStr = `
             <span>    
             <script>
-            
-                NetworkTables.addKeyListener("${ntKey}", (key, value) => {
-                    if ("uiExists" in window) ${fName}(${idParam}value);
+                $(document).on("uiInit", () => {
+                    //Initialize with starting value:
+                    ${fName}(${idParam}NetworkTables.getValue("${ntKey}", 0));
+                    NetworkTables.addKeyListener("${ntKey}", (key, value) => {
+                        ${fName}(${idParam}value);
+                    });
                 });
                 </script>
                 </span>

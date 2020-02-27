@@ -43,3 +43,18 @@ function testGyro() {
 
     }, 1000);
 }
+
+function testGauge(type) {
+
+    if (type == "volt") var table = "voltage";
+    else var table = "powerdraw";
+
+    var power = 100;
+    setInterval(() => {
+        NetworkTables.putValue("/SmartDashboard/robot/" + table, power);
+        power--;
+
+        if (power < 0) power = 100;
+    }, 100)
+
+}

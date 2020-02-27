@@ -1,7 +1,7 @@
 /* Global ColorTheme Variables - */
 
 :root {
-    --primary-color: goldenrod;
+    --primary-color: gold;
     --secondary-color: #444;
     --label-color: #333;
 }
@@ -42,7 +42,7 @@ body, .container-after-titlebar {
     user-select: none;
     color: white;
     overflow: hidden;
-    background: #222;
+    background: black;
 }
 
 .container-after-titlebar {
@@ -111,15 +111,23 @@ body.login #login {
 #logo-container {
     position: fixed;
     bottom: 10px;
-    left: 28px;
-    width: 470px;
-    top: calc(15vh + 405px);
+    right: 28px;
+    width: auto;
+    top: calc(15vh + 545px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 3;
 }
 
 #logo {
     border-radius: 25px;
-    width: 100%;
-    height: 50%;
+    width: 470px;
+    height: 100%;
+    display: inline-block;
 }
 
 #logo > img {
@@ -131,12 +139,14 @@ body.login #login {
 .frc-logo-frame {
     border-radius: 25px;
     width: 270px;
-    height: calc(50% - 10px);
-    border: 1px solid darkgoldenrod;
+    height: 100%;
+    border: 1px solid transparent;
     background-image: url("../../images/frc_icon.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    display: inline-block;
+    margin-right: 20px;
 }
 
 @keyframes recharging {
@@ -291,25 +301,26 @@ body.login #login {
 
 #robot-state {
     margin-right: 15px;
+    margin-left: 15px;
     position: relative;
-    font-size: 14pt;
+    font-size: 12pt;
     color: gold;
     transform: translateY(50%);
 }
 
 #robot-state::before {
-    content: "Robot State:";
+    content: "Robot State";
     position: absolute;
     transform: translateY(-100%);
     width: 100%;
     text-align: center;
     display: block;
     color: white;
-    font-size: 12pt;
+    font-size: 14pt;
 }
 
 #connect-button {
-    height: 50px;
+    height: 32px;
     width: auto;
     padding: 6px 8px;
     cursor: pointer;
@@ -321,15 +332,15 @@ body.login #login {
     border: none;
     font-size: 14px;
     transition: 0.2s all ease;
+    margin-right: 15px;
 }
 
 #connect-button:hover {
-    filter: brightness(110%);
+    filter: brightness(105%);
 }
 
 /* Match Timer */
 #timer {
-    font-family: "Roboto";
     display: inline-flex;
     height: calc(100% - 10px);
     font-size: 45pt;
@@ -371,7 +382,6 @@ body.login #login {
     display: block;
     color: white;
     font-size: 14pt;
-    font-family: "Roboto";
 }
 
 #battery {
@@ -395,6 +405,7 @@ body.login #login {
     width: 67px;
     display: inline-block;
     background-position: center;
+    margin-left: 10px;
 }
 
 #amps-icon {
@@ -539,11 +550,11 @@ body.login #login {
 
 .content {
     position: absolute;
-    top: 40px;
+    top: 30px;
     left: 0;
-    height: calc(100% - 40px);
+    height: calc(100% - 30px);
     width: 100%;
-    border: 0.1px solid red;
+    /*border: 0.1px solid red;*/
     color: white;
     font-size: 9pt;
 }
@@ -629,10 +640,12 @@ body.login #login {
     border-radius: 5px;
     border: none;
     color: var(--secondary-color);
+    cursor: pointer;
+    transition: 0.2s all ease;
 }
 
 #camera-bar button:hover {
-    filter: brightness(110%);
+    filter: brightness(105%);
 }
 
 .camera-preload {
@@ -684,7 +697,7 @@ body.login #login {
 }
 
 .img-container {
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     position: absolute;
     top: 5px;
     left: 5px;
@@ -693,10 +706,10 @@ body.login #login {
 }
 
 .motors-container {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 20px;
+    right: 25px;
     width: calc(50% - 15px);
     height: calc(100% - 15px);
     display: flex;
@@ -710,8 +723,8 @@ body.login #login {
     height: auto;
     font-size: 14px;
     display: block;
-    border: 1px solid green;
-    margin-bottom: 10px;
+    /*border: 1px solid green;*/
+    margin-bottom: 20px;
 }
 
 .motor > p {
@@ -779,9 +792,10 @@ body.login #login {
     position: absolute;
     top: 0%;
     left: 50%;
-    transform: translate(-50%, -25%);
+    transform: translate(-50%, -50%);
     color: inherit;
     font-weight: bold;
+    font-size: 11pt;
 }
 
 .label-info > p {
@@ -798,7 +812,7 @@ body.login #login {
     left: 0;
     width: 100%;
     /*height: 100%;*/
-    height: 40px;
+    height: 30px;
 }
 
 /* Gyro - */

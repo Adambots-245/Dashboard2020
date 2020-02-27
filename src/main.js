@@ -3,7 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const electron = require('electron');
 const wpilib_NT = require('wpilib-nt-client');
-const client = new wpilib_NT.Client();
+var client = new wpilib_NT.Client();
 
 // The client will try to reconnect after 1 second
 client.setReconnectDelay(1000)
@@ -137,15 +137,11 @@ function createWindow() {
     mainWindow.removeMenu();
 
     //Flashes the window (orange) for a set amount of time, in ms
-    try {
         mainWindow.flashFrame(true);
         setTimeout(() => {
             mainWindow.flashFrame(false);
         }, 6000);
-    }
-    catch (err) {
-        console.log("Main window is refreshing...");
-    }
+    
 
     
 
@@ -175,6 +171,11 @@ function createWindow() {
     });
     mainWindow.webContents.on('did-fail-load', () => {
         console.log('window failed load');
+    });
+
+    mainWindow.on("close", (event) => {
+        //Nothing for now
+
     });
 
     globalShortcut.register('f5', function() {
