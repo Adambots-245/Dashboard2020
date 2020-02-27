@@ -314,6 +314,11 @@ body.login #login {
     font-size: 12pt;
     color: gold;
     transform: translateY(50%);
+    min-width: 108px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #robot-state::before {

@@ -133,7 +133,7 @@ titlebar = new customTitlebar.Titlebar({
 //-------------------------------------Define UI elements----------------------------------------
 let ui = {
     timer: document.getElementById('timer'),
-    robotState: document.getElementById('robot-state').firstChild,
+    robotState: document.getElementById('robot-state'),
     gyro: {
         val: 0,
         offset: 0,
@@ -457,8 +457,6 @@ ui.widgets.gradientCPU = (elementID, value) => {
 
 ui.widgets.gradientRAM = (elementID, value) => {
     var maxValue = ui.maximums.RAM; //Set to whatever max value will be
-    
-    console.log("Value", value, elementID)
 
     var percent = Math.round(value / maxValue * 100);
     $(`#${elementID}-counter`).text(percent + "%");
@@ -518,7 +516,7 @@ window.onbeforeunload = () => {
 
 ipc.on("sendConfig", (ev, arg) => {
     var set = arg["config_values"];
-    console.log(set);
+    
     set.forEach((item) => {resolveConfigValues(item)});
     registerRemovers();
 })

@@ -35,7 +35,7 @@ buttonConnect.onclick = () => {
 function onRobotConnection(connected) {
   var state = connected ? 'Connected' : 'Disconnected';
   console.log(state);
-  ui.robotState.textContent = state;
+  ui.robotState.innerHTML = state;
   
   if (connected) {
     // On connect hide the connect popup
