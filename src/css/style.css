@@ -60,12 +60,13 @@ body, .container-after-titlebar {
 /* Robot Connection Screen - */
 
 body.login #login {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 #login {
     position: fixed;
-    display: none;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -75,6 +76,9 @@ body.login #login {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 6;
+    opacity: 0;
+    transition: 1s ease opacity;
+    pointer-events: none;
 }
 
 #login :disabled {
