@@ -33,7 +33,7 @@ buttonConnect.onclick = () => {
  * @param {boolean} connected
  */
 function onRobotConnection(connected) {
-  var state = connected ? 'Robot connected!' : 'Robot disconnected.';
+  var state = connected ? 'Connected' : 'Disconnected';
   console.log(state);
   ui.robotState.textContent = state;
   
