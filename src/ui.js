@@ -103,7 +103,7 @@ var titlebar;
 
 titlebar = new customTitlebar.Titlebar({
     backgroundColor: customTitlebar.Color.fromHex('#444444'),
-    icon: decodeURIComponent(__dirname).replace(/\\/g, "/").replace("/src", "/images/icon.png"),
+    icon: decodeURIComponent(__dirname).replace(/\\/g, "/").replace("/src", "/images/atom245.png"),
     shadow: true,
     drag: true,
     minimizable: true,
