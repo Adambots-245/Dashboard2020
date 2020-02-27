@@ -50,12 +50,14 @@
         <div id="roboRIO" class="subsection">
             <div id="roboRIO-icon"></div>
             <div id="CPU">
-                <div id="CPU-icon"></div>
+                <div id="CPU-icon"><img src="../images/cpu_icon.png" /></div>
                 <div id="CPU-counter">12</div>
+                {{NTBind cpu-key "ui.widgets.gradientCPU" "CPU"}}
             </div>
-            <div id="RAM" class="subsection">
-                <div id="RAM-icon"></div>
+            <div id="RAM">
+                <div id="RAM-icon"><img src="../images/ram_icon.png" /></div>
                 <div id="RAM-counter">76</div>
+                {{NTBind ram-key "ui.widgets.gradientRAM" "RAM"}}
             </div>
         </div>
         <div id="other-options">

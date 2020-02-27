@@ -23,12 +23,12 @@ function getMenu() {
             submenu: [
                 {
                     label: "Test Gyro",
-                    click: testGyro
+                    click: testers.testGyro
                 },
 
                 {
                     label: "Test Timer",
-                    click: testTimer
+                    click: testers.testTimer
                 },
 
                 {
@@ -47,12 +47,27 @@ function getMenu() {
 
                 {
                     label: "Test Voltage Gauge",
-                    click: () => {testGauge("volt")}
+                    click: () => {testers.testGauge("volt")}
                 },
 
                 {
                     label: "Test Amp-Powerdraw Gauge",
-                    click: () => {testGauge("amps/powerdraw")}
+                    click: () => {testers.testGauge("amps/powerdraw")}
+                },
+
+                {
+                    label: "Test CPU Gradient",
+                    click: () => {testers.testRIOGradient("CPU")}
+                },
+
+                {
+                    label: "Test RAM Gradient",
+                    click: () => {testers.testRIOGradient("RAM")}
+                },
+
+                {
+                    label: "Test All Widgets",
+                    click: () => {testers.testAll()}
                 }
             ]
         }
@@ -132,7 +147,12 @@ let ui = {
         box: document.getElementById("connect-address"),
         button: document.getElementById("connect")
     },
-    widgets: {}
+    widgets: {},
+    maximums: {
+        CPU: 100,
+        RAM: 100,
+        motors: 100
+    }
 };
 
 
@@ -421,6 +441,35 @@ ui.widgets.updateGauge = (canvasID, value) => {
         type: "default",
         id: canvasID
     });
+}
+
+var updateGradient = (element, percent) => {
+    $(element).css("background", `linear-gradient(to right, var(--gradient-first-stop) 0%, var(--gradient-last-stop) ${percent + 1}%)`);
+}
+
+ui.widgets.gradientCPU = (elementID, value) => {
+    var maxValue = ui.maximums.CPU; //Set to whatever max value will be
+    
+    var percent = Math.round(value / maxValue * 100);
+    $("#" + elementID).find(`#${elementID}-counter`).text(percent + "%");
+    updateGradient($(`#${elementID}-icon`), percent);
+}
+
+ui.widgets.gradientRAM = (elementID, value) => {
+    var maxValue = ui.maximums.RAM; //Set to whatever max value will be
+    
+    console.log("Value", value, elementID)
+
+    var percent = Math.round(value / maxValue * 100);
+    $(`#${elementID}-counter`).text(percent + "%");
+    updateGradient($(`#${elementID}-icon`), percent);
+}
+
+ui.widgets.gradientMotor = (elementID, value) => {
+    var maxValue = ui.maximums.motors; //Set to whatever max value will be
+    
+    var percent = Math.round(value / maxValue * 100);
+    $(`#${elementID}`).attr("value", percent);
 }
 
 //Insert and update all values in sidebar:

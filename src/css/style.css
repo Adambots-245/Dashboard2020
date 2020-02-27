@@ -4,6 +4,8 @@
     --primary-color: gold;
     --secondary-color: #444;
     --label-color: #333;
+    --gradient-first-stop: orangered;
+    --gradient-last-stop: gold;
 }
 
 /* Body and Titlebar Styling - */
@@ -27,6 +29,12 @@
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+::selection {
+    background: var(--primary-color);
+    color: white;
+    border: 5px solid var(--primary-color);
 }
 
 @font-face {
@@ -406,6 +414,35 @@ body.login #login {
     display: inline-block;
     background-position: center;
     margin-left: 10px;
+    position: relative;
+}
+
+#battery-icon::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    content: "Battery";
+    transform: translateY(125%);
+    color: white;
+    font-size: 9pt;
+    filter: brightness(80%);
+}
+
+#amps-icon::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    content: "Powerdraw";
+    transform: translateY(125%);
+    color: white;
+    font-size: 9pt;
+    filter: brightness(80%);
 }
 
 #amps-icon {
@@ -415,6 +452,7 @@ body.login #login {
     display: inline-block;
     background-position: center;
     background-size: 70% 100%;
+    position: relative;
 }
 
 #roboRIO {
@@ -425,8 +463,8 @@ body.login #login {
 
 #roboRIO-icon {
     background: url(../../images/roborio_icon.png);
-    background-size: 90% 90% !important;
-    height: calc(100% - 10px);
+    background-size: 90% 100% !important;
+    height: 100%;
     width: 96px;
     display: inline-block;
     background-position: center;
@@ -437,30 +475,67 @@ body.login #login {
     flex-direction: column;
     justify-content: center;
     height: 100%;
+    margin-right: 5px;
 }
 
 #CPU-icon {
-    background: url(../../images/cpu_icon.png);
+    /*background: url(../../images/cpu_icon.png);
     background-size: 90% 90%;
     /*height: calc(100% - 30px);
     width: 7vw;*/
-    height: 50%;
-    width: 4vw;
-    display: inline-block;
+    height: 75%;
+    width: 64px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     background-repeat: no-repeat;
     background-position: center;
+    border: 1px solid var(--label-color);
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    border-radius: 5px;
+}
+
+#CPU-icon > img {
+    width: 100%;
+    height: 100%;
+}
+
+#CPU-counter {
+    border: 1px solid transparent;
+    width: 64px;
+    height: 25%;
+    text-align: center;
+}
+
+#RAM-counter {
+    border: 1px solid transparent;
+    width: 64px;
+    height: 25%;
+    text-align: center;
+}
+
+#RAM-icon > img {
+    width: 100%;
+    height: 100%;
 }
 
 #RAM-icon {
-    background: url(../../images/ram_icon.png);
-    background-size: 90% 90%;
+    /*background: url(../../images/ram_icon.png);*/
+    background-size: 100% 110%;
     /*height: calc(100% - 30px);
     width: 7vw;*/
-    height: 50%;
-    width: 4vw;
-    display: inline-block;
+    height: 75%;
+    width: 64px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     background-repeat: no-repeat;
     background-position: center;
+    border: 1px solid var(--label-color);
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    border-radius: 5px;
 }
 
 #other-options {
@@ -748,7 +823,7 @@ body.login #login {
 
 /* Progress bar value (colorful stripes part) */
 .motor progress::-webkit-progress-value {
-    background-image: linear-gradient(to right, orangered, gold);
+    background-image: linear-gradient(to right, var(--gradient-first-stop), var(--gradient-last-stop));
   
       border-radius: 2px;
   }

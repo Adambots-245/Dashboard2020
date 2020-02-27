@@ -5,6 +5,8 @@ function toast({text, duration, type}) {
     ipc.send("addToast", {text: text, duration: duration, type: type});
 }
 
+var testers = {};
+
 //---------------------------------Widget testers------------------------------------\\
 //---------------(put values onto network tables to test widgets:)--------------------\\
 
@@ -14,7 +16,7 @@ function randomIntFromInterval(min, max) { // min and max included
 }
 
 //Test code for gyro:
-function testGyro() {
+testers.testGyro = function() {
     toast({text: "Testing Gyro", duration: 3, type: "success"});
     var initialValue = 1001;
     var gyroValue = randomIntFromInterval(0, 360);
@@ -30,7 +32,7 @@ function testGyro() {
 
 
  //Test code for testing the robot match-time clock:
- function testTimer() {
+ testers.testTimer = function() {
     toast({text: "Testing Timer", duration: 3, type: "success"});
 
     var time = 46;
@@ -44,7 +46,7 @@ function testGyro() {
     }, 1000);
 }
 
-function testGauge(type) {
+testers.testGauge = function(type) {
 
     if (type == "volt") var table = "voltage";
     else var table = "powerdraw";
@@ -57,4 +59,38 @@ function testGauge(type) {
         if (power < 0) power = 100;
     }, 100)
 
+}
+
+testers.testRIOGradient = function(type) {
+
+    if (type == "CPU") var table = "CPU";
+    else var table = "RAM";
+
+    var percent = 0;
+    setInterval(() => {
+        NetworkTables.putValue("/SmartDashboard/robot/" + table, percent);
+        percent++;
+
+        if (percent > 100) percent = 0;
+    }, 500);
+
+}
+
+testers.testAll = function() {
+    Object.keys(this).forEach((item) => {
+        if (item == "testAll") {
+            //Prevent infinite loop by catching this case
+        }
+        else if (item == "testGauge") {
+            testers[item]("volt");
+            setTimeout(() => {testers[item]("powerdraw")}, 1000);
+        }
+        else if (item == "testRIOGradient") {
+            testers[item]("CPU");
+            setTimeout(() => {testers[item]("RAM")}, 1000); 
+        }
+        else {
+            testers[item]();
+        }
+    });
 }
