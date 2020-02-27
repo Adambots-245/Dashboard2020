@@ -1,0 +1,361 @@
+/* Topbar - */
+
+#top-bar {
+    position: fixed;
+    top: 0px;
+    left: 28px;
+    height: calc(15vh - 5px);
+    width: calc(100% - 28px);
+    border: 5px solid transparent;
+    display: flex;
+    align-items: center;
+}
+
+#top-bar .subsection {
+    width: auto;
+    margin-right: 5px;
+    height: calc(100% - 10px);
+    display: inline-flex;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+    padding: 7px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#top-bar .subsection > * {
+    display: inline-flex;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#connection {
+    padding: 20px;
+    overflow: hidden;
+    background-color: var(--secondary-color);
+    width: auto;
+    height: calc(100% - 10px);
+    color: white;
+    margin-right: 5px;
+}
+
+#robot-state {
+    margin-right: 15px;
+    margin-left: 15px;
+    position: relative;
+    font-size: 12pt;
+    color: gold;
+    transform: translateY(50%);
+    min-width: 108px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#robot-state::before {
+    content: "Robot State";
+    position: absolute;
+    transform: translateY(-100%);
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: white;
+    font-size: 14pt;
+}
+
+#connect-button {
+    height: 32px;
+    width: auto;
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    font-size: 14px;
+    transition: 0.2s all ease;
+    margin-right: 15px;
+}
+
+#connect-button:hover {
+    filter: brightness(105%);
+}
+
+/* Match Timer */
+#timer {
+    display: inline-flex;
+    height: calc(100% - 10px);
+    font-size: 45pt;
+    line-height: .8;
+    color: white;
+    transition: 1s ease color;
+    align-items: center;
+    background-color: var(--secondary-color);
+}
+
+@keyframes timerFlash {
+    0% {
+        color: gold;
+    }
+
+    50% {
+        color: red;
+    }
+
+    100% {
+        color: yellow;
+    }
+}
+
+#timer > * {
+    transform: translateY(25%);
+    position: relative;
+    color: gold;
+}
+
+#timer > *::before {
+    content: "Match Time";
+    position: absolute;
+    transform: translateY(-150%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: white;
+    font-size: 14pt;
+}
+
+#battery {
+    height: calc(100%);
+    background-color: var(--secondary-color);
+    padding: 0;
+}
+
+#voltage canvas, #powerdraw canvas {
+    width: 90px;
+    height: 90px;
+    margin-right: 5px;
+    margin-left: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+#battery-icon {
+    background: url(../../images/volt_icon.png);
+    height: calc(100% - 30px);
+    width: 67px;
+    display: inline-block;
+    background-position: center;
+    margin-left: 10px;
+    position: relative;
+}
+
+#battery-icon::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    content: "Battery";
+    transform: translateY(125%);
+    color: white;
+    font-size: 9pt;
+    filter: brightness(80%);
+}
+
+#amps-icon::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    content: "Powerdraw";
+    transform: translateY(125%);
+    color: white;
+    font-size: 9pt;
+    filter: brightness(80%);
+}
+
+#amps-icon {
+    background: url(../../images/amp_icon.png);
+    height: calc(100% - 30px);
+    width: 76px;
+    display: inline-block;
+    background-position: center;
+    background-size: 70% 100%;
+    position: relative;
+}
+
+#roboRIO {
+    background-color: var(--secondary-color);
+    height: calc(100% - 10px);
+    margin-right: 169px;
+}
+
+#roboRIO-icon {
+    background: url(../../images/roborio_icon.png);
+    background-size: 90% 100% !important;
+    height: 100%;
+    width: 96px;
+    display: inline-block;
+    background-position: center;
+}
+
+#CPU, #RAM {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin-right: 5px;
+}
+
+#CPU-icon {
+    /*background: url(../../images/cpu_icon.png);
+    background-size: 90% 90%;
+    /*height: calc(100% - 30px);
+    width: 7vw;*/
+    height: 75%;
+    width: 64px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid var(--label-color);
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    border-radius: 5px;
+}
+
+#CPU-icon > img {
+    width: 100%;
+    height: 100%;
+}
+
+#CPU-counter {
+    border: 1px solid transparent;
+    width: 64px;
+    height: 25%;
+    text-align: center;
+}
+
+#RAM-counter {
+    border: 1px solid transparent;
+    width: 64px;
+    height: 25%;
+    text-align: center;
+}
+
+#RAM-icon > img {
+    width: 100%;
+    height: 100%;
+}
+
+#RAM-icon {
+    /*background: url(../../images/ram_icon.png);*/
+    background-size: 100% 110%;
+    /*height: calc(100% - 30px);
+    width: 7vw;*/
+    height: 75%;
+    width: 64px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid var(--label-color);
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    border-radius: 5px;
+}
+
+#other-options {
+    position: absolute;
+    right: 50px;
+    background-color: transparent;
+    height: calc(100% - 10px);
+    margin-right: 5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+@keyframes barrelRoll {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes invertBarrelRoll {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+#gears {
+    margin-right: 10px;
+    /*height: calc(100% - 30px);
+    width: 7vw;*/
+    height: 66px;
+    width: 83px;
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+}
+
+#gears i {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 20px;
+    left: 15px;
+    background: url(../../images/settings_icon.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: barrelRoll 2s infinite linear;
+}
+
+#gears i:last-of-type {
+    top: 12px;
+    left: 41px;
+    animation-name: invertBarrelRoll;
+}
+
+#gears:hover > i {
+    animation-name: invertBarrelRoll;
+}
+
+#gears:hover > i:last-of-type {
+    animation-name: barrelRoll;
+}
+
+#menu {
+    background: url(../../images/menu_icon.png);
+    background-size: 70% 70%;
+    height: 70px;
+    width: 66px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@keyframes menuAnimate {
+    0% { background-size: 70% 70%; }
+    25% { background-size: 30% 30%; }
+    50% { background-size: 110% 110%; }
+    100% { background-size: 70% 70%; }
+}
+
+#menu:hover {
+    animation: 0.5s menuAnimate 1 linear;
+}
+
+

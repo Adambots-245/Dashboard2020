@@ -1,0 +1,303 @@
+/* Global ColorTheme Variables - */
+
+:root {
+    --primary-color: gold;
+    --secondary-color: #444;
+    --label-color: #333;
+    --gradient-first-stop: orangered;
+    --gradient-last-stop: gold;
+}
+
+/* Body and Titlebar Styling - */
+
+.container-after-titlebar > * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container-after-titlebar {
+    /* A CSS hack to fix position relative to container: */
+    transform: translateX(0) translateY(0);
+    overflow: hidden !important;
+}
+
+.window-title {
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+::selection {
+    background: var(--primary-color);
+    color: white;
+    border: 5px solid var(--primary-color);
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(Roboto-Medium.ttf);
+}
+
+body, .container-after-titlebar {
+    font: 16px sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: white;
+    overflow: hidden;
+    background: black;
+}
+
+.container-after-titlebar {
+    font-family: "Roboto";
+}
+
+/* Robot Connection Screen - */
+
+body.login #login {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#login {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 6;
+    opacity: 0;
+    transition: 1s ease opacity;
+    pointer-events: none;
+}
+
+#login :disabled {
+    opacity: 0.6;
+}
+#login > * {
+    height: 40px;
+}
+#login > button {
+    margin-left: 5px;
+}
+
+#connect-address {
+    color: white;
+    background: #444;
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: text;
+    outline: 0;
+}
+
+#connect {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.2s all ease;
+}
+
+#connect:hover {
+    filter: brightness(110%);
+}
+
+/* Team and FRC-Game Logos - */
+
+#logo-container {
+    position: fixed;
+    bottom: 10px;
+    left: calc(2vw + 490px);
+    width: auto;
+    top: calc(15vh + 545px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+#logo {
+    border-radius: 25px;
+    width: 470px;
+    height: 100%;
+    display: inline-block;
+}
+
+#logo > img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.frc-logo-frame {
+    border-radius: 25px;
+    width: 270px;
+    height: 100%;
+    border: 1px solid transparent;
+    background-image: url("../../images/frc_icon.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+@keyframes recharging {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.frc-logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    opacity: 0;
+    z-index: 1;
+    background: rgb(255, 187, 0);
+}
+
+.frc-logo:hover {
+    animation: recharging 5s infinite reverse;
+}
+
+/* Sidebar - */
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 2px;
+    width: 16px;
+    height: 100%;
+    max-height: 100%;
+    max-width: 500px;
+    background: var(--label-color)/*rgb(11, 20, 20)*/;
+    padding: 2px;
+    z-index: 5;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    transition: 0.5s ease width;
+    box-sizing: border-box;
+}
+
+#sidebar-content {
+    display: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: calc(100% - 18px);
+    max-width: 500px;
+    background: var(--label-color)/*rgb(11, 20, 20)*/; 
+    height: 100%;
+    color: rgb(194, 137, 137);
+    padding: 25px; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: 0.5s ease opacity;
+    box-sizing: border-box;
+}
+
+#sidebar-content div {
+    border: 1px solid darkgoldenrod;
+    box-sizing: border-box;
+    background-color: var(--primary-color);
+    position: relative;
+    min-height: 40px;
+    height: auto;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    max-width: 100%;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.sb-key, .sb-val {
+    color: var(--secondary-color);
+    background: var(--primary-color);
+    padding: 5px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.sb-key {
+    width: 45%;
+    height: 100%;
+    border-right: 2px solid transparent;
+}
+
+.sb-key::before {
+    border-right: 3px solid darkgoldenrod;
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    top: 0px;
+    bottom: 0;
+    left: 44%;
+}
+
+.sb-key.ui-draggable-dragging {
+    font-weight: bold;
+    width: auto !important;
+    height: auto !important;
+    cursor: grabbing !important;
+    border-right: none !important;
+    border-radius: 3px;
+}
+
+.sb-key.ui-draggable-dragging::before {
+    display: none;
+}
+
+.sb-key.ui-draggable {
+    cursor: grab;
+}
+
+.sb-val {
+    width: 55%;
+    height: 100%;
+    border-left: 2px solid transparent;
+}
+
+#sidebar-bar {
+    font-size: 7.2pt;
+    cursor: pointer;
+    width: 12px;
+    height: 100%;
+    background: var(--primary-color); 
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: var(--secondary-color);
+    padding: 2px;
+    text-align: center;
+}
+

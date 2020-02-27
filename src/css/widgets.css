@@ -1,0 +1,373 @@
+/****** Widgets: ******/
+
+/* All Widget Content - */
+
+.content {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    height: calc(100% - 30px);
+    width: 100%;
+    /*border: 0.1px solid red;*/
+    color: white;
+    font-size: 9pt;
+}
+
+/* Widget Container - */
+
+#widget-box {
+    position: fixed;
+    left: 510px;
+    top: calc(15vh - 20px);
+    width: 66vw;
+    height: 80vh;
+    
+    z-index: 2;
+    padding: 10px;
+    margin-top: 0px;
+    overflow: hidden;
+    background: transparent;
+}
+
+#widget-box > * {
+    display: inline-flex;
+    background-color: var(--secondary-color);
+    margin-left: 10px;
+    margin-top: 5px;
+    position: relative;
+    /*top: 40px;*/
+}
+
+#widget-box > * > * {
+    display: inline-block;
+}
+
+/* Camera Widget - */
+
+#camera {
+    background-size: contain;
+    z-index: 3;
+    padding: 0;
+    position: fixed;
+    top: calc(15vh - 5px);
+    left: 2vw;
+    width: 480px;
+    height: 360px;
+    background-color: #333;
+    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
+    background-image: url('http://localhost:1181/?action=stream');
+    background-repeat: no-repeat;
+}
+
+#mini-camera {
+    background-size: 100% 100%;
+    z-index: 3;
+    padding: 0;
+    position: fixed;
+    top: calc(15vh + 405px);
+    left: 2vw;
+    width: 480px;
+    bottom: 50px;
+    background-color: #333;
+    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
+    background-image: url('http://localhost:1182/?action=stream');
+    background-repeat: no-repeat;
+}
+
+#camera-bar, #minicam-bar {
+    width: 100%;
+    height: 40px;
+    background: var(--secondary-color);
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    margin: 0;
+    z-index: 4;
+}
+
+#camera-bar *, #minicam-bar * {
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+#camera-bar p, #minicam-bar p {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+}
+
+#camera-bar button {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+#camera-bar button:hover {
+    filter: brightness(105%);
+}
+
+
+.camera-preload {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
+/* Auton Modes Widget - */
+
+#auton-modes {
+    position: relative;
+    height: 175px;
+    width: 45vw;
+    /*width: 692.275px;*/
+    box-sizing: border-box;
+}
+
+#auton-modes > .content {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.auton-mode {
+    width: calc(25% - 3px);
+    height: 100%;
+    position: relative;
+    border: 0.1px solid red;
+    display: inline-block;
+}
+
+.auton-mode > p {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* Motor Widget - */
+
+#motors-widget {
+    position: relative;
+    width: 40vw;
+    box-sizing: border-box;
+    height: 300px;
+}
+
+.img-container {
+    /*border: 1px solid blue;*/
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(50% - 10px);
+    height: calc(100% - 15px);
+}
+
+.motors-container {
+    /*border: 1px solid red;*/
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: calc(50% - 15px);
+    height: calc(100% - 15px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.motor {
+    width: 98%;
+    height: auto;
+    font-size: 14px;
+    display: block;
+    /*border: 1px solid green;*/
+    margin-bottom: 20px;
+}
+
+.motor > p {
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.motor progress {
+    width: 100%;
+    height: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Progress bar container (gray background part) */
+.motor progress::-webkit-progress-bar {
+    background-color: #666;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
+
+/* Progress bar value (colorful stripes part) */
+.motor progress::-webkit-progress-value {
+    background-image: linear-gradient(to right, var(--gradient-first-stop), var(--gradient-last-stop));
+  
+      border-radius: 2px;
+  }
+
+.motor progress::before {
+    content: attr(value);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Label Widget - */
+
+.label-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /*height: 40px;*/
+    height: 100%;
+    background: var(--label-color);
+    color: var(--primary-color);
+    text-align: center;
+    display: inline-block;
+}
+
+.label-info {
+    position: absolute;
+    /*bottom: -50px;*/
+    bottom: -3px;
+    right: 6px;
+    background: none;
+    color: var(--primary-color);
+    display: inline;
+}
+
+
+.label-title > p {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: inherit;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.label-info > p {
+    text-align: center;
+    color: inherit;
+    font-size: 9pt;
+}
+
+.label-container {
+    display: inline-block;
+    position: absolute;
+    /*top: -40px;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    /*height: 100%;*/
+    height: 30px;
+}
+
+/* Gyro - */
+
+.widget-gyro-frame, #gyro {
+    width: 175px;
+    height: 175px;
+    /*position: relative;*/
+}
+
+/* Values Box - */
+
+.key {
+    font-size: 8pt;
+    color: white;
+    border-bottom: 1px solid #777;
+    width: 100%;
+    position: relative;
+    padding: 3px;
+    padding-bottom: 17px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    height: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#values-box {
+    position: relative;
+    height: 300px;
+    width: 252.5px;
+    box-sizing: border-box;
+}
+
+#values-box > .content {
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.value-container {
+    width: 95%;
+    height: 95%;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+}
+
+.val-box {
+    color: gold;
+    width: auto;
+    text-align: center;
+    max-width: 50%;
+    height: auto;
+    word-wrap: break-word;
+    filter: brightness(105%);
+    background-color: #666;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-left: auto;
+    -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.75);
+    /*font-size: 10.6px;*/
+}
+
+
+.key-box {
+    max-width: 50%;
+    height: auto;
+    width: auto;
+}
+
+.val-box, .key-box {
+    display: inline-block;
+}
