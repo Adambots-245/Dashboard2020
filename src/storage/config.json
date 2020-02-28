@@ -5,5 +5,11 @@
 	"cpu-key": "/SmartDashboard/robot/CPU",
 	"ram-key": "/SmartDashboard/robot/RAM",
 	"config_values": [],
-	"auton-key": "/SmartDashboard/autonomous/modes"
+	"auton-key": "/SmartDashboard/autonomous/modes",
+	"cameras": [
+		"http://localhost:1181/?action=stream",
+		"http://roborio-245-frc.local:1181/?action=stream",
+		"http://localhost:1183/?action=stream"
+	],
+	"connection": "localhost"
 }

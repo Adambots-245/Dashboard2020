@@ -22,7 +22,7 @@ testers.testGyro = function() {
     var gyroValue = randomIntFromInterval(0, 360);
     setInterval(() => {
     initialValue++;
-    NetworkTables.putValue("/SmartDashboard/Gyro", gyroValue);  
+    NetworkTables.putValue(renderer.config["gyro-key"], gyroValue);  
     gyroValue += 10;
     if (gyroValue > 360)
         gyroValue = 0;
@@ -48,12 +48,12 @@ testers.testGyro = function() {
 
 testers.testGauge = function(type) {
 
-    if (type == "volt") var table = "voltage";
-    else var table = "powerdraw";
+    if (type == "volt") var table = renderer.config["voltage-key"];
+    else var table = renderer.config["powerdraw-key"];
 
     var power = 100;
     setInterval(() => {
-        NetworkTables.putValue("/SmartDashboard/robot/" + table, power);
+        NetworkTables.putValue(table, power);
         power--;
 
         if (power < 0) power = 100;
@@ -63,12 +63,12 @@ testers.testGauge = function(type) {
 
 testers.testRIOGradient = function(type) {
 
-    if (type == "CPU") var table = "CPU";
-    else var table = "RAM";
+    if (type == "CPU") var table = renderer.config["cpu-key"];
+    else var table = renderer.config["ram-key"];
 
     var percent = 0;
     setInterval(() => {
-        NetworkTables.putValue("/SmartDashboard/robot/" + table, percent);
+        NetworkTables.putValue(table, percent);
         percent++;
 
         if (percent > 100) percent = 0;

@@ -231,7 +231,7 @@ ipc.on("addToast", (ev, arg) => {
 
     Alert.fireToast({
         position: "top-end",
-        title: arg.text,
+        title: `<span style='font-family: "Roboto"; font-size: 9pt;'>${arg.text}</span>`,
         type: arg.type,
         showConfirmButton: false,
         timer: arg.duration * 1000
@@ -249,7 +249,7 @@ ipc.on("addModal", (ev, arg) => {
     alert.fireFrameless({
         position: "center",
         title: arg.title,
-        html: arg.text,
+        html: `<span style="font-family: Verdana">${arg.text}</span>`,
         type: arg.type,
         showConfirmButton: true
     }, null, true, true);

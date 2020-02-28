@@ -548,10 +548,6 @@ window.onbeforeunload = () => {
     ui.toast({text: "Saved Values Config.", duration: 3, type: "success"});
 }
 
-ipc.on("sendConfig", (ev, arg) => {
-    var set = arg["config_values"];
-    console.log(arg);
-    set.forEach((item) => {resolveConfigValues(item)});
-    registerRemovers();
-})
-ipc.send("fetchConfig", true);
+var set = renderer.config["config_values"];
+set.forEach((item) => {resolveConfigValues(item)});
+registerRemovers();

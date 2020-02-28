@@ -2,12 +2,19 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Dashboard245</title>
+    <title>Dashboard 245</title>
     <link href="css/main.css" rel="stylesheet">
     <link href="css/topbar.css" rel="stylesheet">
     <link href="css/widgets.css" rel="stylesheet">
 
     <script src="networktables/networktables.js"></script>
+    <script id="components/fetchConfig">
+        var renderer = {};
+        ipc.on("sendConfig", (ev, arg) => {
+            renderer.config = arg;
+        })
+        ipc.send("fetchConfig", true);
+    </script>
     <script id="jquery">
         var $, jQuery = $ = require("jquery");
     </script>

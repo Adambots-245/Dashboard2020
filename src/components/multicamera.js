@@ -5,13 +5,13 @@ ui.camera = {
     button: "",
     id1: 0,
 	srcs: [ // Will default to first camera
-        'http://localhost:1181/?action=stream',
-        'http://roborio-245-frc.local:1181/?action=stream',
-        'http://localhost:1183/?action=stream'
+        'http://localhost:1181/?action=stream'
     ],
     id2: 2,
     isStreaming: false
 };
+
+if (renderer.config["cameras"]) ui.camera.srcs = renderer.config["cameras"];
 
 // Unlike most addons, this addon doesn't interact with NetworkTables. Therefore, we won't need to add any NT listeners.
 
