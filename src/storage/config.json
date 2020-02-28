@@ -1,7 +1,7 @@
 {
 	"gyro-key": "/SmartDashboard/Gyro",
-	"voltage-key": "/SmartDashboard/robot/voltage",
-	"amps-key": "/SmartDashboard/robot/powerdraw",
+	"voltage-key": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/Voltage",
+	"powerdraw-key": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/TotalCurrent",
 	"cpu-key": "/SmartDashboard/robot/CPU",
 	"ram-key": "/SmartDashboard/robot/RAM",
 	"config_values": [],
