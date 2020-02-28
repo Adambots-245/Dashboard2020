@@ -510,7 +510,24 @@ var sdHandler = new KeyHandler((key) => {
 });
 
 
+//Change Gears color based on team alliance color:
 
+NetworkTables.addKeyListener("/FMSInfo/IsRedAlliance", (key, value) => {
+
+    if (value == true || value == "true") {
+        $("#gears i").addClass("redAlliance");
+        $("#gears i.blueAlliance").removeClass("blueAlliance");
+    }
+    else if (value == false || value == "false") {
+        $("#gears i").addClass("blueAlliance");
+        $("#gears i.redAlliance").removeClass("redAlliance");
+    }
+    else {
+        $("#gears i.redAlliance").removeClass("redAlliance");
+        $("#gears i.blueAlliance").removeClass("blueAlliance");
+    }
+
+});
 
 
 

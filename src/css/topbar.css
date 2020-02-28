@@ -316,11 +316,21 @@
     height: 30px;
     top: 20px;
     left: 15px;
-    background: url(../../images/settings_icon.png);
+    background-color: var(--primary-color);
+    -webkit-mask-image: url(../../images/settings_icon.png);
+    mask-image: url(../../images/settings_icon.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
     animation: barrelRoll 2s infinite linear;
+}
+
+#gears i.redAlliance {
+    background-color: red;
+}
+
+#gears i.blueAlliance {
+    background-color: blue;
 }
 
 #gears i:last-of-type {
@@ -336,26 +346,3 @@
 #gears:hover > i:last-of-type {
     animation-name: barrelRoll;
 }
-
-#menu {
-    background: url(../../images/menu_icon.png);
-    background-size: 70% 70%;
-    height: 70px;
-    width: 66px;
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-@keyframes menuAnimate {
-    0% { background-size: 70% 70%; }
-    25% { background-size: 30% 30%; }
-    50% { background-size: 110% 110%; }
-    100% { background-size: 70% 70%; }
-}
-
-#menu:hover {
-    animation: 0.5s menuAnimate 1 linear;
-}
-
-
