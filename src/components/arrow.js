@@ -129,7 +129,7 @@ function parseArrowStr(str, svgID, startPos, size) {
   //startPos possible starting positions:
   // "right" = starting x is size
 
-  var options = false;
+  let options = false;
 
   str.split("").forEach((d, i) => {
     if (!options) {

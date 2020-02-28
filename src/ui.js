@@ -373,15 +373,16 @@ function showArrows() {
         pos2: "<|<",
         pos3: "<|"
     };
-
+    
     parseArrowStr(arrows.straight, "straight", [75, 15], 50);
     parseArrowStr(arrows.pos1, "pos1", [100, 15], 50);
     parseArrowStr(arrows.pos2, "pos2", [125, 40], 50);
     parseArrowStr(arrows.pos3, "pos3", [100, 40], 50);
 }
 
-showArrows();
 
+//showArrows();
+/***/
 
 //Initialize label title of Gyro
 new Label("Gyro", "title").insertTo("#gyro");
