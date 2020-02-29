@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" id="autonIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="128px" height="128px" viewBox="0 0 121.352 121.352" style="enable-background:new 0 0 121.352 121.352; width: 100%; height: 100%;"
 	 xml:space="preserve">
 <g>
@@ -59,9 +59,5 @@
 <g>
 </g>
 <g>
-</g>
-<g style="transform: scale(1.0);">
-	<circle class="pusher_surround" cx="77" cy="14" r="9" fill="darkblue"></circle>
-	<text class="pusher" x="72" y="20" fill="white" style="font-family: Verdana;">1</text>
 </g>
 </svg>

@@ -64,4 +64,19 @@ module.exports = (config) => {
         // console.log("Ret:", retStr);
         return retStr;
     });
+
+    Handlebars.registerHelper("AutonIcon", (widgetName) => {
+        let name = Handlebars.escapeExpression(widgetName);
+        let path = `${__dirname}/../images/auton_modes/${name}.svg`;
+
+        let svg = fs.readFileSync(path).toString();
+
+        let compiledString = Handlebars.compile(svg);
+        //console.log(Handlebars.helpers);
+
+        let retStr = new Handlebars.SafeString(compiledString(config));
+
+        // console.log("Ret:", retStr);
+        return retStr;
+    });
 };

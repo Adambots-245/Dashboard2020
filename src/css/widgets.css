@@ -157,13 +157,18 @@
     text-align: center;
 }
 
-.auton-mode > svg {
+.auton-mode > div {
     position: absolute;
     width: auto;
     top: 5px;
     left: 5px;
-    width: calc(100% - 10px);
-    bottom: 20px;
+    right: 5px;
+    bottom: 45px;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
 /* Auton Arrows and Paths */

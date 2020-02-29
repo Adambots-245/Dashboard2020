@@ -6,6 +6,12 @@
 	"ram-key": "/SmartDashboard/robot/RAM",
 	"config_values": [],
 	"auton-key": "/SmartDashboard/autonomous/modes",
+	"auton-commands": {
+		"pos1": "CrossBaseline",
+		"pos2": "Push;Nom2;Yeet5;Nom1",
+		"pos3": "Snag;Yeet",
+		"pos4": "Yeet3;Push;Nom3"
+	},
 	"cameras": [
 		"http://localhost:1181/?action=stream",
 		"http://roborio-245-frc.local:1181/?action=stream",

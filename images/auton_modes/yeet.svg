@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 433.511 433.511" style="enable-background:new 0 0 433.511 433.511; width: 100%; height: 100%;" xml:space="preserve" width="128px" height="128px">
+<svg version="1.1" id="autonIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 433.511 433.511" style="enable-background:new 0 0 433.511 433.511; width: 100%; height: 100%;" xml:space="preserve" width="128px" height="128px">
 <g>
 	<g id="XMLID_17_">
 		<g>
@@ -113,7 +113,7 @@
 <g>
 </g>
 <g style="transform: scale(3.5);">
-	<circle class="yeeter_surround" cx="95" cy="106" r="9" fill="darkblue"></circle>
-	<text class="yeeter" x="90" y="112" fill="white" style="font-family: Verdana;">1</text>
+	<circle class="autlbl_surround" cx="95" cy="106" r="9" fill="darkblue"></circle>
+	<text class="autlbl" x="90" y="112" fill="white" style="font-family: Verdana;">1</text>
 </g>
 </svg>

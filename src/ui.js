@@ -529,7 +529,79 @@ NetworkTables.addKeyListener("/FMSInfo/IsRedAlliance", (key, value) => {
 
 });
 
+//Show Auton Mode icons based on Config:
 
+function autonIcons() {
+    var cmds = renderer.config["auton-commands"], pos1, pos2, pos3, pos4, icon1, icon2, icon3, icon4, iconStr, iconUID = 0;
+
+    pos1 = cmds["pos1"];
+    pos2 = cmds["pos2"];
+    pos3 = cmds["pos3"];
+    pos4 = cmds["pos4"];
+
+    icon1 = $("#hidden-autons .hidden-act1").html();
+    icon2 = $("#hidden-autons .hidden-act2").html();
+    icon3 = $("#hidden-autons .hidden-act3").html();
+    icon4 = $("#hidden-autons .hidden-act4").html();
+    iconStr = $("#hidden-autons .hidden-straight").html();
+
+    function autonChecker(item) {
+        if (item.match("CrossBaseline") || item.match("DriveStraight")) {
+            return [iconStr, false];
+        }
+        else if (item.match("Push")) {
+            return [icon2, false];
+        }
+        else if (item.match("Yeet")) {
+            return [icon4, "Yeet"];
+        }
+        else if (item.match("Nom")) {
+            return [icon1, "Nom"];
+        }
+        else if (item.match("Snag")) {
+            return [icon3, "Snag"];
+        }
+        else return false;
+    }
+
+    function iconInserter(item, index, id) {
+        var elem, elemID, num, autonIcon = autonChecker(item);
+
+        if (autonIcon) {
+            elemID = "icon" + iconUID;
+            elem = autonIcon[0].replace("autonIcon", elemID);
+            iconUID += index;
+
+            $("#pos" + id)[0].innerHTML += elem;
+
+            if (autonIcon[1]) {
+                var regex = new RegExp(autonIcon[1], "g");
+                num = item.replace(regex, "");
+                
+                $("#" + elemID).find("autlbl").html(num);
+                $("#" + elemID).attr("tooltip", autonIcon[1]);
+            }
+        }
+    }
+
+    pos1.split(";").forEach((item, index) => {
+        iconInserter(item, index, 1);
+    });
+
+    pos2.split(";").forEach((item, index) => {
+        iconInserter(item, index, 2);
+    });
+
+    pos3.split(";").forEach((item, index) => {
+        iconInserter(item, index, 3);
+    });
+
+    pos4.split(";").forEach((item, index) => {
+        iconInserter(item, index, 4);
+    });
+}
+
+autonIcons();
 
 
 //Set these at the bottom of UI:
