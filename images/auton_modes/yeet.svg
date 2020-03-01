@@ -112,8 +112,4 @@
 </g>
 <g>
 </g>
-<g style="transform: scale(3.5);">
-	<circle class="autlbl_surround" cx="95" cy="106" r="9" fill="darkblue"></circle>
-	<text class="autlbl" x="90" y="112" fill="white" style="font-family: Verdana;">1</text>
-</g>
 </svg>

@@ -306,22 +306,3 @@ body.login #login {
 #hidden-autons {
     display: none;
 }
-
-*[tooltip]::before {
-    content: attr(tooltip);
-    display: block;
-    padding: 5px;
-    box-sizing: border-box;
-    background: #555;
-    color: var(--primary-color);
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: 1s ease opacity;
-}
-
-*[tooltip]:hover::before {
-    opacity: 1;
-}

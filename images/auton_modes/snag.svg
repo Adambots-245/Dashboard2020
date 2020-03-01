@@ -1,5 +1,5 @@
 <svg xml:space="preserve" viewBox="0 0 100 100" y="0" x="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
-    style="height: 100%; width: 100%; background: transparent;" width="128px" height="128px" id="autonIcon">
+    style="height: 100%; width: 100%; background: transparent;" id="autonIcon">
     <g class="ldl-scale" style="transform-origin: 50% 50%; transform: scale(0.8);">
         <g class="ldl-ani">
             <g class="ldl-layer">
@@ -136,7 +136,5 @@
                 </g>
             </g>
         </g>
-        <circle class="autlbl_surround" cx="75" cy="88" r="9" fill="darkblue"></circle>
-        <text class="autlbl" x="70" y="94" fill="white" style="font-family: Verdana;">1</text>
     </g>
 </svg>

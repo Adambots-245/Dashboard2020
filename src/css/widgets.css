@@ -145,18 +145,51 @@
     width: calc(25% - 3px);
     height: 100%;
     position: relative;
-    
+    border-radius: 5px;
+    box-sizing: border-box;
     display: inline-block;
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.auton-mode:not(.selected-auton):hover {
+    transform: scale(1.03);
+    filter: brightness(105%);
+    z-index: 3;
+    box-shadow: 0px 0px 15px 0px rgba(17,17,17,0.64);
+}
+
+.auton-mode:not(.selected-auton):hover > p {
+    color: goldenrod;
+}
+
+.selected-auton {
+    transform: scale(1.03);
+    z-index: 2;
+    box-shadow: 0px 0px 15px 0px rgba(17,17,17,0.64);
+    cursor: default;
+}
+
+.selected-auton > p {
+    color: var(--primary-color) !important;
 }
 
 .auton-mode > p {
     position: absolute;
     bottom: 5px;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
+    color: #cfcfcf;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: auto;
+    font-weight: bold;
 }
 
+/* Position containers for auton modes: */
 .auton-mode > div {
     position: absolute;
     width: auto;
@@ -164,15 +197,39 @@
     left: 5px;
     right: 5px;
     bottom: 45px;
-    border: 1px solid blue;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: row;
 }
 
+/* Individual icon containers for each auton position: */
+.auton-mode > div > .icon-container {
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+    height: auto;
+    position: relative;
+}
+
+.icon-label {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    padding: 6px;
+    background-color: red;
+    color: white;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Auton Arrows and Paths */
-rect {
+/*rect {
     fill: var(--primary-color);
 }
   
@@ -191,7 +248,7 @@ arrow {
 
 body.login arrow {
     opacity: 0;
-}
+}*/
 
 /* Motor Widget - */
 

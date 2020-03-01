@@ -509,26 +509,6 @@ var sdHandler = new KeyHandler((key) => {
     }
 });
 
-
-//Change Gears color based on team alliance color:
-
-NetworkTables.addKeyListener("/FMSInfo/IsRedAlliance", (key, value) => {
-
-    if (value == true || value == "true") {
-        $("#gears i").addClass("redAlliance");
-        $("#gears i.blueAlliance").removeClass("blueAlliance");
-    }
-    else if (value == false || value == "false") {
-        $("#gears i").addClass("blueAlliance");
-        $("#gears i.redAlliance").removeClass("redAlliance");
-    }
-    else {
-        $("#gears i.redAlliance").removeClass("redAlliance");
-        $("#gears i.blueAlliance").removeClass("blueAlliance");
-    }
-
-});
-
 //Show Auton Mode icons based on Config:
 
 function autonIcons() {
@@ -570,7 +550,7 @@ function autonIcons() {
         if (autonIcon) {
             elemID = "icon" + iconUID;
             elem = autonIcon[0].replace("autonIcon", elemID);
-            iconUID += index;
+            iconUID += index + 1;
 
             $("#pos" + id)[0].innerHTML += elem;
 
@@ -578,30 +558,82 @@ function autonIcons() {
                 var regex = new RegExp(autonIcon[1], "g");
                 num = item.replace(regex, "");
                 
-                $("#" + elemID).find("autlbl").html(num);
-                $("#" + elemID).attr("tooltip", autonIcon[1]);
+                $("#" + elemID).parent()[0].innerHTML += `<span class="icon-label">${num == "" ? 1 : num}</span>`;
             }
         }
     }
 
-    pos1.split(";").forEach((item, index) => {
+    pos1.replace(/\&/g, ";").split(";").forEach((item, index) => {
         iconInserter(item, index, 1);
     });
 
-    pos2.split(";").forEach((item, index) => {
+    pos2.replace(/\&/g, ";").split(";").forEach((item, index) => {
         iconInserter(item, index, 2);
     });
 
-    pos3.split(";").forEach((item, index) => {
+    pos3.replace(/\&/g, ";").split(";").forEach((item, index) => {
         iconInserter(item, index, 3);
     });
 
-    pos4.split(";").forEach((item, index) => {
+    pos4.replace(/\&/g, ";").split(";").forEach((item, index) => {
         iconInserter(item, index, 4);
     });
+
+    $("#auton-1").find("p").html(pos1.replace(/;/g, "")).attr("html", pos1.replace(/;/g, ""));
+    $("#auton-2").find("p").html(pos2.replace(/;/g, "")).attr("html", pos2.replace(/;/g, ""));
+    $("#auton-3").find("p").html(pos3.replace(/;/g, "")).attr("html", pos3.replace(/;/g, ""));
+    $("#auton-4").find("p").html(pos4.replace(/;/g, "")).attr("html", pos4.replace(/;/g, ""));
 }
 
 autonIcons();
+
+
+//Select an Auton Mode onclick:
+
+function selectAuton(event) {
+    let elem = event.currentTarget;
+
+    let mode = $(elem).find("p").html();
+    let autonKey = renderer.config["selected-auton-key"];
+
+    NetworkTables.putValue(autonKey, mode);
+    $(".selected-auton").removeClass("selected-auton");
+    $(elem).addClass("selected-auton");
+
+    ui.toast({text: `Set Auton Mode to: ${mode}`, duration: 3, type: "success"});
+}
+
+$(".auton-mode").on("click", selectAuton);
+
+//Set Selected Auton Mode:
+
+var selectedAutonMode = NetworkTables.getValue(renderer.config["selected-auton-key"]);
+
+if (selectedAutonMode) $(`p[html="${selectedAutonMode.replace("&amp;", "&")}"]`).parent().addClass("selected-auton");
+else $("#auton-2").addClass("selected-auton");
+
+
+//Change Gears color based on team alliance color:
+
+NetworkTables.addKeyListener("/FMSInfo/IsRedAlliance", (key, value) => {
+
+    if (value == true || value == "true") {
+        $("#gears i").addClass("redAlliance");
+        $("#gears i.blueAlliance").removeClass("blueAlliance");
+        $(".auton-straight-baseline").attr("fill", "red");
+    }
+    else if (value == false || value == "false") {
+        $("#gears i").addClass("blueAlliance");
+        $("#gears i.redAlliance").removeClass("redAlliance");
+        $(".auton-straight-baseline").attr("fill", "blue");
+    }
+    else {
+        $("#gears i.redAlliance").removeClass("redAlliance");
+        $("#gears i.blueAlliance").removeClass("blueAlliance");
+        $(".auton-straight-baseline").attr("fill", "white");
+    }
+
+});
 
 
 //Set these at the bottom of UI:
@@ -620,6 +652,6 @@ window.onbeforeunload = () => {
     ui.toast({text: "Saved Values Config.", duration: 3, type: "success"});
 }
 
-var set = renderer.config["config_values"];
+var set = renderer.config["config-values"];
 set.forEach((item) => {resolveConfigValues(item)});
 registerRemovers();

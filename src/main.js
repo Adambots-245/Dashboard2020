@@ -288,7 +288,7 @@ ipc.on("saveValuesConfiguration", (ev, arg) => {
     
      arg = arg || [];
 
-     Config.set("config_values", arg);
+     Config.set("config-values", arg);
 });
 
 ipc.on("fetchConfig", (ev, arg) => {
