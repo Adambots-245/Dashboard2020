@@ -17,5 +17,6 @@
 		"http://roborio-245-frc.local:1181/?action=stream",
 		"http://localhost:1183/?action=stream"
 	],
-	"connection": "localhost"
+	"connection": "localhost",
+	"open-ds": true
 }

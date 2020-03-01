@@ -20,6 +20,9 @@ const globalShortcut = electron.globalShortcut;
 //Module for Menu
 const Menu = electron.Menu;
 
+//Module for shell
+const Shell = electron.shell;
+
 //Module for custom alert popups
 var Alert = require("electron-alert");
 
@@ -222,6 +225,18 @@ app.on('activate', function () {
     // dock icon is clicked and there are no other windows open.
     if (mainWindow == null) createWindow();
 });
+
+app.setAsDefaultProtocolClient('dash245');
+
+//Attempt to open the Driver Station if the config allows it:
+if (config["open-ds"]) {
+    try {
+        Shell.openItem("C:\\Program Files (x86)\\FRC Driver Station\\DriverStation.exe");
+    }
+    catch (err) {
+        //Do not open the DriverStation
+    }
+}
 
 /**
  * Creates a toast popup, where arg is an object {text: x, duration: y, type: z}
