@@ -300,24 +300,25 @@ body.login arrow {
     height: 15px;
     -webkit-appearance: none;
     appearance: none;
+    border-radius: 2px;
 }
 
 /* Progress bar container (gray background part) */
 .motor progress::-webkit-progress-bar {
-    background-color: #666;
+    background-color: transparent;
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
   }
 
 /* Progress bar value (colorful stripes part) */
 .motor progress::-webkit-progress-value {
-    background-image: linear-gradient(to right, var(--gradient-first-stop), var(--gradient-last-stop));
+    background: transparent;
   
       border-radius: 2px;
   }
 
 .motor progress::before {
-    content: attr(value);
+    content: attr(val);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

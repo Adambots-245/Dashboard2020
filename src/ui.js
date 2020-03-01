@@ -66,6 +66,11 @@ function getMenu() {
                 },
 
                 {
+                    label: "Test Motors Gradient",
+                    click: testers.testMotorGradient
+                },
+
+                {
                     label: "Test All Widgets",
                     click: () => {testers.testAll()}
                 }
@@ -461,7 +466,7 @@ ui.widgets.updateGauge = (canvasID, value) => {
 }
 
 var updateGradient = (element, percent) => {
-    $(element).css("background", `linear-gradient(to right, var(--gradient-first-stop) 0%, var(--gradient-last-stop) ${percent + 1}%)`);
+    $(element).css("background", `linear-gradient(to right, var(--gradient-first-stop) 0%, var(--gradient-first-stop) ${percent - 35}%, var(--gradient-last-stop) ${percent + 1}%, var(--gradient-last-stop) 100%)`);
 }
 
 ui.widgets.gradientCPU = (elementID, value) => {
@@ -484,7 +489,8 @@ ui.widgets.gradientMotor = (elementID, value) => {
     var maxValue = ui.maximums.motors; //Set to whatever max value will be
     
     var percent = Math.round(value / maxValue * 100);
-    $(`#${elementID}`).attr("value", percent);
+    $(`#${elementID} progress`).attr("val", (percent / 100).toFixed(2));
+    updateGradient($(`#${elementID} progress`), percent);
 }
 
 //Insert and update all values in sidebar:

@@ -98,13 +98,17 @@
             <div id="motors-widget">
                 <div class="content">
                     {{Include "motors"}}
+                    {{NTBind motor-keys.front-left "ui.widgets.gradientMotor" "front-left-motor"}}
+                    {{NTBind motor-keys.front-right "ui.widgets.gradientMotor" "front-right-motor"}}
+                    {{NTBind motor-keys.back-left "ui.widgets.gradientMotor" "back-left-motor"}}
+                    {{NTBind motor-keys.back-right "ui.widgets.gradientMotor" "back-right-motor"}}
+                    {{NTBind motor-keys.elevator "ui.widgets.gradientMotor" "elevator-motor"}}
                 </div>
                 {{Include "label"}}
             </div>
             <div id="values-box"> 
                 <div class="content">
                     {{Include "values"}}
-                    {{!-- EachBind config-values "resolveConfigValues" --}}
                 </div>
                 {{Include "label"}}
             </div>

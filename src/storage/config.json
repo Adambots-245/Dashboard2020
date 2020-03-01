@@ -4,7 +4,13 @@
 	"powerdraw-key": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/TotalCurrent",
 	"cpu-key": "/SmartDashboard/robot/CPU",
 	"ram-key": "/SmartDashboard/robot/RAM",
-	"config-values": [],
+	"motor-keys": {
+		"front-left": "/SmartDashboard/motors/front/left",
+		"front-right": "/SmartDashboard/motors/front/right",
+		"back-left": "/SmartDashboard/motors/back/left",
+		"back-right": "/SmartDashboard/motors/back/right",
+		"elevator": "/SmartDashboard/motors/elevator"
+	},
 	"selected-auton-key": "/SmartDashboard/autonomous/selected",
 	"auton-commands": {
 		"pos1": "CrossBaseline",
@@ -12,6 +18,7 @@
 		"pos3": "Snag&Yeet",
 		"pos4": "Yeet3;Push;Nom3"
 	},
+	"config-values": [],
 	"cameras": [
 		"http://localhost:1181/?action=stream",
 		"http://roborio-245-frc.local:1181/?action=stream",

@@ -76,6 +76,27 @@ testers.testRIOGradient = function(type) {
 
 }
 
+testers.testMotorGradient = function() {
+
+    var table = renderer.config["motor-keys"];
+    var start = 0;
+
+
+    Object.keys(table).forEach((key) => {
+        var percent = start, entry = table[key];
+
+        start += 2;
+
+        setInterval(() => {
+            NetworkTables.putValue(entry, percent);
+            percent++;
+
+            if (percent > 100) percent = 0;
+        }, 500);
+    });
+
+}
+
 testers.testAll = function() {
     Object.keys(this).forEach((item) => {
         if (item == "testAll") {
@@ -90,7 +111,7 @@ testers.testAll = function() {
             setTimeout(() => {testers[item]("RAM")}, 1000); 
         }
         else {
-            testers[item]();
+            if (typeof testers[item] == "function") testers[item]();
         }
     });
 }
