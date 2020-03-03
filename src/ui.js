@@ -4,18 +4,53 @@
 const Menu = require("electron").remote.Menu;
 
 function getMenu() {
+    let elec = require("electron").remote;
+    let shell = elec.shell;
+
     const menuTemplate = [
 
         {
-            label: "File"
+            label: "File",
+            submenu: [
+                {
+                    label: "Refresh Application Page",
+                    click: () => {
+                        location.reload();
+                    }
+                },
+
+                {
+                    label: "Quit Application",
+                    click: () => {
+                        elec.app.quit();
+                    }
+                }
+            ]
         },
 
         {
-            label: "Edit"
-        },
+            label: "View",
+            submenu: [
+                {
+                    label: "View Config In Folder",
+                    click: () => {
+                        shell.showItemInFolder(__dirname + "\\storage\\config.json");
+                    }
+                },
 
-        {
-            label: "View"
+                {
+                    label: "Open Driver Station",
+                    click: () => {
+                        try {
+                            shell.openItem("C:\\Program Files (x86)\\FRC Driver Station\\DriverStation.exe");
+                        }
+                        catch (err) {
+                            //Do not open the DriverStation
+                            ui.modal({title: "Failed to Open DS", text: "Failed to open DriverStation. This is most likely due to the DriverStation being at a different filepath than the expected C:\\Program Files (x86)\\FRC Driver Station\\DriverStation.exe.", type: "error"});
+                        }
+                    }
+                }
+            ]
         },
 
         {
