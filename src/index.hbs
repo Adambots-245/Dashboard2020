@@ -69,6 +69,10 @@
                 {{NTBind ram-key "ui.widgets.gradientRAM" "RAM"}}
             </div>
         </div>
+        <div id="control-panel" class="subsection" msg="Control Panel">
+            <div class="panel-container">{{Include "control_panel"}}</div>
+            {{NTBind ctrl-panel-mode "ui.widgets.controlPanel" "control-panel"}}
+        </div>
         <div id="other-options">
             <div id="gears"><i></i><i></i></div>
         </div>
@@ -150,7 +154,8 @@
     <script src="components/jquery-ui.min.js"></script>
     <script src="components/testers.js"></script>
     <script src="components/jquery.gauge.js"></script>
-    <script src="components/arrow.js"></script>
+    <!--<script src="components/arrow.js"></script>-->
+    <script src="components/control-panel.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>
     

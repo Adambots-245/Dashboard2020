@@ -71,6 +71,16 @@ function getMenu() {
                 },
 
                 {
+                    label: "Test Control Panel Rotate",
+                    click: testers.testControlPanelRotate
+                },
+
+                {
+                    label: "Test Control Panel Align",
+                    click: testers.testControlPanelAlign
+                },
+
+                {
                     label: "Test All Widgets",
                     click: () => {testers.testAll()}
                 }
@@ -411,23 +421,6 @@ ui.widgets.updateGyro = (parentID, value) => {
 
 //---
 
-//Create the title label for auton modes
-new Label("Autonomous Modes", "title").insertTo("#auton-modes");
-
-//Autonomous Modes method:
-ui.widgets.autonModes = () => {
-
-
-}
-
-//Create the title label for the motors
-new Label("Motors", "title").insertTo("#motors-widget")
-
-//Motors' Status method:
-ui.widgets.updateMotors = () => {
-
-}
-
 //Create title label for values:
 new Label("Values", "title").insertTo("#values-box");
 
@@ -447,6 +440,7 @@ var gaugeOptions = {
 
 //Gauge Updating Method for any gauge on the page
 ui.widgets.updateGauge = (canvasID, value) => {
+
     $(`#${canvasID}`).gauge(Math.round(value), {
         // Minimum value to display
         min: 0,
@@ -465,11 +459,14 @@ ui.widgets.updateGauge = (canvasID, value) => {
     });
 }
 
+//Update gradients for motors, RAM, and CPU:
+
 var updateGradient = (element, percent) => {
     $(element).css("background", `linear-gradient(to right, var(--gradient-first-stop) 0%, var(--gradient-first-stop) ${percent - 35}%, var(--gradient-last-stop) ${percent + 1}%, var(--gradient-last-stop) 100%)`);
 }
 
 ui.widgets.gradientCPU = (elementID, value) => {
+
     var maxValue = ui.maximums.CPU; //Set to whatever max value will be
     
     var percent = Math.round(value / maxValue * 100);
@@ -478,6 +475,7 @@ ui.widgets.gradientCPU = (elementID, value) => {
 }
 
 ui.widgets.gradientRAM = (elementID, value) => {
+
     var maxValue = ui.maximums.RAM; //Set to whatever max value will be
 
     var percent = Math.round(value / maxValue * 100);
@@ -486,11 +484,56 @@ ui.widgets.gradientRAM = (elementID, value) => {
 }
 
 ui.widgets.gradientMotor = (elementID, value) => {
+
     var maxValue = ui.maximums.motors; //Set to whatever max value will be
     
     var percent = Math.round(value / maxValue * 100);
     $(`#${elementID} progress`).attr("val", (percent / 100).toFixed(2));
     updateGradient($(`#${elementID} progress`), percent);
+}
+
+//Create the title label for the motors
+new Label("Motors", "title").insertTo("#motors-widget")
+
+
+//Get or Set control panel mode and rotations:
+
+var controlPanel = new ColorWheel("arc", 22.5), rotationTimer;
+
+ui.widgets.controlPanel = (subSectionID, value) => {
+    
+    if (!value || value == 0) return;
+
+    if (value.toLowerCase() == "align") {
+        clearInterval(rotationTimer);
+
+        let color = NetworkTables.getValue("/FMSInfo/GameSpecificMessage", "(Unknown Color)").toLowerCase();
+
+        if (color.charAt(0) == "b") color = "Blue";
+        else if (color.charAt(0) == "g") color = "Green";
+        else if (color.charAt(0) == "r") color = "Red";
+        else if (color.charAt(0) == "y") color = "Yellow";
+        else color = "Unknown";
+
+        $(`#${subSectionID}`).attr("msg", "Align to " + color);
+        setTimeout(() => {controlPanel.alignToColor(color == "Unknown" ? "Yellow" : color)}, 1000);
+    }
+    else if (value.toLowerCase() == "rotate") {
+        clearInterval(rotationTimer);
+        let interval = 2;
+
+        $(`#${subSectionID}`).attr("msg", "Rotate");
+
+        rotationTimer = setInterval(() => {
+            controlPanel.spinFullCircle(interval);
+            interval += 2;
+        }, 3000);
+    }
+    else {
+        //Invalid Control Panel mode value
+        $(`#${subSectionID}`).attr("msg", "Control Panel");
+    }
+
 }
 
 //Insert and update all values in sidebar:
@@ -516,6 +559,9 @@ var sdHandler = new KeyHandler((key) => {
 });
 
 //Show Auton Mode icons based on Config:
+
+//Create the title label for auton modes
+new Label("Autonomous Modes", "title").insertTo("#auton-modes");
 
 function autonIcons() {
     var cmds = renderer.config["auton-commands"], pos1, pos2, pos3, pos4, icon1, icon2, icon3, icon4, iconStr, iconUID = 0;

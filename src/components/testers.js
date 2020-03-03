@@ -97,6 +97,26 @@ testers.testMotorGradient = function() {
 
 }
 
+testers.testControlPanelAlign = function() {
+
+    var table = renderer.config["ctrl-panel-mode"];
+    var colors = ["Blue", "Red", "Green", "Yellow"];
+    var index = (Math.floor(Math.random() * colors.length) + 1) - 1;
+
+    NetworkTables.putValue(table, "Align");
+
+    NetworkTables.putValue("/FMSInfo/GameSpecificMessage", colors[index]);
+
+}
+
+testers.testControlPanelRotate = function() {
+
+    var table = renderer.config["ctrl-panel-mode"];
+
+    NetworkTables.putValue(table, "Rotate");
+
+}
+
 testers.testAll = function() {
     Object.keys(this).forEach((item) => {
         if (item == "testAll") {

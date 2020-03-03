@@ -18,6 +18,7 @@
 		"pos3": "Snag&Yeet",
 		"pos4": "Yeet3;Push;Nom3"
 	},
+	"ctrl-panel-mode": "/SmartDashboard/ControlPanel",
 	"config-values": [],
 	"cameras": [
 		"http://localhost:1181/?action=stream",

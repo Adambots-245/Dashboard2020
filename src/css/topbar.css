@@ -198,7 +198,7 @@
 #roboRIO {
     background-color: var(--secondary-color);
     height: calc(100% - 10px);
-    margin-right: 169px;
+    margin-right: 5px;
 }
 
 #roboRIO-icon {
@@ -345,4 +345,44 @@
 
 #gears:hover > i:last-of-type {
     animation-name: barrelRoll;
+}
+
+#arc {
+    transition: 4s ease all;
+}
+
+#color-wheel {
+    transform: scale(0.2);
+    position: relative;
+    top: -10px;
+}
+
+.panel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#control-panel::after {
+    content: attr(msg);
+    display: block;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 9pt;
+    filter: brightness(80%);
+}
+
+#control-panel {
+    height: calc(100%);
+    background-color: var(--secondary-color);
+    padding: 0;
+    max-width: 100px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
