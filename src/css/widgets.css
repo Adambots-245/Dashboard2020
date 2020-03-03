@@ -60,7 +60,8 @@
 }
 
 #mini-camera {
-    background-size: 100% 100%;
+    background-size: contain;
+    background-position-x: center;
     z-index: 3;
     padding: 0;
     position: fixed;
@@ -69,6 +70,8 @@
     width: 480px;
     bottom: 50px;
     background-color: #333;
+    box-sizing: border-box;
+    border: 0.1px solid #333;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
     background-image: url('http://localhost:1182/?action=stream');
     background-repeat: no-repeat;

@@ -83,6 +83,7 @@ checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
     if (streaming) {
         ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
         ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
+        ui.camera.viewer2.style.backgroundColor = 'black';
         ui.camera.isStreaming = true;
     }
     else {
