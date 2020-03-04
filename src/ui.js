@@ -32,9 +32,10 @@ function getMenu() {
             label: "View",
             submenu: [
                 {
-                    label: "View Config In Folder",
+                    label: "View Config",
                     click: () => {
-                        shell.showItemInFolder(__dirname + "\\storage\\config.json");
+                        
+                        shell.openItem(__dirname + "\\storage\\config.json");
                     }
                 },
 
@@ -353,6 +354,14 @@ function registerRemovers() {
     makeDraggable();
     registerRemovers();
 
+//Register keybind shortcut for redisplaying connect-login window
+
+$(document).on("keyup", (event) => {
+    if (event.key.toLowerCase() == "c" && !$(event.target).is("input")) {
+        $("#connect-button").click();
+    }
+});
+
 //--------------------------------------HBS Widgets-------------------------------------------\\
 
 // TITLE/INFO LABELS :
@@ -398,6 +407,8 @@ function KeyHandler(callback) {
     var listeners = {};
 
     this.handle = (keylist) => {
+
+        keylist.sort();
 
         keylist.forEach((item) => {
             if (item.match("SmartDashboard")) {

@@ -181,7 +181,7 @@ function createWindow() {
 
     });
 
-    /*globalShortcut.register('f5', function() {
+    globalShortcut.register('f5', function() {
         console.log('f5 is pressed')
         mainWindow.reload();
     })
@@ -194,7 +194,7 @@ function createWindow() {
     globalShortcut.register('CommandOrControl+Shift+I', function() {
         console.log('Devtools opened');
         mainWindow.webContents.openDevTools();
-    });*/
+    });
 
 }
 // This method will be called when Electron has finished

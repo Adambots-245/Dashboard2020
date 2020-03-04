@@ -8,7 +8,8 @@ ui.camera = {
         'http://localhost:1181/?action=stream'
     ],
     id2: 2,
-    isStreaming: false
+    isStreaming: false,
+    keyHandler: false
 };
 
 if (renderer.config["cameras"]) ui.camera.srcs = renderer.config["cameras"];
@@ -41,39 +42,45 @@ function checkIfStreaming(src, callback) {
 // When camera is clicked on, change to the next source.
 let cameraListener = () => {
     ui.camera.button = document.querySelector("#camera button");
-    ui.camera.button.onclick = function() {
-        ui.camera.id1 += 1;
-        ui.camera.id2 += 1;
-        if (ui.camera.id1 === ui.camera.srcs.length) ui.camera.id1 = 0;
-        if (ui.camera.id2 === ui.camera.srcs.length) ui.camera.id2 = 0;
-        if (ui.camera.isStreaming) {
-            ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
-            ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
-            $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera ${ui.camera.id1 + 1}</p><button>Toggle</button></div>`);
-            $(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera ${ui.camera.id2 + 1}</p></div>`);
-            ui.camera.button = document.querySelector("#camera button");
-            cameraListener();
-        }
-        else {
-            ui.toast({text: `Checking if Camera ${ui.camera.id1 + 1} is streaming...`, duration: 2, type: "info"});
-            checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
-                if (streaming) {
-                    ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
-                    ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
-                    $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera ${ui.camera.id1 + 1}</p><button>Toggle</button></div>`);
-                    $(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera ${ui.camera.id2 + 1}</p></div>`);
-                    ui.camera.isStreaming = true;
-                }
-                else {
-                    ui.toast({text: `Camera ${ui.camera.id1 + 1} is not streaming`, duration: 5, type: "error"});
-                    $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera ${ui.camera.id1 + 1} <span class='error'>(Failed to Load)</span></p><button>Toggle</button></div>`);
-                    $(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera ${ui.camera.id2 + 1} <span class='error'>(Failed to Load)</span></p></div>`);
-                }
+    function camToggle(event) {
+        if (event.type == "click" || (event.type == "keyup" && event.key.toLowerCase() == "t" && !$(event.target).is("input"))) {
+            ui.camera.id1 += 1;
+            ui.camera.id2 += 1;
+            if (ui.camera.id1 === ui.camera.srcs.length) ui.camera.id1 = 0;
+            if (ui.camera.id2 === ui.camera.srcs.length) ui.camera.id2 = 0;
+            if (ui.camera.isStreaming) {
+                ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
+                ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
+                $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera ${ui.camera.id1 + 1}</p><button>Toggle</button></div>`);
+                $(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera ${ui.camera.id2 + 1}</p></div>`);
                 ui.camera.button = document.querySelector("#camera button");
                 cameraListener();
-            });
+            }
+            else {
+                ui.toast({text: `Checking if Camera ${ui.camera.id1 + 1} is streaming...`, duration: 2, type: "info"});
+                checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
+                    if (streaming) {
+                        ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
+                        ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
+                        $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera ${ui.camera.id1 + 1}</p><button>Toggle</button></div>`);
+                        $(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera ${ui.camera.id2 + 1}</p></div>`);
+                        ui.camera.isStreaming = true;
+                    }
+                    else {
+                        ui.toast({text: `Camera ${ui.camera.id1 + 1} is not streaming`, duration: 5, type: "error"});
+                        $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera ${ui.camera.id1 + 1} <span class='error'>(Failed to Load)</span></p><button>Toggle</button></div>`);
+                        $(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera ${ui.camera.id2 + 1} <span class='error'>(Failed to Load)</span></p></div>`);
+                    }
+                    ui.camera.button = document.querySelector("#camera button");
+                    cameraListener();
+                });
+            }
         }
     };
+
+    $(ui.camera.button).on("click", camToggle);
+    if (!ui.camera.keyHandler) $(document).on("keyup", camToggle);
+    ui.camera.keyHandler = true;
 }
 
 

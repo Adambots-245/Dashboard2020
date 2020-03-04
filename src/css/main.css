@@ -137,13 +137,11 @@ body.login #login {
 
 #logo {
     border-radius: 25px;
-    width: 470px;
     height: 100%;
     display: inline-block;
 }
 
 #logo > img {
-    width: 100%;
     height: 100%;
 }
 
@@ -158,7 +156,7 @@ body.login #login {
     background-position: center;
     background-repeat: no-repeat;
     display: inline-block;
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
 @keyframes recharging {
