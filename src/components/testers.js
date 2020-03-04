@@ -97,23 +97,44 @@ testers.testMotorGradient = function() {
 
 }
 
-testers.testControlPanelAlign = function() {
+var t_alignTimer, t_rotateTimer;
 
-    var table = renderer.config["ctrl-panel-mode"];
-    var colors = ["Blue", "Red", "Green", "Yellow"];
-    var index = (Math.floor(Math.random() * colors.length) + 1) - 1;
+testers.testControlPanelAlign = function() {
+    clearInterval(t_alignTimer);
+    clearInterval(t_rotateTimer);
+
+    var table = renderer.config["control-panel"]["mode"], color = renderer.config["control-panel"]["sensor-color"];
+    //var colors = ["Blue", "Red", "Green", "Yellow"];
+    var colors = ["Blue", "Yellow", "Red", "Green"];
+    //var index = (Math.floor(Math.random() * colors.length) + 1) - 1;
+    var index = 1;
 
     NetworkTables.putValue(table, "Align");
 
-    NetworkTables.putValue("/FMSInfo/GameSpecificMessage", colors[index]);
+    //NetworkTables.putValue("/FMSInfo/GameSpecificMessage", colors[index]);
+
+    t_alignTimer = setInterval(() => {
+        NetworkTables.putValue(color, colors[index]);
+        index += 1;
+        if (index >= colors.length) index = 0;
+    }, 500);
 
 }
 
 testers.testControlPanelRotate = function() {
+    clearInterval(t_alignTimer);
+    clearInterval(t_rotateTimer);
 
-    var table = renderer.config["ctrl-panel-mode"];
+    var table = renderer.config["control-panel"]["mode"], rot = renderer.config["control-panel"]["rotations"];
+    var rounds = 0;
 
     NetworkTables.putValue(table, "Rotate");
+
+    t_rotateTimer = setInterval(() => {
+        NetworkTables.putValue(rot, rounds);
+        rounds += 1;
+        if (rounds > 5) rounds = 0;
+    }, 1000);
 
 }
 

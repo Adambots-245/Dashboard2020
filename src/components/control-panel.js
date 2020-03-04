@@ -13,10 +13,12 @@ function ColorWheel(id, startDeg) {
   
     spin(this.degrees);
   
-    this.spinFullCircle = function(times) {
+    this.spinFullCircle = function(times, deg) {
       //Color stays the same
-      spin(360 * times);
-      this.degrees = (360 * times) + startDeg;
+      deg = deg || startDeg;
+
+      spin(360 * times + deg);
+      this.degrees = (360 * times) + deg;
     }
   
     var getColor = () => {

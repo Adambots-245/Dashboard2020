@@ -544,36 +544,55 @@ new Label("Motors", "title").insertTo("#motors-widget")
 
 //Get or Set control panel mode and rotations:
 
-var controlPanel = new ColorWheel("arc", 22.5), rotationTimer;
+var controlPanel = new ColorWheel("arc", 22.5), setRotationsHandler = false, setAlignHandler = false;
 
 ui.widgets.controlPanel = (subSectionID, value) => {
     
     if (!value || value == 0) return;
 
     if (value.toLowerCase() == "align") {
-        clearInterval(rotationTimer);
+        setRotationsHandler = false;
 
-        let color = NetworkTables.getValue("/FMSInfo/GameSpecificMessage", "(Unknown Color)").toLowerCase();
+        /*let color = NetworkTables.getValue("/FMSInfo/GameSpecificMessage", "(Unknown Color)").toLowerCase();
 
         if (color.charAt(0) == "b") color = "Blue";
         else if (color.charAt(0) == "g") color = "Green";
         else if (color.charAt(0) == "r") color = "Red";
         else if (color.charAt(0) == "y") color = "Yellow";
-        else color = "Unknown";
+        else color = "Unknown";*/
 
-        $(`#${subSectionID}`).attr("msg", "Align to " + color);
-        setTimeout(() => {controlPanel.alignToColor(color == "Unknown" ? "Yellow" : color)}, 1000);
+        let color = renderer.config["control-panel"];
+        color = color ? (color["sensor-color"] ? color["sensor-color"] : false) : false;
+
+        $(`#${subSectionID}`).attr("msg", "Align to Color");
+        if (!color) return;
+
+        if (!setAlignHandler) {
+            NetworkTables.addKeyListener(color, (k, value) => {
+                if (setAlignHandler) controlPanel.alignToColor(value == "Unknown" ? "Yellow" : value);
+            });
+            setAlignHandler = true;
+        }
     }
     else if (value.toLowerCase() == "rotate") {
-        clearInterval(rotationTimer);
-        let interval = 2;
+        setAlignHandler = false;
 
-        $(`#${subSectionID}`).attr("msg", "Rotate");
+        let rotations = renderer.config["control-panel"];
+        rotations = rotations ? (rotations["rotations"] ? rotations["rotations"] : false) : false;
 
-        rotationTimer = setInterval(() => {
-            controlPanel.spinFullCircle(interval);
-            interval += 2;
-        }, 3000);
+        if (!rotations) return;
+
+        if (!setRotationsHandler) {
+            NetworkTables.addKeyListener(rotations, (k, value) => {
+                if (setRotationsHandler) {
+                    $(`#${subSectionID}`).attr("msg", "Rotations: " + value);
+
+                    controlPanel.spinFullCircle(value);
+                }
+            });
+            setRotationsHandler = true;
+        }
+        
     }
     else {
         //Invalid Control Panel mode value

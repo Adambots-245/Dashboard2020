@@ -18,8 +18,15 @@
 		"pos3": "Snag&Yeet",
 		"pos4": "Yeet3;Push;Nom3"
 	},
-	"ctrl-panel-mode": "/SmartDashboard/ControlPanel",
-	"config-values": [],
+	"control-panel": {
+		"mode": "/SmartDashboard/ControlPanel",
+		"sensor-color": "/SmartDashboard/Detected Color",
+		"rotations": "/SmartDashboard/Rotations"
+	},
+	"config-values": [
+		"Detected Color",
+		"Rotations"
+	],
 	"cameras": [
 		"http://localhost:1181/?action=stream",
 		"http://roborio-245-frc.local:1181/?action=stream",
