@@ -30,5 +30,5 @@
 		"http://localhost:1183/?action=stream"
 	],
 	"connection": "localhost",
-	"open-ds": true
+	"open-ds": false
 }
