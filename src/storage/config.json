@@ -23,10 +23,7 @@
 		"sensor-color": "/SmartDashboard/Detected Color",
 		"rotations": "/SmartDashboard/Rotations"
 	},
-	"config-values": [
-		"Detected Color",
-		"Rotations"
-	],
+	"config-values": [],
 	"cameras": [
 		"http://localhost:1181/?action=stream",
 		"http://roborio-245-frc.local:1181/?action=stream",
