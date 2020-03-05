@@ -13,7 +13,7 @@
 
 #top-bar .subsection {
     width: auto;
-    margin-right: 5px;
+    margin-right: 10px;
     height: calc(100% - 10px);
     display: inline-flex;
     align-items: center;
