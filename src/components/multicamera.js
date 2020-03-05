@@ -7,7 +7,7 @@ ui.camera = {
 	srcs: [ // Will default to first camera
         'http://localhost:1181/?action=stream'
     ],
-    id2: 2,
+    id2: 1,
     isStreaming: false,
     keyHandler: false
 };
@@ -17,7 +17,7 @@ if (renderer.config["cameras"]) ui.camera.srcs = renderer.config["cameras"];
 // Unlike most addons, this addon doesn't interact with NetworkTables. Therefore, we won't need to add any NT listeners.
 
 $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera 1</p><button>Toggle</button></div>`);
-$(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera 3</p></div>`);
+$(ui.camera.viewer2).html(`<div id="minicam-bar"><p>Camera 2</p></div>`);
 
 function checkIfStreaming(src, callback) {
     var elem = $(document.createElement("img")).attr("src", src).addClass("camera-preload");
@@ -96,7 +96,7 @@ checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
     else {
         ui.toast({text: `Camera ${ui.camera.id1 + 1} is not streaming`, duration: 5, type: "error"});
         $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera 1 <span class='error'>(Failed to Load)</span></p><button>Toggle</button></div>`);
-        $(ui.camera.viewer2).html(`<div id="camera-bar"><p>Camera 3 <span class='error'>(Failed to Load)</span></p></div>`);
+        $(ui.camera.viewer2).html(`<div id="camera-bar"><p>Camera 2 <span class='error'>(Failed to Load)</span></p></div>`);
     }
     setTimeout(cameraListener, 1000);
 });
