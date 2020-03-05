@@ -56,7 +56,7 @@ function setLogin() {
 
   // Add the default address and select xxxx if the config does not contain teamNum
 
-  var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "roborio-xxxx-frc.local";
+  var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "roborio-245-frc.local";
   address.value = cnnct;
 
 
@@ -87,7 +87,7 @@ setLogin();
 
 // Add the default address and select xxxx if the config does not contain teamNum
 
-var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "localhost";
+var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "roborio-245-frc.local";
 //address.value = `roborio-${teamNum}-frc.local`;
 address.value = cnnct;
 
