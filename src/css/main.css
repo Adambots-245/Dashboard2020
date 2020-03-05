@@ -148,15 +148,15 @@ body.login #login {
 
 .frc-logo-frame {
     border-radius: 25px;
-    width: 270px;
     height: 100%;
     border: 1px solid transparent;
-    background-image: url("../../images/frc_icon.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     display: inline-block;
     margin-left: 20px;
+    position: relative;
+}
+
+.frc-logo-frame > img {
+    height: 100%;
 }
 
 @keyframes recharging {
@@ -173,11 +173,13 @@ body.login #login {
 
 
 .frc-logo {
+    height: 100%;
     width: 100%;
     border-radius: 25px;
     opacity: 0;
     z-index: 1;
     background: rgb(255, 187, 0);
+    position: absolute;
 }
 
 .frc-logo:hover {
