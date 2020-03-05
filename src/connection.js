@@ -43,7 +43,7 @@ function onRobotConnection(connected) {
     loginShown = false;
   } else if (loginShown) {
     setLogin();
-    address.value = `roborio-xxxx-frc.local`;
+    address.value = `roborio-245-frc.local`;
     address.focus();
     address.setSelectionRange(8, 12);
   }
@@ -56,13 +56,13 @@ function setLogin() {
 
   // Add the default address and select xxxx if the config does not contain teamNum
 
-  var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "roborio-xxxx-frc.local";
+  var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "roborio-245-frc.local";
   address.value = cnnct;
 
 
   //address.value = `roborio-${teamNum}-frc.local`;
   address.focus();
-  if (cnnct == "roborio-xxxx-frc.local") address.setSelectionRange(8, 12);
+  if (cnnct == "roborio-245-frc.local") address.setSelectionRange(8, 12);
 }
 // On click try to connect and disable the input and the button
 connect.onclick = () => {
@@ -87,7 +87,7 @@ setLogin();
 
 // Add the default address and select xxxx if the config does not contain teamNum
 
-var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "localhost";
+var cnnct = renderer.config["connection"] ? renderer.config["connection"] : "roborio-245-frc.local";
 //address.value = `roborio-${teamNum}-frc.local`;
 address.value = cnnct;
 
