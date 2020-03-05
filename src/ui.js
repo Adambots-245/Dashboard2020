@@ -117,7 +117,7 @@ function getMenu() {
                 },
 
                 {
-                    label: "Test All Widgets",
+                    label: "Toggle All Widgets",
                     click: () => {testers.testAll()}
                 }
             ]
@@ -238,7 +238,7 @@ NetworkTables.addKeyListener('/SmartDashboard/robot/time', (key, value) => {
         ui.toast({text: "Match Complete", duration: 3, type: "warning"});
         isComplete = true;
     }
-    else if (Number(minutes) >= 2) {
+    else if (Number(seconds) > 30) {
         isComplete = false;
         $(ui.timer).find("p").removeAttr("style");
     }

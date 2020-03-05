@@ -6,6 +6,7 @@ function toast({text, duration, type}) {
 }
 
 var testers = {};
+var timers = [];
 
 //---------------------------------Widget testers------------------------------------\\
 //---------------(put values onto network tables to test widgets:)--------------------\\
@@ -20,7 +21,10 @@ testers.testGyro = function() {
     toast({text: "Testing Gyro", duration: 3, type: "success"});
     var initialValue = 1001;
     var gyroValue = randomIntFromInterval(0, 360);
-    setInterval(() => {
+
+    clearInterval(timers[0]);
+
+    timers[0] = setInterval(() => {
     initialValue++;
     NetworkTables.putValue(renderer.config["gyro-key"], gyroValue);  
     gyroValue += 10;
@@ -36,7 +40,10 @@ testers.testGyro = function() {
     toast({text: "Testing Timer", duration: 3, type: "success"});
 
     var time = 46;
-    setInterval(() => {
+
+    clearInterval(timers[1]);
+
+    timers[1] = setInterval(() => {
 
     time -= 1;
     NetworkTables.putValue("/SmartDashboard/robot/time", time);
@@ -52,7 +59,11 @@ testers.testGauge = function(type) {
     else var table = renderer.config["powerdraw-key"];
 
     var power = 100;
-    setInterval(() => {
+
+    clearInterval(timers[2]);
+    clearInterval(timers[10]);
+
+    timers[type == "volt" ? 2 : 10] = setInterval(() => {
         NetworkTables.putValue(table, power);
         power--;
 
@@ -67,7 +78,11 @@ testers.testRIOGradient = function(type) {
     else var table = renderer.config["ram-key"];
 
     var percent = 0;
-    setInterval(() => {
+
+    clearInterval(timers[3]);
+    clearInterval(timers[11]);
+
+    timers[type == "CPU" ? 3 : 11] = setInterval(() => {
         NetworkTables.putValue(table, percent);
         percent++;
 
@@ -80,6 +95,7 @@ testers.testMotorGradient = function() {
 
     var table = renderer.config["motor-keys"];
     var start = 0;
+    var ind = 4;
 
 
     Object.keys(table).forEach((key) => {
@@ -87,12 +103,16 @@ testers.testMotorGradient = function() {
 
         start += 2;
 
-        setInterval(() => {
+        clearInterval(timers[ind]);
+
+        timers[ind] = setInterval(() => {
             NetworkTables.putValue(entry, percent);
             percent++;
 
             if (percent > 100) percent = 0;
         }, 500);
+
+        ind++;
     });
 
 }
@@ -138,21 +158,36 @@ testers.testControlPanelRotate = function() {
 
 }
 
-testers.testAll = function() {
-    Object.keys(this).forEach((item) => {
-        if (item == "testAll") {
-            //Prevent infinite loop by catching this case
-        }
-        else if (item == "testGauge") {
-            testers[item]("volt");
-            setTimeout(() => {testers[item]("powerdraw")}, 1000);
-        }
-        else if (item == "testRIOGradient") {
-            testers[item]("CPU");
-            setTimeout(() => {testers[item]("RAM")}, 1000); 
-        }
-        else {
-            if (typeof testers[item] == "function") testers[item]();
-        }
+var disableTest = function() {
+    timers.forEach((timer) => {
+        clearInterval(timer);
     });
+    clearInterval(t_alignTimer);
+    clearInterval(t_rotateTimer);
+};
+
+var testingAll = false;
+
+testers.testAll = function() {
+    if (testingAll) disableTest();
+    else {
+        Object.keys(this).forEach((item) => {
+            if (item == "testAll") {
+                //Prevent infinite loop by catching this case
+            }
+            else if (item == "testGauge") {
+                testers[item]("volt");
+                setTimeout(() => {testers[item]("powerdraw")}, 1000);
+            }
+            else if (item == "testRIOGradient") {
+                testers[item]("CPU");
+                setTimeout(() => {testers[item]("RAM")}, 1000); 
+            }
+            else {
+                if (typeof testers[item] == "function") testers[item]();
+            }
+        });
+    }
+
+    testingAll = !testingAll;
 }

@@ -134,14 +134,18 @@
 #auton-modes {
     position: relative;
     height: 175px;
-    width: 45vw;
-    /*width: 692.275px;*/
+    /*width: 45vw;*/
+    width: 742.275px; /* Subtract 50 from this width and #values-box width for original size of 45vw */
     box-sizing: border-box;
 }
 
 #auton-modes > .content {
     padding: 5px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .auton-mode {
@@ -150,10 +154,19 @@
     position: relative;
     border-radius: 5px;
     box-sizing: border-box;
-    display: inline-block;
+    /*display: inline-block;*/
     background-color: var(--secondary-color);
     cursor: pointer;
     z-index: 1;
+    margin-right: 5px;
+}
+
+.auton-mode:last-of-type {
+    margin-right: 5px;
+}
+
+.auton-mode:first-of-type {
+    margin-left: 5px;
 }
 
 .auton-mode:not(.selected-auton):hover {
@@ -415,7 +428,7 @@ body.login arrow {
 #values-box {
     position: relative;
     height: 300px;
-    width: 252.5px;
+    width: 302.5px;
     box-sizing: border-box;
 }
 

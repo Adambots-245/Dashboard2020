@@ -125,7 +125,8 @@ body.login #login {
     bottom: 10px;
     left: calc(2vw + 490px);
     width: auto;
-    top: calc(15vh + 545px);
+    /*top: calc(15vh + 545px);*/
+    height: 112.45px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -137,18 +138,21 @@ body.login #login {
 
 #logo {
     border-radius: 25px;
-    height: 100%;
+    height: 107.45px;
+    width: 366.3px;
     display: inline-block;
 }
 
 #logo > img {
     height: 100%;
+    width: 100%;
 }
 
 
 .frc-logo-frame {
     border-radius: 25px;
-    height: 100%;
+    height: 107.45px;
+    width: 262.5px;
     border: 1px solid transparent;
     display: inline-block;
     margin-left: 20px;
@@ -157,6 +161,7 @@ body.login #login {
 
 .frc-logo-frame > img {
     height: 100%;
+    width: 100%;
 }
 
 @keyframes recharging {
