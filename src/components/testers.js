@@ -59,11 +59,11 @@ testers.testGauge = function(type) {
     else var table = renderer.config["powerdraw-key"];
 
     var power = 100;
+    var timer = type == "volt" ? 2 : 10;
 
-    clearInterval(timers[2]);
-    clearInterval(timers[10]);
+    clearInterval(timers[timer]);
 
-    timers[type == "volt" ? 2 : 10] = setInterval(() => {
+    timers[timer] = setInterval(() => {
         NetworkTables.putValue(table, power);
         power--;
 
@@ -78,11 +78,11 @@ testers.testRIOGradient = function(type) {
     else var table = renderer.config["ram-key"];
 
     var percent = 0;
+    var timer = type == "CPU" ? 3 : 11;
 
-    clearInterval(timers[3]);
-    clearInterval(timers[11]);
+    clearInterval(timers[timer]);
 
-    timers[type == "CPU" ? 3 : 11] = setInterval(() => {
+    timers[timer] = setInterval(() => {
         NetworkTables.putValue(table, percent);
         percent++;
 
