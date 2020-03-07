@@ -338,11 +338,13 @@ function registerRemovers() {
                 neatKey = neatKey.join("/");
 
                 var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
+                if (!isNaN(val)) val = Number(val).toFixed(5);
                 $("#values-box .content > .value-container")[0].innerHTML += `<div class="key" value="${key}"><span class="key-box">${neatKey}</span> <span class="val-box">${val}</span></div>`;
                 keyset.push(key);
                 registerRemovers();
 
                 NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
+                    if (!isNaN(val)) val = Number(val).toFixed(5);
                     $(`#values-box .content > .value-container > div.key[value="${key}"]`).html(`<span class="key-box">${neatKey}</span> <span class="val-box">${val}</span>`);
                 });
             }

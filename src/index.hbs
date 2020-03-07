@@ -27,9 +27,11 @@
             key.split("/").forEach(item => {neatKey.push(item[0].toUpperCase() + item.substring(1, item.length))});
             neatKey = neatKey.join("/");
             var val = NetworkTables.getValue("/SmartDashboard/" + key, "-");
+            if (!isNaN(val)) val = Number(val).toFixed(3);
             $("#values-box .content > .value-container")[0].innerHTML += `<div class="key" value="${key}"><span class="key-box">${neatKey}</span> <span class="val-box">${val}</span></div>`;
         
             NetworkTables.addKeyListener("/SmartDashboard/" + key, (k, val) => {
+                if (!isNaN(val)) val = Number(val).toFixed(3);
                 $(`#values-box .content > .value-container > div.key[value="${key}"]`).html(`<span class="key-box">${neatKey}</span> <span class="val-box">${val}</span>`);
             });
         }

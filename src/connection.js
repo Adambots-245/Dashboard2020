@@ -41,6 +41,7 @@ function onRobotConnection(connected) {
     // On connect hide the connect popup
     document.body.classList.toggle('login', false);
     loginShown = false;
+    buttonConnect.setAttribute("disabled", "true");
   } else if (loginShown) {
     setLogin();
     address.value = `roborio-245-frc.local`;

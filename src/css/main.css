@@ -311,3 +311,12 @@ body.login #login {
 #hidden-autons {
     display: none;
 }
+
+button[disabled] {
+    filter: grayscale(1);
+}
+
+button[disabled]:hover {
+    filter: grayscale(1) !important;
+    cursor: not-allowed !important;
+}
