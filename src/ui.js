@@ -202,7 +202,9 @@ let ui = {
     maximums: {
         CPU: 100,
         RAM: 100,
-        motors: 100
+        motors: 100,
+        battery: 13.0,
+        powerdraw: 5.0
     }
 };
 
@@ -487,11 +489,11 @@ var gaugeOptions = {
 //Gauge Updating Method for any gauge on the page
 ui.widgets.updateGauge = (canvasID, value) => {
 
-    $(`#${canvasID}`).gauge(Math.round(value), {
+    $(`#${canvasID}`).gauge(value.toFixed(1), {
         // Minimum value to display
         min: 0,
         // Maximum value to display
-        max: 100,
+        max: (canvasID == "volts" ? ui.maximums.battery : ui.maximums.powerdraw),
         // Unit to be displayed after the value
         unit: canvasID == "volts" ? "V" : "A",
         // color for the value and bar
@@ -629,7 +631,7 @@ var sdHandler = new KeyHandler((key) => {
 new Label("Autonomous Modes", "title").insertTo("#auton-modes");
 
 function autonIcons() {
-    var cmds = renderer.config["auton-commands"], pos1, pos2, pos3, pos4, icon1, icon2, icon3, icon4, iconStr, iconUID = 0;
+    var cmds = renderer.config["auton-commands"], pos1, pos2, pos3, pos4, icon1, icon2, icon3, icon4, icon5, iconStr, iconUID = 0;
 
     pos1 = cmds["pos1"];
     pos2 = cmds["pos2"];
@@ -641,9 +643,10 @@ function autonIcons() {
     icon3 = $("#hidden-autons .hidden-act3").html();
     icon4 = $("#hidden-autons .hidden-act4").html();
     iconStr = $("#hidden-autons .hidden-straight").html();
+    icon5 = `<div class="icon-container"><img src="./../images/settings_icon.png" id="autonIcon" /></div>`;
 
     function autonChecker(item) {
-        if (item.match("CrossBaseline") || item.match("DriveStraight")) {
+        if (item.match("straight")) {
             return [iconStr, false];
         }
         else if (item.match("Push")) {
@@ -658,10 +661,10 @@ function autonIcons() {
         else if (item.match("Snag")) {
             return [icon3, "Snag"];
         }
-        else return false;
+        else return [icon5, "Default"];
     }
 
-    function iconInserter(item, index, id) {
+    /*function iconInserter(item, index, id) {
         var elem, elemID, num, autonIcon = autonChecker(item);
 
         if (autonIcon) {
@@ -678,9 +681,27 @@ function autonIcons() {
                 $("#" + elemID).parent()[0].innerHTML += `<span class="icon-label">${num == "" ? 1 : num}</span>`;
             }
         }
+    }*/
+
+    function iconInserter(item, num, id) {
+        if (!item) item = "straight";
+        var elem, elemID, autonIcon = autonChecker(item);
+
+        if (autonIcon) {
+            elemID = "icon" + iconUID;
+            elem = autonIcon[0].replace("autonIcon", elemID);
+            iconUID += num + 1;
+
+            $("#pos" + id)[0].innerHTML += elem;
+
+            if (autonIcon[1]) {
+                
+                $("#" + elemID).parent()[0].innerHTML += `<span class="icon-label">${num}</span>`;
+            }
+        }
     }
 
-    pos1.replace(/\&/g, ";").split(";").forEach((item, index) => {
+    /*pos1.replace(/\&/g, ";").split(";").forEach((item, index) => {
         iconInserter(item, index, 1);
     });
 
@@ -694,12 +715,42 @@ function autonIcons() {
 
     pos4.replace(/\&/g, ";").split(";").forEach((item, index) => {
         iconInserter(item, index, 4);
-    });
+    });*/
 
-    $("#auton-1").find("p").html(pos1.replace(/;/g, "")).attr("html", pos1.replace(/;/g, ""));
-    $("#auton-2").find("p").html(pos2.replace(/;/g, "")).attr("html", pos2.replace(/;/g, ""));
-    $("#auton-3").find("p").html(pos3.replace(/;/g, "")).attr("html", pos3.replace(/;/g, ""));
-    $("#auton-4").find("p").html(pos4.replace(/;/g, "")).attr("html", pos4.replace(/;/g, ""));
+    function parseAuton(str, id) {
+        let regex = /([A-Z][a-z]+)([0-9]*)/gm;
+        let m, auton, num, foundMatch = false;
+
+        while ((m = regex.exec(str)) !== null) {
+            // This is necessary to avoid infinite loops with zero-width matches
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+
+            // The result can be accessed through the `m`-variable.
+            auton = m[1];
+            num = m[2] == "" || !m[2] ? 1 : m[2];  
+            iconInserter(auton, num, id);
+            foundMatch = true;
+        }
+
+        if (!foundMatch) iconInserter(false, "", id);
+    }
+
+    parseAuton(pos1.replace("CrossBaseline", "straight").replace("DriveStraight", "straight"), 1);
+    parseAuton(pos2.replace("CrossBaseline", "straight").replace("DriveStraight", "straight"), 2);
+    parseAuton(pos3.replace("CrossBaseline", "straight").replace("DriveStraight", "straight"), 3);
+    parseAuton(pos4.replace("CrossBaseline", "straight").replace("DriveStraight", "straight"), 4);
+
+    //$("#auton-1").find("p").html(pos1.replace(/;/g, "")).attr("html", pos1.replace(/;/g, ""));
+    //$("#auton-2").find("p").html(pos2.replace(/;/g, "")).attr("html", pos2.replace(/;/g, ""));
+    //$("#auton-3").find("p").html(pos3.replace(/;/g, "")).attr("html", pos3.replace(/;/g, ""));
+    //$("#auton-4").find("p").html(pos4.replace(/;/g, "")).attr("html", pos4.replace(/;/g, ""));
+
+    $("#auton-1").find("p").html(pos1).attr("html", pos1);
+    $("#auton-2").find("p").html(pos2).attr("html", pos2);
+    $("#auton-3").find("p").html(pos3).attr("html", pos3);
+    $("#auton-4").find("p").html(pos4).attr("html", pos4);
 }
 
 autonIcons();
@@ -726,7 +777,7 @@ $(".auton-mode").on("click", selectAuton);
 
 var selectedAutonMode = NetworkTables.getValue(renderer.config["selected-auton-key"]);
 
-if (selectedAutonMode) $(`p[html="${selectedAutonMode.replace("&amp;", "&")}"]`).parent().addClass("selected-auton");
+if (selectedAutonMode && selectedAutonMode != "NONE") $(`p[html="${selectedAutonMode.replace("&amp;", "&")}"]`).parent().addClass("selected-auton");
 else $("#auton-2").addClass("selected-auton");
 
 

@@ -1,7 +1,9 @@
 {
 	"gyro-key": "/SmartDashboard/Gyro",
-	"voltage-key": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/Voltage",
-	"powerdraw-key": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/TotalCurrent",
+	"voltage-key1": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/Voltage",
+	"powerdraw-key1": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/TotalCurrent",
+	"voltage-key": "/SmartDashboard/robot/voltage",
+	"powerdraw-key": "/SmartDashboard/robot/powerdraw",
 	"cpu-key": "/SmartDashboard/robot/CPU",
 	"ram-key": "/SmartDashboard/robot/RAM",
 	"motor-keys": {
@@ -14,20 +16,37 @@
 	"selected-auton-key": "/SmartDashboard/autonomous/selected",
 	"auton-commands": {
 		"pos1": "CrossBaseline",
-		"pos2": "Push;Nom2;Yeet5;Nom1",
+		"pos2": "Yeet3",
 		"pos3": "Snag&Yeet",
-		"pos4": "Yeet3;Push;Nom3"
+		"pos4": "Yeet3Nom2Yeet3"
 	},
+	"auton-icons": [
+		"nom",
+		"push",
+		"snag",
+		"yeet",
+		"straight"
+	],
 	"control-panel": {
 		"mode": "/SmartDashboard/ControlPanel",
 		"sensor-color": "/SmartDashboard/Detected Color",
 		"rotations": "/SmartDashboard/Rotations"
 	},
-	"config-values": [],
-	"cameras": [
+	"config-values": [
+		"robot/voltage",
+		"Gyro",
+		"robot/powerdraw",
+		"robot/RAM",
+		"robot/CPU"
+	],
+	"cameras1": [
 		"http://roborio-245-frc.local:1181/?action=stream",
 		"http://roborio-245-frc.local:1182/?action=stream"
 	],
-	"connection": "roborio-245-frc.local",
+	"cameras": [
+		"http://10.2.45.2:1181/?action=stream",
+		"http://10.2.45.2:1182/?action=stream"
+	],
+	"connection": "10.2.45.2",
 	"open-ds": false
 }

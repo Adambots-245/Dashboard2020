@@ -65,18 +65,27 @@ module.exports = (config) => {
         return retStr;
     });
 
-    Handlebars.registerHelper("AutonIcon", (widgetName) => {
-        let name = Handlebars.escapeExpression(widgetName);
-        let path = `${__dirname}/../images/auton_modes/${name}.svg`;
+    Handlebars.registerHelper("AutonIcons", () => {
 
-        let svg = fs.readFileSync(path).toString();
+        let icons = config["auton-icons"];
+        let elems = "";
+        let index = 1;
 
-        let compiledString = Handlebars.compile(svg);
+        icons.forEach((name) => {
+            let path = `${__dirname}/../images/auton_modes/${name}.svg`;
+            let svg = fs.readFileSync(path).toString();
+
+            elems += `<span class="hidden-${index == "straight" ? index : "act" + index}"><div class="icon-container">${svg}</div></span>`;
+            index += 1;
+            if (index == 5) index = "straight";
+        });
+
         //console.log(Handlebars.helpers);
+        //let compiledString = Handlebars.compile(elems);
 
-        let retStr = new Handlebars.SafeString(compiledString(config));
+        let retStr = new Handlebars.SafeString(elems);
 
-        // console.log("Ret:", retStr);
+        //console.log("Ret:", retStr);
         return retStr;
     });
 };

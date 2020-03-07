@@ -9,6 +9,7 @@ ui.camera = {
     ],
     id2: 1,
     isStreaming: false,
+    checkedStreaming: false,
     keyHandler: false
 };
 
@@ -84,19 +85,23 @@ let cameraListener = () => {
 }
 
 
-
 //Initialize cameras to correct initial streams:
-checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
-    if (streaming) {
-        ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
-        ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
-        ui.camera.viewer2.style.backgroundColor = 'black';
-        ui.camera.isStreaming = true;
-    }
-    else {
-        ui.toast({text: `Camera ${ui.camera.id1 + 1} is not streaming`, duration: 5, type: "error"});
-        $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera 1 <span class='error'>(Failed to Load)</span></p><button>Toggle</button></div>`);
-        $(ui.camera.viewer2).html(`<div id="camera-bar"><p>Camera 2 <span class='error'>(Failed to Load)</span></p></div>`);
-    }
-    setTimeout(cameraListener, 1000);
-});
+setInterval(() => {
+    if (!ui.camera.isStreaming) checkIfStreaming(ui.camera.srcs[ui.camera.id1], (streaming) => {
+        if (streaming) {
+            ui.camera.viewer1.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id1] + ')';
+            ui.camera.viewer2.style.backgroundImage = 'url(' + ui.camera.srcs[ui.camera.id2] + ')';
+            ui.camera.viewer2.style.backgroundColor = 'black';
+            $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera 1</p><button>Toggle</button></div>`);
+            $(ui.camera.viewer2).html(`<div id="camera-bar"><p>Camera 2</p></div>`);
+            ui.camera.isStreaming = true;
+        }
+        else {
+            if (!ui.camera.checkedStreaming) ui.toast({ text: `Camera ${ui.camera.id1 + 1} is not streaming`, duration: 5, type: "error" });
+            $(ui.camera.viewer1).html(`<div id="camera-bar"><p>Camera 1 <span class='error'>(Failed to Load)</span></p><button>Toggle</button></div>`);
+            $(ui.camera.viewer2).html(`<div id="camera-bar"><p>Camera 2 <span class='error'>(Failed to Load)</span></p></div>`);
+            ui.camera.checkedStreaming = true;
+        }
+        setTimeout(cameraListener, 1000);
+    });
+}, 1000);
