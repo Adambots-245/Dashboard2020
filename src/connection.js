@@ -43,6 +43,7 @@ function onRobotConnection(connected) {
     loginShown = false;
     buttonConnect.setAttribute("disabled", "true");
   } else if (loginShown) {
+    buttonConnect.removeAttribute("disabled");
     setLogin();
     address.value = `roborio-245-frc.local`;
     address.focus();
